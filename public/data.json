@@ -724,18 +724,18 @@
      "real_ms": 380
     },
     {
-     "host": "8.213.151.128",
+     "host": "143.198.85.218",
      "port": 3128,
      "protocol": "http",
      "user": null,
      "pass": null,
-     "country": "South Korea",
-     "country_code": "KR",
-     "city": "Seoul",
-     "org": "Alibaba.com Singapore E-Commerce Private Limited",
-     "asn": "AS45102",
-     "isp": "Alibaba (US) Technology Co., Ltd.",
-     "exit_ip": "8.213.151.128",
+     "country": "Singapore",
+     "country_code": "SG",
+     "city": "Singapore",
+     "org": "DigitalOcean, LLC",
+     "asn": "AS14061",
+     "isp": "DigitalOcean, LLC",
+     "exit_ip": "143.198.85.218",
      "residential": "datacenter",
      "latency_ms": 556,
      "source": "proxy-pool",
@@ -2676,12 +2676,12 @@
   {
    "host": "public-vpn-242.opengw.net",
    "port": 443,
-   "error": "连接已被对端关闭"
+   "error": "SSTP PAP 认证被拒绝"
   },
   {
-   "host": "public-vpn-53.opengw.net",
-   "port": 443,
-   "error": "连接已被对端关闭"
+   "host": "8.219.94.23",
+   "port": 7890,
+   "error": "隧道内 TLS 握手超时"
   },
   {
    "host": "public-vpn-46.opengw.net",
@@ -2716,12 +2716,12 @@
   {
    "host": "154.18.220.190",
    "port": 5678,
-   "error": "连接 154.18.220.190:5678 超时"
+   "error": "CONNECT 响应异常: "
   },
   {
    "host": "154.18.220.190",
    "port": 5678,
-   "error": "连接 154.18.220.190:5678 超时"
+   "error": "代理在握手完成前关闭连接"
   },
   {
    "host": "128.199.207.200",
@@ -2746,32 +2746,32 @@
   {
    "host": "23.106.249.34",
    "port": 21125,
-   "error": "连接 23.106.249.34:21125 超时"
+   "error": "CONNECT 响应异常: "
   },
   {
    "host": "23.106.249.34",
    "port": 21125,
-   "error": "连接 23.106.249.34:21125 超时"
+   "error": "代理握手超时"
   },
   {
    "host": "23.106.249.54",
    "port": 6550,
-   "error": "连接 23.106.249.54:6550 超时"
+   "error": "CONNECT 响应异常: "
   },
   {
    "host": "23.106.249.54",
    "port": 6550,
-   "error": "连接 23.106.249.54:6550 超时"
+   "error": "代理握手超时"
   },
   {
    "host": "23.106.249.52",
    "port": 2569,
-   "error": "连接 23.106.249.52:2569 超时"
+   "error": "CONNECT 响应异常: "
   },
   {
    "host": "23.106.249.52",
    "port": 2569,
-   "error": "连接 23.106.249.52:2569 超时"
+   "error": "代理握手超时"
   },
   {
    "host": "35.187.237.178",
@@ -2824,24 +2824,34 @@
    "error": "代理握手超时"
   },
   {
-   "host": "166.0.9.86",
+   "host": "166.0.9.150",
    "port": 9443,
-   "error": "连接 166.0.9.86:9443 超时"
+   "error": "CONNECT 响应异常: "
   },
   {
-   "host": "166.0.9.86",
+   "host": "166.0.9.150",
    "port": 9443,
-   "error": "连接 166.0.9.86:9443 超时"
+   "error": "代理握手超时"
   },
   {
-   "host": "166.0.9.100",
+   "host": "166.0.9.198",
    "port": 9443,
-   "error": "连接 166.0.9.100:9443 超时"
+   "error": "CONNECT 响应异常: "
   },
   {
-   "host": "166.0.9.100",
+   "host": "166.0.9.198",
    "port": 9443,
-   "error": "连接 166.0.9.100:9443 超时"
+   "error": "代理握手超时"
+  },
+  {
+   "host": "166.0.9.216",
+   "port": 9443,
+   "error": "CONNECT 响应异常: "
+  },
+  {
+   "host": "166.0.9.216",
+   "port": 9443,
+   "error": "代理握手超时"
   },
   {
    "host": "66.42.49.247",
@@ -2851,6 +2861,16 @@
   {
    "host": "66.42.49.247",
    "port": 8443,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "166.0.9.226",
+   "port": 9443,
+   "error": "CONNECT 响应异常: "
+  },
+  {
+   "host": "166.0.9.226",
+   "port": 9443,
    "error": "代理握手超时"
   },
   {
@@ -2909,9 +2929,49 @@
    "error": "CONNECT 被拒绝: HTTP 502"
   },
   {
-   "host": "18.142.95.213",
-   "port": 4273,
+   "host": "47.79.1.208",
+   "port": 8443,
    "error": "代理握手超时"
+  },
+  {
+   "host": "13.228.201.95",
+   "port": 443,
+   "error": "CONNECT 响应异常: "
+  },
+  {
+   "host": "13.228.201.95",
+   "port": 443,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "13.215.184.250",
+   "port": 3927,
+   "error": "CONNECT 被拒绝: HTTP 400"
+  },
+  {
+   "host": "13.215.184.250",
+   "port": 3927,
+   "error": "read ECONNRESET"
+  },
+  {
+   "host": "158.178.245.95",
+   "port": 3128,
+   "error": "CONNECT 响应超时"
+  },
+  {
+   "host": "158.178.245.95",
+   "port": 3128,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "129.150.39.185",
+   "port": 3128,
+   "error": "连接 129.150.39.185:3128 超时"
+  },
+  {
+   "host": "129.150.39.185",
+   "port": 3128,
+   "error": "连接 129.150.39.185:3128 超时"
   },
   {
    "host": "4.144.146.21",
@@ -2919,7 +2979,22 @@
    "error": "代理握手超时"
   },
   {
-   "host": "159.138.84.187",
+   "host": "185.250.38.211",
+   "port": 8080,
+   "error": "CONNECT 响应超时"
+  },
+  {
+   "host": "185.250.38.211",
+   "port": 8080,
+   "error": "连接 185.250.38.211:8080 超时"
+  },
+  {
+   "host": "15.235.240.177",
+   "port": 3128,
+   "error": "连接 15.235.240.177:3128 超时"
+  },
+  {
+   "host": "15.235.240.177",
    "port": 3128,
    "error": "CONNECT 被拒绝: HTTP 403"
   },
@@ -2929,12 +3004,12 @@
    "error": "代理握手超时"
   },
   {
-   "host": "124.243.150.41",
+   "host": "159.138.84.187",
    "port": 3128,
    "error": "连接 124.243.150.41:3128 超时"
   },
   {
-   "host": "124.243.150.41",
+   "host": "159.138.84.187",
    "port": 3128,
    "error": "连接 124.243.150.41:3128 超时"
   },
@@ -3001,12 +3076,12 @@
   {
    "host": "8.219.77.141",
    "port": 80,
-   "error": "连接 8.219.77.141:80 超时"
+   "error": "CONNECT 被拒绝: HTTP 400"
   },
   {
    "host": "8.219.77.141",
    "port": 80,
-   "error": "连接 8.219.77.141:80 超时"
+   "error": "不是 SOCKS5 代理"
   },
   {
    "host": "43.156.137.7",
@@ -3079,6 +3154,21 @@
    "error": "代理握手超时"
   },
   {
+   "host": "47.236.86.147",
+   "port": 443,
+   "error": "CONNECT 响应超时"
+  },
+  {
+   "host": "47.236.86.147",
+   "port": 443,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "8.213.128.6",
+   "port": 111,
+   "error": "代理在握手完成前关闭连接"
+  },
+  {
    "host": "8.219.94.23",
    "port": 7890,
    "error": "隧道内 TLS 握手超时"
@@ -3087,6 +3177,16 @@
    "host": "8.219.94.23",
    "port": 7890,
    "error": "代理握手超时"
+  },
+  {
+   "host": "8.213.128.6",
+   "port": 6666,
+   "error": "代理在握手完成前关闭连接"
+  },
+  {
+   "host": "8.213.128.6",
+   "port": 41,
+   "error": "代理在握手完成前关闭连接"
   },
   {
    "host": "43.160.245.155",
@@ -3111,7 +3211,7 @@
   {
    "host": "45.77.245.8",
    "port": 1082,
-   "error": "connect ETIMEDOUT 45.77.245.8:1082"
+   "error": "connect ECONNREFUSED 45.77.245.8:1082"
   },
   {
    "host": "45.77.245.8",
@@ -3144,18 +3244,33 @@
    "error": "隧道内 TLS 握手超时"
   },
   {
-   "host": "8.219.94.23",
-   "port": 7890,
+   "host": "43.106.60.21",
+   "port": 1080,
    "error": "代理握手超时"
   },
   {
-   "host": "43.106.60.21",
-   "port": 1080,
-   "error": "CONNECT 响应异常: "
+   "host": "47.237.2.245",
+   "port": 8888,
+   "error": "代理在握手完成前关闭连接"
   },
   {
-   "host": "43.106.60.21",
-   "port": 1080,
+   "host": "47.237.2.245",
+   "port": 119,
+   "error": "代理在握手完成前关闭连接"
+  },
+  {
+   "host": "47.237.2.245",
+   "port": 9098,
+   "error": "代理在握手完成前关闭连接"
+  },
+  {
+   "host": "213.35.111.243",
+   "port": 8899,
+   "error": "CONNECT 被拒绝: HTTP 503"
+  },
+  {
+   "host": "213.35.111.243",
+   "port": 8899,
    "error": "SOCKS5 CONNECT 失败: 主机不可达"
   },
   {
@@ -3236,7 +3351,7 @@
   {
    "host": "104.248.151.220",
    "port": 57554,
-   "error": "连接 104.248.151.220:57554 超时"
+   "error": "代理握手超时"
   },
   {
    "host": "138.199.25.13",
@@ -3416,7 +3531,7 @@
   {
    "host": "45.77.245.8",
    "port": 1081,
-   "error": "连接 45.77.245.8:1081 超时"
+   "error": "代理握手超时"
   },
   {
    "host": "35.240.177.77",
@@ -3456,7 +3571,7 @@
   {
    "host": "139.180.217.99",
    "port": 1080,
-   "error": "connect ETIMEDOUT 139.180.217.99:1080"
+   "error": "connect ECONNREFUSED 139.180.217.99:1080"
   },
   {
    "host": "43.165.135.162",
@@ -3601,11 +3716,6 @@
   {
    "host": "8.148.4.166",
    "port": 8000,
-   "error": "Client network socket disconnected before secure TLS connection was established"
-  },
-  {
-   "host": "8.148.4.166",
-   "port": 8000,
    "error": "代理在握手完成前关闭连接"
   },
   {
@@ -3636,7 +3746,7 @@
   {
    "host": "43.165.133.188",
    "port": 9050,
-   "error": "代理握手超时"
+   "error": "代理在握手完成前关闭连接"
   },
   {
    "host": "118.107.1.232",
@@ -4294,19 +4404,114 @@
    "error": "连接 8.219.229.53:1081 超时"
   },
   {
-   "host": "8.219.229.53",
+   "host": "124.243.150.41",
+   "port": 3128,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "47.237.113.119",
+   "port": 14,
+   "error": "代理在握手完成前关闭连接"
+  },
+  {
+   "host": "47.237.113.119",
+   "port": 8443,
+   "error": "代理在握手完成前关闭连接"
+  },
+  {
+   "host": "47.237.113.119",
+   "port": 81,
+   "error": "代理在握手完成前关闭连接"
+  },
+  {
+   "host": "128.199.247.154",
+   "port": 8080,
+   "error": "CONNECT 响应超时"
+  },
+  {
+   "host": "128.199.247.154",
+   "port": 8080,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "178.128.223.15",
+   "port": 3128,
+   "error": "CONNECT 响应超时"
+  },
+  {
+   "host": "178.128.223.15",
+   "port": 3128,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "185.250.38.211",
+   "port": 3128,
+   "error": "CONNECT 响应超时"
+  },
+  {
+   "host": "185.250.38.211",
+   "port": 3128,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "47.237.107.41",
    "port": 1081,
    "error": "连接 8.219.229.53:1081 超时"
   },
   {
-   "host": "43.167.209.118",
-   "port": 10081,
-   "error": "连接 43.167.209.118:10081 超时"
+   "host": "51.79.142.230",
+   "port": 38414,
+   "error": "CONNECT 响应超时"
+  },
+  {
+   "host": "51.79.142.230",
+   "port": 38414,
+   "error": "代理握手超时"
   },
   {
    "host": "43.167.209.118",
    "port": 10081,
-   "error": "连接 43.167.209.118:10081 超时"
+   "error": "CONNECT 被拒绝: HTTP 503"
+  },
+  {
+   "host": "43.167.209.118",
+   "port": 10081,
+   "error": "不是 SOCKS5 代理"
+  },
+  {
+   "host": "8.222.175.80",
+   "port": 6128,
+   "error": "read ECONNRESET"
+  },
+  {
+   "host": "8.222.175.80",
+   "port": 6128,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "128.199.247.154",
+   "port": 3128,
+   "error": "CONNECT 响应超时"
+  },
+  {
+   "host": "128.199.247.154",
+   "port": 3128,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "8.213.151.128",
+   "port": 3128,
+   "error": "不是 SOCKS5 代理"
+  },
+  {
+   "host": "43.156.237.221",
+   "port": 80,
+   "error": "CONNECT 被拒绝: HTTP 403"
+  },
+  {
+   "host": "43.156.237.221",
+   "port": 80,
+   "error": "不是 SOCKS5 代理"
   },
   {
    "host": "128.199.202.122",
@@ -4394,74 +4599,39 @@
    "error": "代理握手超时"
   },
   {
-   "host": "188.166.213.190",
-   "port": 4444,
-   "error": "连接 188.166.213.190:4444 超时"
+   "host": "47.129.130.0",
+   "port": 24140,
+   "error": "trace 里没有 ip=（响应: HTTP/1.1 200 OK Connection: keep-alive Date: Thu, 05 Nov 202）"
   },
   {
-   "host": "188.166.213.190",
-   "port": 4444,
-   "error": "连接 188.166.213.190:4444 超时"
-  },
-  {
-   "host": "8.219.229.53",
-   "port": 8999,
-   "error": "连接 8.219.229.53:8999 超时"
-  },
-  {
-   "host": "8.219.229.53",
-   "port": 8999,
-   "error": "连接 8.219.229.53:8999 超时"
-  },
-  {
-   "host": "8.213.134.213",
-   "port": 41,
-   "error": "连接 8.213.134.213:41 超时"
-  },
-  {
-   "host": "8.213.134.213",
-   "port": 41,
-   "error": "连接 8.213.134.213:41 超时"
-  },
-  {
-   "host": "43.156.137.7",
-   "port": 10808,
-   "error": "CONNECT 响应异常: "
-  },
-  {
-   "host": "43.156.137.7",
-   "port": 10808,
-   "error": "代理握手超时"
-  },
-  {
-   "host": "34.87.103.220",
-   "port": 80,
-   "error": "连接 34.87.103.220:80 超时"
-  },
-  {
-   "host": "34.87.103.220",
-   "port": 80,
-   "error": "连接 34.87.103.220:80 超时"
-  },
-  {
-   "host": "165.154.236.174",
-   "port": 80,
-   "error": "连接 165.154.236.174:80 超时"
-  },
-  {
-   "host": "165.154.236.174",
-   "port": 80,
-   "error": "连接 165.154.236.174:80 超时"
-  },
-  {
-   "host": "128.199.202.122",
-   "port": 1080,
+   "host": "47.129.130.0",
+   "port": 24140,
    "error": "read ECONNRESET"
   },
   {
-   "host": "128.199.202.122",
-   "port": 1080,
-   "error": "代理在握手完成前关闭连接"
+   "host": "13.215.184.250",
+   "port": 2248,
+   "error": "read ECONNRESET"
+  },
+  {
+   "host": "8.213.134.213",
+   "port": 9098,
+   "error": "read ECONNRESET"
+  },
+  {
+   "host": "8.213.134.213",
+   "port": 9098,
+   "error": "连接 8.213.134.213:9098 超时"
+  },
+  {
+   "host": "150.109.12.63",
+   "port": 8999,
+   "error": "连接 8.219.229.53:8999 超时"
+  },
+  {
+   "host": "8.219.229.53",
+   "port": 8999,
+   "error": "连接 8.219.229.53:8999 超时"
   },
   {
    "host": "165.154.236.214",
@@ -4486,12 +4656,12 @@
   {
    "host": "143.42.66.91",
    "port": 80,
-   "error": "CONNECT 被拒绝: HTTP 400"
+   "error": "连接 34.87.103.220:80 超时"
   },
   {
-   "host": "143.42.66.91",
+   "host": "34.87.103.220",
    "port": 80,
-   "error": "代理在握手完成前关闭连接"
+   "error": "连接 34.87.103.220:80 超时"
   },
   {
    "host": "213.35.111.243",
@@ -4684,6 +4854,36 @@
    "error": "代理握手超时"
   },
   {
+   "host": "43.106.60.21",
+   "port": 1080,
+   "error": "CONNECT 响应异常: "
+  },
+  {
+   "host": "43.106.60.21",
+   "port": 1080,
+   "error": "SOCKS5 CONNECT 失败: 主机不可达"
+  },
+  {
+   "host": "82.41.42.229",
+   "port": 1080,
+   "error": "连接 82.41.42.229:1080 超时"
+  },
+  {
+   "host": "82.41.42.229",
+   "port": 1080,
+   "error": "连接 82.41.42.229:1080 超时"
+  },
+  {
+   "host": "8.219.122.8",
+   "port": 9999,
+   "error": "连接 8.219.122.8:9999 超时"
+  },
+  {
+   "host": "8.219.122.8",
+   "port": 9999,
+   "error": "连接 8.219.122.8:9999 超时"
+  },
+  {
    "host": "43.160.245.155",
    "port": 8080,
    "error": "read ECONNRESET"
@@ -4809,8 +5009,18 @@
    "error": "CONNECT 响应异常: "
   },
   {
-   "host": "8.219.122.8",
-   "port": 9999,
+   "host": "128.199.202.122",
+   "port": 1080,
+   "error": "代理在握手完成前关闭连接"
+  },
+  {
+   "host": "47.245.99.1",
+   "port": 1080,
+   "error": "read ECONNRESET"
+  },
+  {
+   "host": "47.245.99.1",
+   "port": 1080,
    "error": "代理握手超时"
   },
   {
@@ -4856,6 +5066,36 @@
   {
    "host": "101.36.104.46",
    "port": 10808,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "103.75.118.84",
+   "port": 1080,
+   "error": "CONNECT 响应异常: "
+  },
+  {
+   "host": "103.75.118.84",
+   "port": 1080,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "103.100.158.115",
+   "port": 10809,
+   "error": "CONNECT 响应异常: "
+  },
+  {
+   "host": "103.100.158.115",
+   "port": 10809,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "205.177.85.130",
+   "port": 39593,
+   "error": "CONNECT 响应异常: "
+  },
+  {
+   "host": "205.177.85.130",
+   "port": 39593,
    "error": "代理在握手完成前关闭连接"
   },
   {
@@ -4971,12 +5211,12 @@
   {
    "host": "140.238.50.134",
    "port": 1234,
-   "error": "连接 140.238.50.134:1234 超时"
+   "error": "CONNECT 响应异常: "
   },
   {
    "host": "140.238.50.134",
    "port": 1234,
-   "error": "连接 140.238.50.134:1234 超时"
+   "error": "代理握手超时"
   },
   {
    "host": "20.78.34.79",
@@ -4991,7 +5231,7 @@
   {
    "host": "40.192.70.191",
    "port": 51685,
-   "error": "CONNECT 被拒绝: HTTP 502"
+   "error": "trace 里没有 ip=（响应: HTTP/1.1 200 OK Connection: keep-alive Date: Thu, 05 Nov 202）"
   },
   {
    "host": "40.192.70.191",
@@ -5031,12 +5271,17 @@
   {
    "host": "168.138.202.218",
    "port": 3128,
+   "error": "CONNECT 响应超时"
+  },
+  {
+   "host": "168.138.202.218",
+   "port": 3128,
    "error": "代理握手超时"
   },
   {
    "host": "126.209.107.11",
    "port": 8080,
-   "error": "连接 126.209.107.11:8080 超时"
+   "error": "CONNECT 响应异常: "
   },
   {
    "host": "85.131.243.125",
@@ -5166,11 +5411,6 @@
   {
    "host": "8.221.141.88",
    "port": 11,
-   "error": "Client network socket disconnected before secure TLS connection was established"
-  },
-  {
-   "host": "8.221.141.88",
-   "port": 11,
    "error": "代理在握手完成前关闭连接"
   },
   {
@@ -5186,17 +5426,12 @@
   {
    "host": "8.221.141.88",
    "port": 135,
-   "error": "连接 8.221.141.88:135 超时"
+   "error": "Client network socket disconnected before secure TLS connection was established"
   },
   {
    "host": "8.221.141.88",
    "port": 135,
-   "error": "连接 8.221.141.88:135 超时"
-  },
-  {
-   "host": "8.221.141.88",
-   "port": 4326,
-   "error": "Client network socket disconnected before secure TLS connection was established"
+   "error": "read ECONNRESET"
   },
   {
    "host": "8.221.141.88",
@@ -5206,7 +5441,7 @@
   {
    "host": "8.216.40.169",
    "port": 7890,
-   "error": "隧道内 TLS 握手超时"
+   "error": "read ECONNRESET"
   },
   {
    "host": "8.216.40.169",
@@ -5276,27 +5511,12 @@
   {
    "host": "8.221.138.111",
    "port": 8192,
-   "error": "Client network socket disconnected before secure TLS connection was established"
-  },
-  {
-   "host": "8.221.138.111",
-   "port": 8192,
    "error": "代理在握手完成前关闭连接"
   },
   {
    "host": "8.221.138.111",
    "port": 100,
-   "error": "Client network socket disconnected before secure TLS connection was established"
-  },
-  {
-   "host": "8.221.138.111",
-   "port": 100,
    "error": "代理在握手完成前关闭连接"
-  },
-  {
-   "host": "8.221.138.111",
-   "port": 13,
-   "error": "Client network socket disconnected before secure TLS connection was established"
   },
   {
    "host": "8.221.138.111",
@@ -5919,7 +6139,502 @@
    "error": "CONNECT 响应异常: "
   },
   {
-   "host": "137.220.199.209",
+   "host": "126.209.110.96",
+   "port": 8087,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "140.227.61.201",
+   "port": 3128,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "155.133.7.49",
+   "port": 3128,
+   "error": "CONNECT 响应超时"
+  },
+  {
+   "host": "155.133.7.49",
+   "port": 3128,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "40.192.70.191",
+   "port": 34734,
+   "error": "trace 里没有 ip=（响应: HTTP/1.1 200 OK Connection: keep-alive Date: Thu, 05 Nov 202）"
+  },
+  {
+   "host": "40.192.70.191",
+   "port": 34734,
+   "error": "read ECONNRESET"
+  },
+  {
+   "host": "126.209.107.122",
+   "port": 5050,
+   "error": "连接 126.209.107.122:5050 超时"
+  },
+  {
+   "host": "126.209.107.122",
+   "port": 5050,
+   "error": "连接 126.209.107.122:5050 超时"
+  },
+  {
+   "host": "126.209.3.199",
+   "port": 5050,
+   "error": "连接 126.209.3.199:5050 超时"
+  },
+  {
+   "host": "43.207.141.180",
+   "port": 1443,
+   "error": "trace 里没有 ip=（响应: HTTP/1.1 200 OK Connection: keep-alive Date: Thu, 05 Nov 202）"
+  },
+  {
+   "host": "43.207.141.180",
+   "port": 1443,
+   "error": "read ECONNRESET"
+  },
+  {
+   "host": "15.152.38.117",
+   "port": 14061,
+   "error": "trace 里没有 ip=（响应: HTTP/1.1 200 OK Connection: keep-alive Date: Thu, 05 Nov 202）"
+  },
+  {
+   "host": "15.152.38.117",
+   "port": 14061,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "126.209.107.170",
+   "port": 8082,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "126.209.110.118",
+   "port": 8087,
+   "error": "连接 126.209.110.118:8087 超时"
+  },
+  {
+   "host": "140.238.43.53",
+   "port": 54322,
+   "error": "CONNECT 响应异常: "
+  },
+  {
+   "host": "140.238.43.53",
+   "port": 54322,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "223.135.172.52",
+   "port": 20000,
+   "error": "连接 223.135.172.52:20000 超时"
+  },
+  {
+   "host": "223.135.172.52",
+   "port": 20000,
+   "error": "连接 223.135.172.52:20000 超时"
+  },
+  {
+   "host": "47.91.29.151",
+   "port": 194,
+   "error": "read ECONNRESET"
+  },
+  {
+   "host": "47.91.29.151",
+   "port": 194,
+   "error": "read ECONNRESET"
+  },
+  {
+   "host": "172.104.80.244",
+   "port": 8080,
+   "error": "connect ECONNREFUSED 172.104.80.244:8080"
+  },
+  {
+   "host": "172.104.80.244",
+   "port": 8080,
+   "error": "connect ECONNREFUSED 172.104.80.244:8080"
+  },
+  {
+   "host": "47.74.46.81",
+   "port": 6379,
+   "error": "read ECONNRESET"
+  },
+  {
+   "host": "47.74.46.81",
+   "port": 6379,
+   "error": "连接 47.74.46.81:6379 超时"
+  },
+  {
+   "host": "172.104.107.194",
+   "port": 8080,
+   "error": "connect ECONNREFUSED 172.104.107.194:8080"
+  },
+  {
+   "host": "172.104.107.194",
+   "port": 8080,
+   "error": "connect ECONNREFUSED 172.104.107.194:8080"
+  },
+  {
+   "host": "218.41.170.110",
+   "port": 20000,
+   "error": "连接 218.41.170.110:20000 超时"
+  },
+  {
+   "host": "218.41.170.110",
+   "port": 20000,
+   "error": "连接 218.41.170.110:20000 超时"
+  },
+  {
+   "host": "8.209.246.166",
+   "port": 8888,
+   "error": "连接 8.209.246.166:8888 超时"
+  },
+  {
+   "host": "8.209.246.166",
+   "port": 8888,
+   "error": "连接 8.209.246.166:8888 超时"
+  },
+  {
+   "host": "8.221.139.222",
+   "port": 6666,
+   "error": "连接 8.221.139.222:6666 超时"
+  },
+  {
+   "host": "8.221.139.222",
+   "port": 6666,
+   "error": "连接 8.221.139.222:6666 超时"
+  },
+  {
+   "host": "139.162.78.109",
+   "port": 80,
+   "error": "Client network socket disconnected before secure TLS connection was established"
+  },
+  {
+   "host": "139.162.78.109",
+   "port": 80,
+   "error": "不是 SOCKS5 代理"
+  },
+  {
+   "host": "160.16.105.145",
+   "port": 8080,
+   "error": "CONNECT 被拒绝: HTTP 400"
+  },
+  {
+   "host": "160.16.105.145",
+   "port": 8080,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "103.142.141.71",
+   "port": 80,
+   "error": "连接 103.142.141.71:80 超时"
+  },
+  {
+   "host": "103.142.141.71",
+   "port": 80,
+   "error": "连接 103.142.141.71:80 超时"
+  },
+  {
+   "host": "210.148.141.4",
+   "port": 8080,
+   "error": "连接 210.148.141.4:8080 超时"
+  },
+  {
+   "host": "210.148.141.4",
+   "port": 8080,
+   "error": "连接 210.148.141.4:8080 超时"
+  },
+  {
+   "host": "210.48.237.116",
+   "port": 8080,
+   "error": "连接 210.48.237.116:8080 超时"
+  },
+  {
+   "host": "210.48.237.116",
+   "port": 8080,
+   "error": "连接 210.48.237.116:8080 超时"
+  },
+  {
+   "host": "43.251.117.226",
+   "port": 45787,
+   "error": "连接 43.251.117.226:45787 超时"
+  },
+  {
+   "host": "43.251.117.226",
+   "port": 45787,
+   "error": "连接 43.251.117.226:45787 超时"
+  },
+  {
+   "host": "152.69.202.88",
+   "port": 1080,
+   "error": "read ECONNRESET"
+  },
+  {
+   "host": "152.69.202.88",
+   "port": 1080,
+   "error": "连接 152.69.202.88:1080 超时"
+  },
+  {
+   "host": "203.78.235.132",
+   "port": 3128,
+   "error": "连接 203.78.235.132:3128 超时"
+  },
+  {
+   "host": "203.78.235.132",
+   "port": 3128,
+   "error": "连接 203.78.235.132:3128 超时"
+  },
+  {
+   "host": "8.209.255.13",
+   "port": 3129,
+   "error": "连接 8.209.255.13:3129 超时"
+  },
+  {
+   "host": "8.209.255.13",
+   "port": 3129,
+   "error": "连接 8.209.255.13:3129 超时"
+  },
+  {
+   "host": "126.209.2.2",
+   "port": 8081,
+   "error": "连接 126.209.2.2:8081 超时"
+  },
+  {
+   "host": "140.238.32.108",
+   "port": 3129,
+   "error": "连接 140.238.32.108:3129 超时"
+  },
+  {
+   "host": "140.238.32.108",
+   "port": 3129,
+   "error": "连接 140.238.32.108:3129 超时"
+  },
+  {
+   "host": "126.209.17.226",
+   "port": 8080,
+   "error": "read ECONNRESET"
+  },
+  {
+   "host": "168.138.202.218",
+   "port": 3129,
+   "error": "连接 168.138.202.218:3129 超时"
+  },
+  {
+   "host": "168.138.202.218",
+   "port": 3129,
+   "error": "连接 168.138.202.218:3129 超时"
+  },
+  {
+   "host": "45.43.60.220",
+   "port": 8080,
+   "error": "read ECONNRESET"
+  },
+  {
+   "host": "45.43.60.220",
+   "port": 8080,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "152.69.202.88",
+   "port": 1080,
+   "error": "read ECONNRESET"
+  },
+  {
+   "host": "152.69.202.88",
+   "port": 1080,
+   "error": "连接 152.69.202.88:1080 超时"
+  },
+  {
+   "host": "8.209.255.13",
+   "port": 3128,
+   "error": "不是 SOCKS5 代理"
+  },
+  {
+   "host": "140.238.32.108",
+   "port": 3128,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "180.222.187.50",
+   "port": 10800,
+   "error": "CONNECT 响应异常: "
+  },
+  {
+   "host": "180.222.187.50",
+   "port": 10800,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "160.248.7.177",
+   "port": 80,
+   "error": "连接 160.248.7.177:80 超时"
+  },
+  {
+   "host": "160.248.7.177",
+   "port": 80,
+   "error": "不是 SOCKS5 代理"
+  },
+  {
+   "host": "140.238.43.53",
+   "port": 54322,
+   "error": "连接 140.238.43.53:54322 超时"
+  },
+  {
+   "host": "140.238.43.53",
+   "port": 54322,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "151.242.164.121",
+   "port": 80,
+   "error": "CONNECT 响应超时"
+  },
+  {
+   "host": "151.242.164.121",
+   "port": 80,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "8.221.138.111",
+   "port": 111,
+   "error": "read ECONNRESET"
+  },
+  {
+   "host": "8.221.138.111",
+   "port": 111,
+   "error": "连接 8.221.138.111:111 超时"
+  },
+  {
+   "host": "85.121.50.25",
+   "port": 1080,
+   "error": "CONNECT 响应超时"
+  },
+  {
+   "host": "85.121.50.25",
+   "port": 1080,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "101.36.104.46",
+   "port": 10808,
+   "error": "CONNECT 响应超时"
+  },
+  {
+   "host": "101.36.104.46",
+   "port": 10808,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "103.75.118.84",
+   "port": 1080,
+   "error": "CONNECT 响应异常: "
+  },
+  {
+   "host": "103.75.118.84",
+   "port": 1080,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "133.232.93.66",
+   "port": 80,
+   "error": "CONNECT 被拒绝: HTTP 500"
+  },
+  {
+   "host": "133.232.93.66",
+   "port": 80,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "101.36.104.239",
+   "port": 10808,
+   "error": "CONNECT 响应异常: "
+  },
+  {
+   "host": "101.36.104.239",
+   "port": 10808,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "139.162.78.109",
+   "port": 1080,
+   "error": "read ECONNRESET"
+  },
+  {
+   "host": "139.162.78.109",
+   "port": 1080,
+   "error": "代理在握手完成前关闭连接"
+  },
+  {
+   "host": "103.100.158.115",
+   "port": 10809,
+   "error": "CONNECT 响应异常: "
+  },
+  {
+   "host": "103.100.158.115",
+   "port": 10809,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "132.226.7.23",
+   "port": 30277,
+   "error": "CONNECT 响应超时"
+  },
+  {
+   "host": "132.226.7.23",
+   "port": 30277,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "47.91.29.151",
+   "port": 8080,
+   "error": "连接 47.91.29.151:8080 超时"
+  },
+  {
+   "host": "47.91.29.151",
+   "port": 8080,
+   "error": "连接 47.91.29.151:8080 超时"
+  },
+  {
+   "host": "8.221.139.222",
+   "port": 8026,
+   "error": "出口国家不符（?）"
+  },
+  {
+   "host": "8.221.141.88",
+   "port": 11,
+   "error": "出口国家不符（?）"
+  },
+  {
+   "host": "126.209.13.13",
+   "port": 8087,
+   "error": "出口国家不符（PH）"
+  },
+  {
+   "host": "47.91.29.151",
+   "port": 81,
+   "error": "出口国家不符（?）"
+  },
+  {
+   "host": "47.91.29.151",
+   "port": 4002,
+   "error": "出口国家不符（?）"
+  },
+  {
+   "host": "8.221.138.111",
+   "port": 8192,
+   "error": "出口国家不符（?）"
+  },
+  {
+   "host": "8.221.138.111",
+   "port": 100,
+   "error": "出口国家不符（?）"
+  },
+  {
+   "host": "8.221.138.111",
+   "port": 13,
+   "error": "出口国家不符（?）"
+  },
+  {
+   "host": "47.74.46.81",
    "port": 18080,
    "error": "代理握手超时"
   },
@@ -6541,6 +7256,96 @@
   {
    "host": "121.139.218.165",
    "port": 43295,
+   "error": "连接 121.139.218.165:43295 超时"
+  },
+  {
+   "host": "114.108.177.104",
+   "port": 60984,
+   "error": "CONNECT 响应异常: "
+  },
+  {
+   "host": "114.108.177.104",
+   "port": 60984,
+   "error": "连接 114.108.177.104:60984 超时"
+  },
+  {
+   "host": "43.133.231.149",
+   "port": 443,
+   "error": "CONNECT 响应异常: "
+  },
+  {
+   "host": "43.133.231.149",
+   "port": 443,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "152.69.230.221",
+   "port": 443,
+   "error": "CONNECT 响应异常: "
+  },
+  {
+   "host": "152.69.230.221",
+   "port": 443,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "123.108.164.102",
+   "port": 443,
+   "error": "CONNECT 响应异常: "
+  },
+  {
+   "host": "123.108.164.102",
+   "port": 443,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "64.110.88.200",
+   "port": 30000,
+   "error": "CONNECT 响应异常: "
+  },
+  {
+   "host": "64.110.88.200",
+   "port": 30000,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "123.108.164.103",
+   "port": 443,
+   "error": "CONNECT 响应异常: "
+  },
+  {
+   "host": "123.108.164.103",
+   "port": 443,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "211.230.49.122",
+   "port": 3128,
+   "error": "连接 211.230.49.122:3128 超时"
+  },
+  {
+   "host": "211.230.49.122",
+   "port": 3128,
+   "error": "连接 211.230.49.122:3128 超时"
+  },
+  {
+   "host": "121.169.46.116",
+   "port": 1090,
+   "error": "CONNECT 响应异常: "
+  },
+  {
+   "host": "121.169.46.116",
+   "port": 1090,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "183.110.216.128",
+   "port": 8090,
+   "error": "CONNECT 响应异常: "
+  },
+  {
+   "host": "183.110.216.128",
+   "port": 8090,
    "error": "代理在握手完成前关闭连接"
   },
   {
@@ -6656,7 +7461,7 @@
   {
    "host": "221.157.45.249",
    "port": 80,
-   "error": "CONNECT 响应异常: "
+   "error": "read ECONNRESET"
   },
   {
    "host": "221.157.45.249",
@@ -6746,17 +7551,7 @@
   {
    "host": "8.220.204.215",
    "port": 90,
-   "error": "Client network socket disconnected before secure TLS connection was established"
-  },
-  {
-   "host": "8.220.204.215",
-   "port": 90,
    "error": "代理在握手完成前关闭连接"
-  },
-  {
-   "host": "8.220.204.215",
-   "port": 3129,
-   "error": "Client network socket disconnected before secure TLS connection was established"
   },
   {
    "host": "8.220.204.215",
@@ -6781,7 +7576,7 @@
   {
    "host": "221.133.129.35",
    "port": 1080,
-   "error": "代理握手超时"
+   "error": "SOCKS5 CONNECT 失败: 服务器故障"
   },
   {
    "host": "222.102.194.158",
@@ -6867,6 +7662,11 @@
    "host": "152.67.221.233",
    "port": 8008,
    "error": "CONNECT 响应超时"
+  },
+  {
+   "host": "152.67.221.233",
+   "port": 8008,
+   "error": "代理握手超时"
   },
   {
    "host": "152.67.221.233",
@@ -7311,17 +8111,12 @@
   {
    "host": "183.110.216.159",
    "port": 8090,
-   "error": "代理在握手完成前关闭连接"
+   "error": "连接 183.110.216.159:8090 超时"
   },
   {
    "host": "222.111.130.73",
    "port": 8080,
    "error": "代理握手超时"
-  },
-  {
-   "host": "43.200.174.95",
-   "port": 25324,
-   "error": "trace 里没有 ip=（响应: HTTP/1.1 200 OK Connection: keep-alive Date: Thu, 05 Nov 202）"
   },
   {
    "host": "43.200.174.95",
@@ -7846,7 +8641,7 @@
    "kind": "机房",
    "cc": "KR",
    "country_code": "KR",
-   "entry": "104.26.1.1:443",
+   "entry": "104.26.0.10:443",
    "real": "8.213.151.128:3128",
    "exit_ip": "8.213.151.128",
    "org": "Alibaba.com Singapore E-Commerce Private Limited",
@@ -7854,7 +8649,7 @@
    "worker_ms": 1076,
    "real_ms": 383,
    "residential": false,
-   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@104.26.1.1:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPCkNESA8YEV1XXkwKUlVIEwIbWRpTVQdNUFAGHAgCCEFKFBFCEEMSAh4FAQ1F&encryption=none&alpn=#%E9%9F%A9%E5%9B%BD-%E6%9C%BA%E6%88%BF-01",
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@104.26.0.10:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPCkNESA8YEV1XXkwKUlVIEwIbWRpTVQdNUFAGHAgCCEFKFBFCEEMSAh4FAQ1F&encryption=none&alpn=#%E9%9F%A9%E5%9B%BD-%E6%9C%BA%E6%88%BF-01",
    "protocol": "http",
    "sstp": "http://8.213.151.128:3128"
   },
@@ -7961,7 +8756,75 @@
    "sstp": "sstp://vpn:vpn@vpn579014654.opengw.net:1411"
   },
   {
-   "name": "韩国-住宅-06",
+   "name": "日本-住宅-12",
+   "kind": "住宅",
+   "cc": "JP",
+   "country_code": "JP",
+   "entry": "104.26.1.10:443",
+   "real": "public-vpn-219.opengw.net:443",
+   "exit_ip": "219.100.37.245",
+   "org": "SoftEther Corporation",
+   "latency_ms": 3517,
+   "worker_ms": 3366,
+   "real_ms": null,
+   "residential": true,
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@104.26.1.10:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE0hMA1gIBxkVEQsaAAgJHgwWUw9KFRleXVkWHxdIQkoQEQIZBQtE&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-12",
+   "protocol": "sstp",
+   "sstp": "sstp://vpn:vpn@public-vpn-219.opengw.net:443"
+  },
+  {
+   "name": "日本-住宅-13",
+   "kind": "住宅",
+   "cc": "JP",
+   "country_code": "JP",
+   "entry": "104.26.0.10:443",
+   "real": "vpn457843824.opengw.net:1436",
+   "exit_ip": "202.208.70.233",
+   "org": "Utsunomiya Cable TV Corporation",
+   "latency_ms": 2417,
+   "worker_ms": 3367,
+   "real_ms": null,
+   "residential": true,
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@104.26.0.10:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwBUUwxXUl0FBhdfQAYIURYDDFJEGgEWQ1pKWRpeAgweB0U%3D&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-13",
+   "protocol": "sstp",
+   "sstp": "sstp://vpn:vpn@vpn457843824.opengw.net:1436"
+  },
+  {
+   "name": "韩国-住宅-02",
+   "kind": "住宅",
+   "cc": "KR",
+   "country_code": "KR",
+   "entry": "104.26.0.1:443",
+   "real": "vpn707675642.opengw.net:1686",
+   "exit_ip": "125.137.135.215",
+   "org": "Korea Telecom",
+   "latency_ms": 2467,
+   "worker_ms": 3378,
+   "real_ms": null,
+   "residential": true,
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@104.26.0.1:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwNRUwJUVFMDABdfQAYIURYDDFJEGgEWQ1pKWRpeAg4VB0U%3D&encryption=none&alpn=#%E9%9F%A9%E5%9B%BD-%E4%BD%8F%E5%AE%85-02",
+   "protocol": "sstp",
+   "sstp": "sstp://vpn:vpn@vpn707675642.opengw.net:1686"
+  },
+  {
+   "name": "日本-住宅-14",
+   "kind": "住宅",
+   "cc": "JP",
+   "country_code": "JP",
+   "entry": "104.26.10.209:443",
+   "real": "vpn340335758.opengw.net:1774",
+   "exit_ip": "112.68.148.47",
+   "org": "K-Opticom Corporation",
+   "latency_ms": 2474,
+   "worker_ms": 3395,
+   "real_ms": null,
+   "residential": true,
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@104.26.10.209:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwdVVAdQVFICChdfQAYIURYDDFJEGgEWQ1pKWRpeAg8aBUU%3D&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-14",
+   "protocol": "sstp",
+   "sstp": "sstp://vpn:vpn@vpn340335758.opengw.net:1774"
+  },
+  {
+   "name": "韩国-住宅-03",
    "kind": "住宅",
    "cc": "KR",
    "country_code": "KR",
@@ -8778,11 +9641,29 @@
   }
  ],
  "direct": {
-  "generated_at": "2026-11-05T12:43:31.301Z",
+  "generated_at": "2026-11-05T12:55:25.945Z",
   "site": "https://jhz1053962051-sketch.github.io/ip-auto",
-  "max_ms": 3000,
-  "total": 5,
+  "max_ms": 2500,
+  "total": 9,
   "nodes": [
+   {
+    "cc": "JP",
+    "proto": "http",
+    "host": "140.238.32.108",
+    "port": 3128,
+    "user": null,
+    "pass": null,
+    "direct_ms": 642,
+    "exitIp": "140.238.32.108",
+    "loc": "JP",
+    "country": "Japan",
+    "country_code": "JP",
+    "city": "Tokyo",
+    "org": "Oracle Cloud Infrastructure (ap-tokyo-1)",
+    "asn": "AS31898",
+    "asn_name": "Oracle Corporation",
+    "residential": "datacenter"
+   },
    {
     "cc": "JP",
     "proto": "http",
@@ -8790,7 +9671,7 @@
     "port": 3128,
     "user": null,
     "pass": null,
-    "direct_ms": 250,
+    "direct_ms": 657,
     "exitIp": "8.209.255.13",
     "loc": "JP",
     "country": "Japan",
@@ -8802,31 +9683,13 @@
     "residential": "datacenter"
    },
    {
-    "cc": "SG",
-    "proto": "http",
-    "host": "4.144.146.21",
-    "port": 80,
-    "user": null,
-    "pass": null,
-    "direct_ms": 290,
-    "exitIp": "20.44.210.140",
-    "loc": "SG",
-    "country": "Singapore",
-    "country_code": "SG",
-    "city": "Singapore",
-    "org": "Microsoft Azure Cloud (southeastasia)",
-    "asn": "AS8075",
-    "asn_name": "Microsoft Corporation",
-    "residential": "datacenter"
-   },
-   {
     "cc": "KR",
     "proto": "http",
     "host": "8.213.151.128",
     "port": 3128,
     "user": null,
     "pass": null,
-    "direct_ms": 852,
+    "direct_ms": 841,
     "exitIp": "8.213.151.128",
     "loc": "KR",
     "country": "South Korea",
@@ -8838,39 +9701,111 @@
     "residential": "datacenter"
    },
    {
-    "cc": "KR",
-    "proto": "http",
-    "host": "222.111.130.73",
-    "port": 8080,
-    "user": null,
-    "pass": null,
-    "direct_ms": 1016,
-    "exitIp": "222.111.130.73",
-    "loc": "KR",
-    "country": "South Korea",
-    "country_code": "KR",
-    "city": "Dongdaemun",
-    "org": "Korea Telecom",
-    "asn": "AS4766",
-    "asn_name": "Korea Telecom",
-    "residential": "residential"
-   },
-   {
     "cc": "SG",
     "proto": "http",
-    "host": "8.219.97.248",
-    "port": 80,
+    "host": "134.185.85.16",
+    "port": 3128,
     "user": null,
     "pass": null,
-    "direct_ms": 1106,
-    "exitIp": "8.219.64.236",
+    "direct_ms": 894,
+    "exitIp": "134.185.85.16",
     "loc": "SG",
     "country": "Singapore",
     "country_code": "SG",
     "city": "Singapore",
-    "org": "Alibaba.com Singapore E-Commerce Private Limited",
-    "asn": "AS45102",
-    "asn_name": "Alibaba (US) Technology Co., Ltd.",
+    "org": "Oracle Cloud Infrastructure (ap-singapore-1)",
+    "asn": "AS31898",
+    "asn_name": "Oracle Corporation",
+    "residential": "datacenter"
+   },
+   {
+    "cc": "SG",
+    "proto": "http",
+    "host": "4.144.146.21",
+    "port": 80,
+    "user": null,
+    "pass": null,
+    "direct_ms": 899,
+    "exitIp": "20.44.210.140",
+    "loc": "SG",
+    "country": "Singapore",
+    "country_code": "SG",
+    "city": "Singapore",
+    "org": "Microsoft Azure Cloud (southeastasia)",
+    "asn": "AS8075",
+    "asn_name": "Microsoft Corporation",
+    "residential": "datacenter"
+   },
+   {
+    "cc": "SG",
+    "proto": "http",
+    "host": "129.226.206.61",
+    "port": 80,
+    "user": null,
+    "pass": null,
+    "direct_ms": 901,
+    "exitIp": "129.226.206.61",
+    "loc": "SG",
+    "country": "Singapore",
+    "country_code": "SG",
+    "city": "Singapore",
+    "org": "Aceville Pte.ltd",
+    "asn": "AS132203",
+    "asn_name": "Tencent Building, Kejizhongyi Avenue",
+    "residential": "datacenter"
+   },
+   {
+    "cc": "SG",
+    "proto": "http",
+    "host": "43.156.137.7",
+    "port": 10809,
+    "user": null,
+    "pass": null,
+    "direct_ms": 1532,
+    "exitIp": "43.156.137.7",
+    "loc": "SG",
+    "country": "Singapore",
+    "country_code": "SG",
+    "city": "Singapore",
+    "org": "Tencent Cloud Computing",
+    "asn": "AS132203",
+    "asn_name": "Tencent Building, Kejizhongyi Avenue",
+    "residential": "datacenter"
+   },
+   {
+    "cc": "SG",
+    "proto": "http",
+    "host": "128.199.113.85",
+    "port": 9090,
+    "user": null,
+    "pass": null,
+    "direct_ms": 1642,
+    "exitIp": "128.199.113.85",
+    "loc": "SG",
+    "country": "Singapore",
+    "country_code": "SG",
+    "city": "Singapore",
+    "org": "DigitalOcean, LLC",
+    "asn": "AS14061",
+    "asn_name": "DigitalOcean, LLC",
+    "residential": "datacenter"
+   },
+   {
+    "cc": "JP",
+    "proto": "http",
+    "host": "140.227.61.201",
+    "port": 3128,
+    "user": null,
+    "pass": null,
+    "direct_ms": 1653,
+    "exitIp": "140.227.61.201",
+    "loc": "JP",
+    "country": "Japan",
+    "country_code": "JP",
+    "city": "Chiyoda City",
+    "org": "NTTPC Communications, Inc",
+    "asn": "AS2514",
+    "asn_name": "NTT PC Communications, Inc.",
     "residential": "datacenter"
    }
   ]

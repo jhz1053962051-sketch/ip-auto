@@ -27,7 +27,7 @@
   "KR",
   "SG"
  ],
- "proxy": "127.0.0.1:7897",
+ "proxy": null,
  "failed": [
   {
    "host": "vpn564748125.opengw.net",
