@@ -1,0 +1,12 @@
+import { connectTcp, tlsUpgrade } from '../src/http.mjs';
+const [host, path='/', sni=host] = process.argv.slice(2);
+const raw = await connectTcp(host, 443, null, 9000);
+const s = await tlsUpgrade(raw, sni, 9000);
+s.write(`GET ${path} HTTP/1.1\r\nHost: ${sni}\r\nConnection: close\r\nUser-Agent: Mozilla/5.0\r\nAccept: */*\r\n\r\n`, 'latin1');
+let buf = Buffer.alloc(0);
+await new Promise((r) => { s.on('data', (c) => { buf = Buffer.concat([buf, c]); if (buf.length > 200000) r(); }); s.on('end', r); s.on('close', r); setTimeout(r, 8000); });
+s.destroy();
+const txt = buf.toString('utf8');
+const i = txt.indexOf('\r\n\r\n');
+console.log('--- headers ---'); console.log(txt.slice(0, i).split('\r\n').slice(0, 6).join('\n'));
+console.log('--- body (400) ---'); console.log(txt.slice(i + 4, i + 404));

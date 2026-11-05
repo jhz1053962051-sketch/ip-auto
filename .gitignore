@@ -6,11 +6,18 @@ logs/round-*.log
 logs/schedule.lock
 logs/*.log
 
+# 运行期中间产物（订阅原文、Xray 配置、部署回执等都不入库）
+logs/*
+!logs/latest.json
+
 # 上游参考源码（只用于本地比对，不进仓库）
 _src/
 
 # 本地测试中间产物
 test/.worker-under-test.mjs
+
+# 本地工具（xray.exe 等二进制，按需自己下载）
+tools/
 
 # 系统文件
 .DS_Store

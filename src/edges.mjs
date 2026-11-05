@@ -1,34 +1,54 @@
 /**
- * 优选入口域名池 + 国家中文名 + nodes.txt 组装。
+ * 优选入口池（域名 + 固定 anycast IP）+ 国家中文名 + nodes.txt 组装。
  *
- * 入口地址的作用：edgetunnel 生成的节点会以「入口域名」作为 TLS/SNI 门面连接 Cloudflare，
- * 再由 Cloudflare 回源到 Worker。这里沿用上游 gate 项目的 20 个公开优选域名池
- * （https://github.com/hezhanleiok/gate 的 EDGE_HOSTS，无 LICENSE，仅按公开列表原样沿用；
- *  如不希望依赖第三方域名，用 IP_AUTO_EDGE_HOSTS 换成自己的域名）。
+ * ## 入口地址到底在干什么（别搞反）
+ * edgetunnel 生成的 vless 节点长这样：
+ *   vless://UUID@<入口>:443?...&sni=<Worker 自己的域名>&host=<Worker 自己的域名>
+ * 也就是说 **SNI 和 Host 都被改写成 Worker 域名**，`<入口>` 只提供一个
+ * 「能解析到 Cloudflare anycast 的 IP」。因此判断入口好不好的标准不是
+ * 「这个域名能不能打开」，而是「它的 IP 能不能承载我们的 SNI」。
+ *
+ * ## 本池是实测出来的，不是照抄
+ * 上游 gate 项目（https://github.com/hezhanleiok/gate，无 LICENSE）给的是 20 个
+ * 泛域名池，实测其中 6 个在本机/大陆环境下承载不了我们的 SNI，已剔除：
+ *   - www.bilibili.com        非 Cloudflare IP（221.15.71.66），证书不匹配
+ *   - securecircle.com        非 CF IP（173.223.234.199），TLS 直接 alert
+ *   - saas.sin.fan / openai.com / uspto.gov / linear.app   TLS/HTTP 全部超时
+ * 复测命令：`node test/edge-entry-check.mjs`（SNI 固定 ipauto-edge.pages.dev）
+ * 复测命令：`node test/edge-ip-probe.mjs`（固定 IP × 我们的 SNI）
+ *
+ * 排序原则：固定 IP 在前（省一次 DNS、抖动更小），域名按实测延迟升序。
  */
-
-export const EDGE_HOSTS = [
-  'saas.sin.fan:443',
-  'cdn.204910.best:443',
-  'www.mfyx.cn:443',
-  'p.etime.vip:443',
-  'cdn.ctn32.us.kg:443',
-  'cf.877774.xyz:443',
-  'spring.io:443',
-  'cf.nyanya.moe:443',
-  'www.sloomb.com:443',
-  'op.chinwa.eu.cc:443',
-  'www.leics.police.uk:443',
-  'securecircle.com:443',
-  'www.shopify.com:443',
-  'www.carousell.sg:443',
-  'www.dbs.com.sg:443',
-  'openai.com:443',
-  'linear.app:443',
-  'www.bilibili.com:443',
-  'uspto.gov:443',
-  'www.vmware.com:443',
+export const EDGE_IPS = [
+  '104.26.10.209',
+  '162.159.140.98',
+  '172.67.74.209',
+  '172.64.152.5',
+  '172.64.156.171',
+  '104.21.0.1',
+  '172.66.0.96',
+  '172.66.44.226',
 ];
+
+export const EDGE_DOMAINS = [
+  'p.etime.vip',
+  'www.sloomb.com',
+  'www.shopify.com',
+  'cf.nyanya.moe',
+  'spring.io',
+  'cdn.ctn32.us.kg',
+  'www.vmware.com',
+  'cdn.204910.best',
+  'cf.877774.xyz',
+  'www.leics.police.uk',
+  'www.carousell.sg',
+  'op.chinwa.eu.cc',
+  'www.dbs.com.sg',
+  'www.mfyx.cn',
+];
+
+/** 完整入口池（IP 优先） */
+export const EDGE_HOSTS = [...EDGE_IPS, ...EDGE_DOMAINS].map((h) => `${h}:443`);
 
 export const COUNTRY_ZH = {
   JP: '日本',

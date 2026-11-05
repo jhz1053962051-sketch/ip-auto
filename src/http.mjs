@@ -133,11 +133,18 @@ function rawHttpOver(socket, { method = 'GET', host, path, headers, timeoutMs, b
       fn(v);
     };
 
+    const bodyBuf = body == null ? null : Buffer.isBuffer(body) ? body : Buffer.from(String(body), 'utf8');
+    const hasHeader = (name) => Object.keys(headers).some((k) => k.toLowerCase() === name);
+    const autoHeaders = [];
+    // 有请求体就必须带 Content-Length，否则服务端读不到 body（POST 表单会失败）
+    if (bodyBuf && bodyBuf.length && !hasHeader('content-length')) autoHeaders.push(`Content-Length: ${bodyBuf.length}`);
+
     const headerLines = [
       `${method} ${path} HTTP/1.1`,
       `Host: ${host}`,
       'Connection: close',
       ...Object.entries(headers).map(([k, v]) => `${k}: ${v}`),
+      ...autoHeaders,
       '',
       '',
     ].join('\r\n');

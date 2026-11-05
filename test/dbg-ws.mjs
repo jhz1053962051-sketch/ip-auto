@@ -1,0 +1,14 @@
+import crypto from 'node:crypto';
+import { connectTcp, tlsUpgrade, parseProxy } from '../src/http.mjs';
+const PROXY = parseProxy('http://127.0.0.1:7897');
+const HOST='saas.sin.fan', PORT=443, SNI='ipauto-edgetunnel.jhz1053962051.workers.dev';
+const raw = await connectTcp(HOST, PORT, PROXY, 20000);
+const sock = await tlsUpgrade(raw, SNI, 20000);
+const key = crypto.randomBytes(16).toString('base64');
+sock.write(`GET / HTTP/1.1\r\nHost: ${SNI}\r\nUpgrade: websocket\r\nConnection: Upgrade\r\nSec-WebSocket-Key: ${key}\r\nSec-WebSocket-Version: 13\r\nUser-Agent: Mozilla/5.0\r\n\r\n`, 'latin1');
+let got = Buffer.alloc(0);
+sock.on('data', (c) => { got = Buffer.concat([got, c]); console.log('chunk', c.length, 'total', got.length); });
+await new Promise(r => setTimeout(r, 1500));
+console.log('--- 前 400 字节 ---');
+console.log(got.subarray(0, 400).toString('latin1'));
+sock.destroy();
