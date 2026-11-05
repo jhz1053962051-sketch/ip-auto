@@ -235,6 +235,7 @@ ip-auto/
 │  ├─ dump-sub.mjs           从本地 data.json 导出订阅文本（避免线上滞后导致索引错位）
 │  ├─ apply-real.mjs         按地址精确匹配把实测值写回 data.json
 │  ├─ set-gh-secret.mjs      写 GitHub Actions Secret（libsodium crypto_box_seal）
+│  ├─ publish.mjs            把带 real_ms 的本机产物推回仓库并触发 Pages 发布
 │  └─ summary.mjs            结果摘要
 ├─ test/
 │  ├─ mock-sockets.mjs      cloudflare:sockets 的 Node 替身
@@ -246,7 +247,9 @@ ip-auto/
 │  └─ ...
 ├─ public/           产物（data.json / nodes.txt / index.html / subscription.txt）
 ├─ tools/            xray.exe 等本地工具（.gitignore，按需下载）
-└─ .github/workflows/vpngate.yml
+└─ .github/workflows/
+   ├─ vpngate.yml         每天采集 → 探测 → 发 Pages
+   └─ deploy-pages.yml    只发布仓库现有 public/（不重新采集，给本机 publish.mjs 用）
 ```
 
 ---
@@ -266,15 +269,34 @@ node scripts/local-worker.mjs          # http://127.0.0.1:8787 检测服务
 
 ### 24 小时自动更新，二选一
 
+**为什么要有两条线（关键）**
+
+| 跑在哪 | 能做什么 | 不能做什么 |
+|---|---|---|
+| **GitHub Actions**（每天 11:17 北京时间） | 抓节点、SSTP 探测、判住宅、Worker 复测、发 Pages | **测不出 `real_ms`** —— CI 没有 `tools/xray.exe`，且机房在美区，测出来的数字对中国用户没意义 |
+| **本机计划任务**（每天 12:30） | 上面全部 + **真实全链路 TTFB 实测** + 直连节点 + 把带实测的产物推回仓库 | 电脑关机/休眠时不跑 |
+
+两条线的顺序是刻意的：CI 先跑（11:17），本机后跑（12:30）并用 `real_ms` 覆盖。如果反过来，CI 那一轮会把本机的实测数据冲掉，站点又退回按 `worker_ms` 排 —— 而 `worker_ms` 与真实延迟的 Spearman 相关系数只有 **0.075**，等于乱排。
+
 **A. Windows 计划任务（已装好，推荐）**
 
 ```bash
 node scripts/task.mjs status           # 看下次运行时间 / 上次结果
-node scripts/task.mjs install --time 09:30
+node scripts/task.mjs install --time 12:30
 node scripts/task.mjs remove           # 随时删干净，不留痕
 ```
 
-> 计划任务实际跑的是 `scripts/run-task.cmd`（不是直接把引号和重定向塞进 `schtasks /TR`，那样重定向会失效且 `Last Result` 变 1）。
+计划任务一轮跑三件事（都在 `scripts/run-task.cmd` 里）：
+
+1. `src/run.mjs` —— 采集 + 探测 + Worker 复测 + `real_ms` 实测 + 生成本地产物（**决定返回码**）
+2. `scripts/make-direct-sub.mjs` —— 直连节点副线（失败保留上一轮产物，不影响返回码）
+3. `scripts/publish.mjs` —— 把产物推回仓库并触发 `deploy-pages.yml` 发布（失败不影响返回码）
+
+> `run-task.cmd` 里有两条踩过的坑，改动时别踩回去：
+> - 开头必须 `set "https_proxy="` 等六行清空代理 —— 探测要走直连，经 7897 会让 `pages.dev` 在 TLS 阶段被掐（`schannel: failed to receive handshake`）。
+> - 结尾必须单独一行 `exit /b %RC%`。写成 `endlocal & exit /b %RC%` 时，`%RC%` 在**同一行的解析期**就展开了，返回码恒为 0，任务失败了也显示成功。
+
+`scripts/publish.mjs` 需要一个 GitHub token：优先环境变量 `IP_AUTO_GH_TOKEN` / `GH_TOKEN`，其次文件 `logs/gh-token`（`logs/*` 已被 `.gitignore` 忽略，不会入库）。被拒时它会 `fetch` + `reset` 到最新 main 再把本地产物覆盖回来重建提交，**不 force push**。
 
 **B. 常驻守护进程（想在终端里看着它跑）**
 
@@ -296,6 +318,10 @@ node scripts/schedule.mjs --every 6 --no-initial
 | `IP_AUTO_EDGE_BASE` | `https://ipauto-edge.pages.dev` | edgetunnel 入口，复测与订阅 token 都基于它 |
 | `IP_AUTO_RANK_PROXY` | 空（**直连**） | Worker 复测走哪个代理；留空。**pages.dev 经 7897 会 `failed to receive handshake`** |
 | `IP_AUTO_WORKER_RANK` | `1` | 是否用 Worker 复测来排序（关掉则退回本地 `latency_ms`） |
+| `IP_AUTO_REAL_MEASURE` | `1` | 是否做全链路 TTFB 实测（需要 `tools/xray.exe`；CI 里设 `0`） |
+| `IP_AUTO_REAL_LIMIT` | `0` | 只实测前 N 个（0 = 全部）。调试时用 |
+| `IP_AUTO_REAL_CONCURRENCY` | `3` | 实测并发（每个节点一个独立 Xray 进程，别开太大） |
+| `IP_AUTO_SITE` | `https://jhz1053962051-sketch.github.io/ip-auto` | 页面里直连面板的链接前缀 |
 | `IP_AUTO_DOH_PROXY` | `http://127.0.0.1:7897` | 只给直连支线的 DoH 用；被探测的代理一律直连 |
 | `IP_AUTO_MAX_NODES` | `80` | 最多检测多少条 |
 | `IP_AUTO_CONCURRENCY` | `6` | 并发探测数 |

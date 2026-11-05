@@ -92,21 +92,29 @@ if (!commit.ok && !/nothing to commit|no changes added/i.test(commit.out)) {
 function dispatchDeploy() {
   const [owner, repo] = (process.env.IP_AUTO_REPO || 'jhz1053962051-sketch/ip-auto').split('/');
   const url = `https://api.github.com/repos/${owner}/${repo}/actions/workflows/deploy-pages.yml/dispatches`;
-  const r = execFileSync('curl', [
-    '-sS', '--max-time', '30',
-    '-o', '/dev/null', '-w', '%{http_code}',
-    '-X', 'POST', url,
-    '-H', `Authorization: Bearer ${TOKEN}`,
-    '-H', 'Accept: application/vnd.github+json',
-    '-H', 'X-GitHub-Api-Version: 2022-11-28',
-    '-H', 'User-Agent: ip-auto-publish',
-    '-d', JSON.stringify({ ref: BRANCH }),
-  ], {
-    encoding: 'utf8',
-    env: { ...process.env, https_proxy: process.env.IP_AUTO_PUSH_PROXY || 'http://127.0.0.1:7897' },
-  }).trim();
-  // 204 = 已受理；其它都只是提示，不影响产物已经推上去这件事
-  say(r === '204' ? '已触发 Pages 发布（deploy-pages.yml）' : `触发 Pages 发布返回 HTTP ${r}（不影响产物，可手动跑 deploy-pages.yml）`);
+  // 注意：不能用 `-o /dev/null` —— Windows 上 curl 是原生程序，/dev/null 不是合法路径，
+  // 会以 exit 23（write error）失败，即使请求本身已经成功返回 204。
+  let code = '';
+  try {
+    code = execFileSync('curl', [
+      '-sS', '--fail', '--max-time', '30',
+      '-X', 'POST', url,
+      '-H', `Authorization: Bearer ${TOKEN}`,
+      '-H', 'Accept: application/vnd.github+json',
+      '-H', 'X-GitHub-Api-Version: 2022-11-28',
+      '-H', 'User-Agent: ip-auto-publish',
+      '-d', JSON.stringify({ ref: BRANCH }),
+    ], {
+      encoding: 'utf8',
+      env: { ...process.env, https_proxy: process.env.IP_AUTO_PUSH_PROXY || 'http://127.0.0.1:7897' },
+    }).trim();
+    // --fail 让 HTTP >=400 变成非零退出；能走到这里就是 204（成功受理，响应体为空）
+    say('已触发 Pages 发布（deploy-pages.yml）');
+    return;
+  } catch (e) {
+    code = `${e?.stdout || ''}${e?.stderr || ''}`.trim() || `exit ${e?.status}`;
+  }
+  say(`触发 Pages 发布失败：${code.slice(0, 120)}（不影响产物，可手动跑 deploy-pages.yml）`);
 }
 
 let pushed = gitTry(['push', 'origin', `HEAD:${BRANCH}`]);
