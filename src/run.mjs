@@ -26,6 +26,7 @@ import { lookupIps, normalizeExit } from './geo.mjs';
 import { mapPool } from './pool.mjs';
 import { buildNodesText, EDGE_HOSTS, COUNTRY_ZH } from './edges.mjs';
 import { renderIndexHtml } from './render.mjs';
+import { subToken, subUrls, buildVlessNodes } from './sub.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
@@ -55,6 +56,8 @@ const CONFIG = {
   publicDir: path.resolve(ROOT, args.out || env.IP_AUTO_PUBLIC_DIR || 'public'),
   edgeHosts: String(args.edges || env.IP_AUTO_EDGE_HOSTS || '').split(',').map((s) => s.trim()).filter(Boolean),
   nodesUrl: env.IP_AUTO_NODES_URL || '',
+  subHost: args['sub-host'] || env.IP_AUTO_SUB_HOST || 'ipauto-edge.pages.dev',
+  subUuid: args.uuid || env.IP_AUTO_UUID || '2900cf6a-b708-4358-8d38-189a4ad4cae7',
 };
 
 const proxy = CONFIG.proxyRaw ? parseProxy(CONFIG.proxyRaw) : null;
@@ -192,6 +195,11 @@ async function main() {
   // 7) 落盘
   ensureDir(CONFIG.publicDir);
   const nodesText = buildNodesText(data, edgeHosts);
+  // 订阅地址 + 每条节点的 vless 链接：算法与 Worker 一致，本地先算好，页面秒开
+  const token = CONFIG.subHost ? subToken(CONFIG.subHost, CONFIG.subUuid) : '';
+  const subs = token ? subUrls(CONFIG.subHost, token) : null;
+  data.subscription = subs ? { host: CONFIG.subHost, uuid: CONFIG.subUuid, token, ...subs } : null;
+  data.vless_nodes = subs ? buildVlessNodes(data, { host: CONFIG.subHost, uuid: CONFIG.subUuid, edgeHosts }) : [];
   fs.writeFileSync(path.join(CONFIG.publicDir, 'data.json'), JSON.stringify(data, null, 1), 'utf8');
   fs.writeFileSync(path.join(CONFIG.publicDir, 'nodes.txt'), nodesText, 'utf8');
   fs.writeFileSync(path.join(CONFIG.publicDir, 'index.html'), renderIndexHtml(data), 'utf8');

@@ -7,12 +7,19 @@
 
 | 用途 | 地址 | 备注 |
 |---|---|---|
-| **订阅链接（用这个）** | `https://ipauto-edge.pages.dev/sub?token=2ce8fa81f3da82450905b322ab649142` | 直连可用，不需要任何代理；56 节点 |
+| **节点总览（浏览器看这个）** | `https://jhz1053962051-sketch.github.io/ip-auto/` | 每条节点都带「复制 vless」，点一下就能导入；纯静态 0.6s 打开 |
+| **订阅链接（喂客户端）** | `https://ipauto-edge.pages.dev/sub?token=2ce8fa81f3da82450905b322ab649142` | 直连可用，不需要任何代理；56 节点 |
 | 订阅（Clash 版） | 同上加 `&clash` | 输出 Clash YAML |
 | 后台管理 | `https://ipauto-edge.pages.dev/admin` | 密码 `CNarKCJvMAYk` |
 | 检测 Worker（Cloudflare） | `https://ipauto-check-sstp.jhz1053962051.workers.dev` | `/check?sstp=vpn:vpn@HOST:PORT` |
 | 节点池（GitHub Pages） | `https://jhz1053962051-sketch.github.io/ip-auto/nodes.txt` | edgetunnel 每天从这里取 |
 | 仓库 | `https://github.com/jhz1053962051-sketch/ip-auto` | Actions 每天 11:17（北京）跑一轮 |
+
+**浏览器怎么用**：打开「节点总览」页 → 顶部「订阅地址」一行点「复制」→ 粘进 v2rayN / Clash Verge 的订阅栏；
+或者直接在表格里点某一条的「复制 vless」只导入那一个节点。总览页顶部还有「打开看原文」，点了就是 `/sub` 的原始文本。
+
+> 订阅地址里的 token 由 `MD5MD5(host + uuid)` 算出来（不是直接 md5），改域名/UUID 后要用
+> `node scripts/show-sub.mjs` 重算，否则一直 401。总览页的 token 由流水线自己算，不用手管。
 
 ---
 
@@ -78,7 +85,8 @@ ip-auto/
 │  ├─ vpngate.mjs    VPN Gate 抓取与解析（含真实 SSTP 端口修复）
 │  ├─ geo.mjs        出口 IP 归属判定（ip-api 批量 + 关键词兜底）
 │  ├─ edges.mjs      实测可用的入口池（8 个固定 CF IP + 14 个域名）+ nodes.txt 生成
-│  ├─ render.mjs     概览页 HTML
+│  ├─ sub.mjs        订阅 token（MD5MD5）/ vless 链接生成，算法与 Worker 逐字节一致
+│  ├─ render.mjs     概览页 HTML（顶部订阅面板 + 每条节点的复制按钮）
 │  └─ run.mjs        主流水线
 ├─ cloudflare/
 │  └─ check-worker.js  可直接粘贴到 CF 后台的单文件检测 Worker（真 SSTP 握手）
@@ -92,6 +100,8 @@ ip-auto/
 │  ├─ deploy-pages-edge.mjs  CF Pages 一键部署（wrangler 上传，直连版）
 │  ├─ deploy-github.mjs      GitHub 一键部署（纯 API）
 │  ├─ edgetunnel-setup.mjs   登录后台、改成读自己的 nodes.txt、打印订阅地址
+│  ├─ show-sub.mjs           只算并打印订阅地址（改域名/UUID 后重算 token）
+│  ├─ render-only.mjs        只重渲染 index.html，不重新探测（改样式时秒看效果）
 │  ├─ make-xray-node.mjs     从订阅生成 Xray 配置（单节点 / 指定国家 / 指定入口）
 │  └─ summary.mjs            结果摘要
 ├─ test/
