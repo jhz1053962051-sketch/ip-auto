@@ -19,3 +19,6 @@ Thumbs.db
 # 部署凭据（绝不要提交）
 .env
 *.token
+
+# 子代理临时目录
+cloudflare/.tmp-test/
