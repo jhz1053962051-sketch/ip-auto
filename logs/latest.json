@@ -1,17 +1,17 @@
 {
- "at": "2026-11-05T06:36:47.047Z",
+ "at": "2026-11-05T06:49:02.180Z",
  "stats": {
   "raw_rows": 97,
-  "sstp_nodes": 63,
-  "checked": 24,
-  "success": 20,
-  "failed": 4,
-  "residential": 20,
+  "sstp_nodes": 65,
+  "checked": 65,
+  "success": 45,
+  "failed": 20,
+  "residential": 45,
   "datacenter": 0,
   "countries": 2
  },
- "probe_ms": 14666,
- "total_ms": 17290,
+ "probe_ms": 50751,
+ "total_ms": 54634,
  "countries": [
   "JP",
   "KR"
@@ -19,14 +19,24 @@
  "proxy": "127.0.0.1:7897",
  "failed": [
   {
-   "host": "vpn584377130.opengw.net",
-   "port": 1822,
+   "host": "vpn781916150.opengw.net",
+   "port": 1643,
+   "error": "285D0000:error:0A000119:SSL routines:tls_get_more_records:decryption failed or bad record mac:openssl\\ssl\\record\\methods\\tls_common.c:874:\n"
+  },
+  {
+   "host": "vpn267143494.opengw.net",
+   "port": 1512,
    "error": "隧道内 TCP 握手超时"
   },
   {
    "host": "vpn705688819.opengw.net",
    "port": 995,
-   "error": "040B0000:error:0A000119:SSL routines:tls_get_more_records:decryption failed or bad record mac:openssl\\ssl\\record\\methods\\tls_common.c:874:\n"
+   "error": "探针返回非 JSON（疑似劫持页）: <html> <head> <title> </title> </head> <"
+  },
+  {
+   "host": "vpn131652721.opengw.net",
+   "port": 995,
+   "error": "隧道内 TCP 握手超时"
   },
   {
    "host": "vpn676301515.opengw.net",
@@ -34,9 +44,79 @@
    "error": "Client network socket disconnected before secure TLS connection was established"
   },
   {
+   "host": "vpn239647879.opengw.net",
+   "port": 1455,
+   "error": "隧道内 TCP 握手超时"
+  },
+  {
    "host": "vpn802843515.opengw.net",
    "port": 1498,
    "error": "Client network socket disconnected before secure TLS connection was established"
+  },
+  {
+   "host": "vpn683264614.opengw.net",
+   "port": 1459,
+   "error": "Client network socket disconnected before secure TLS connection was established"
+  },
+  {
+   "host": "vpn696187300.opengw.net",
+   "port": 1992,
+   "error": "Client network socket disconnected before secure TLS connection was established"
+  },
+  {
+   "host": "vpn685235275.opengw.net",
+   "port": 1585,
+   "error": "285D0000:error:0A000119:SSL routines:tls_get_more_records:decryption failed or bad record mac:openssl\\ssl\\record\\methods\\tls_common.c:874:\n"
+  },
+  {
+   "host": "vpn194702529.opengw.net",
+   "port": 1457,
+   "error": "Client network socket disconnected before secure TLS connection was established"
+  },
+  {
+   "host": "vpn625444662.opengw.net",
+   "port": 1839,
+   "error": "Client network socket disconnected before secure TLS connection was established"
+  },
+  {
+   "host": "vpn432121661.opengw.net",
+   "port": 1585,
+   "error": "Client network socket disconnected before secure TLS connection was established"
+  },
+  {
+   "host": "vpn754234555.opengw.net",
+   "port": 1288,
+   "error": "Client network socket disconnected before secure TLS connection was established"
+  },
+  {
+   "host": "vpn505088516.opengw.net",
+   "port": 995,
+   "error": "285D0000:error:0A000102:SSL routines:ssl_choose_client_version:unsupported protocol:openssl\\ssl\\statem\\statem_lib.c:2407:\n"
+  },
+  {
+   "host": "vpn167045861.opengw.net",
+   "port": 995,
+   "error": "Client network socket disconnected before secure TLS connection was established"
+  },
+  {
+   "host": "vpn343525271.opengw.net",
+   "port": 1222,
+   "error": "Client network socket disconnected before secure TLS connection was established"
+  },
+  {
+   "host": "vpn553956153.opengw.net",
+   "port": 995,
+   "error": "Client network socket disconnected before secure TLS connection was established"
+  },
+  {
+   "host": "public-vpn-53.opengw.net",
+   "port": 443,
+   "error": "连接已被对端关闭"
+  },
+  {
+   "host": "laud.opengw.net",
+   "port": 443,
+   "error": "隧道内 TCP 握手超时"
   }
  ]
 }
