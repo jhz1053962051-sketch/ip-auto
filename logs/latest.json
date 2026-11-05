@@ -16,7 +16,7 @@
   "JP",
   "KR"
  ],
- "proxy": "127.0.0.1:7897",
+ "proxy": null,
  "failed": [
   {
    "host": "vpn705688819.opengw.net",
@@ -31,7 +31,7 @@
   {
    "host": "vpn676301515.opengw.net",
    "port": 1594,
-   "error": "Client network socket disconnected before secure TLS connection was established"
+   "error": "连接 vpn676301515.opengw.net:1594 超时"
   },
   {
    "host": "vpn873102655.opengw.net",
@@ -79,9 +79,9 @@
    "error": "Client network socket disconnected before secure TLS connection was established"
   },
   {
-   "host": "vpn343525271.opengw.net",
-   "port": 1222,
-   "error": "Client network socket disconnected before secure TLS connection was established"
+   "host": "vpn635994349.opengw.net",
+   "port": 1925,
+   "error": "隧道内响应不完整"
   },
   {
    "host": "vpn170723006.opengw.net",
