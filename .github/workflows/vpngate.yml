@@ -95,15 +95,46 @@ jobs:
       # 把每轮产物提交回仓库，这样即使 Pages 部署失败也能从 git 里取到历史
       - name: 提交产物
         run: |
+          set -u
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add public/ logs/latest.json 2>/dev/null || git add public/
-          if git diff --staged --quiet; then
-            echo "产物无变化，跳过提交"
-          else
+
+          # 采集要跑十几分钟，期间很可能有人（或本机计划任务）往 main 推过东西。
+          # 直接 `git push` 会因 `! [rejected] (fetch first)` 整轮失败；
+          # 这一步一挂，后面「配置 Pages / 上传产物 / 部署到 Pages」全被跳过，
+          # 站点当天就不更新了 —— 产物提交绝不能阻塞部署。
+          # 策略：先把本轮产物另存，冲突时以「本轮新生成的」为准重建提交，最后统一 exit 0。
+          SNAP=$(mktemp -d)
+          cp -r public "$SNAP/public"
+          cp logs/latest.json "$SNAP/latest.json" 2>/dev/null || true
+
+          commit_and_push() {
+            git add public logs/latest.json 2>/dev/null || git add public
+            if git diff --staged --quiet; then
+              echo "产物无变化，跳过提交"
+              return 0
+            fi
             git commit -m "chore: 更新节点 $(date -u +'%Y-%m-%d %H:%M UTC')"
-            git push
+            git push origin HEAD:main
+          }
+
+          if commit_and_push; then
+            echo "产物已提交"
+          else
+            echo "推送被拒，改为在最新 main 之上重建提交"
+            git fetch origin main
+            git reset --hard origin/main
+            rm -rf public
+            cp -r "$SNAP/public" public
+            cp "$SNAP/latest.json" logs/latest.json 2>/dev/null || true
+            if commit_and_push; then
+              echo "重建后提交成功"
+            else
+              echo "::warning::产物提交失败（不影响 Pages 部署，本轮站点仍会更新）"
+            fi
           fi
+          exit 0
+
 
       # ---------- GitHub Pages ----------
       - name: 配置 Pages
