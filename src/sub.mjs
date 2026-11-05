@@ -15,7 +15,7 @@
  * 生成结果已与线上 `/sub` 逐条比对，字符串完全一致（见 README「订阅地址」一节）。
  */
 import crypto from 'node:crypto';
-import { COUNTRY_ZH, EDGE_HOSTS, nodeLink } from './edges.mjs';
+import { COUNTRY_ZH, EDGE_HOSTS, nodeLink, sortLatency } from './edges.mjs';
 
 const md5 = (s) => crypto.createHash('md5').update(s, 'utf8').digest('hex');
 
@@ -49,66 +49,70 @@ export function buildVlessNodes(data, { host, uuid, edgeHosts = EDGE_HOSTS }) {
   const groups = Object.values(data.countries || {});
   groups.sort((a, b) => (b.count || 0) - (a.count || 0));
 
-  const nodes = [];
-  let idx = 0;
+  // 与 edges.mjs 的 buildNodesText 严格同序：
+  // 编号仍按「国家内住宅/机房各自从 01 起」，但**输出顺序是全局按真实延迟排**，
+  // 这样 nodes.txt 第 N 行与订阅第 N 条指向同一个节点、同一个入口。
+  const labeled = [];
   for (const g of groups) {
     const code = String(g.code || '??').toUpperCase();
     const zh = COUNTRY_ZH[code] || g.name || code;
-    const sorted = (g.nodes || []).slice().sort((a, b) => {
-      const ra = a.residential === 'residential' ? 0 : 1;
-      const rb = b.residential === 'residential' ? 0 : 1;
-      if (ra !== rb) return ra - rb;
-      return (a.latency_ms || 1e9) - (b.latency_ms || 1e9);
-    });
-    const resi = sorted.filter((n) => n.residential === 'residential');
-    const dc = sorted.filter((n) => n.residential !== 'residential');
+    const sorted = (g.nodes || []).slice().sort(sortLatency);
+    for (const [list, kind] of [[sorted.filter((n) => n.residential === 'residential'), '住宅'], [sorted.filter((n) => n.residential !== 'residential'), '机房']]) {
+      list.forEach((n, i) => labeled.push({ n, code, kind, name: `${zh}-${kind}-${String(i + 1).padStart(2, '0')}` }));
+    }
+  }
+  labeled.sort((a, b) => sortLatency(a.n, b.n));
 
-    for (const [list, kind] of [[resi, '住宅'], [dc, '机房']]) {
-      let i = 0;
-      for (const n of list) {
-        i++;
-        const entry = edge[idx++ % edge.length];
-        const name = `${zh}-${kind}-${String(i).padStart(2, '0')}`;
-        // 链式代理的 payload：协议不同，字段也不同。
-        // sstp 用固定的 vpn/vpn（VPN Gate 的约定）；socks5/http 有认证才带用户名密码，
-        // 否则只给 hostname/port —— edgetunnel 的 `获取SOCKS5账号` 两种都认。
-        const proto = String(n.protocol || n.proto || 'sstp').toLowerCase();
-        const payloadObj = { type: proto };
-        if (proto === 'sstp') {
-          payloadObj.username = 'vpn';
-          payloadObj.password = 'vpn';
-        } else if (n.user && n.pass) {
-          payloadObj.username = n.user;
-          payloadObj.password = n.pass;
-        }
-        payloadObj.hostname = n.host;
-        payloadObj.port = n.port;
-        const payload = JSON.stringify(payloadObj);
-        const path = `/video/${xorB64(payload, uuid)}`;
-        const qs = [
-          'security=tls',
-          'type=ws',
-          `host=${host}`,
-          'fp=chrome',
-          `sni=${host}`,
-          `path=${encodeURIComponent(path)}`,
-          'encryption=none',
-          'alpn=',
-        ].join('&');
-        nodes.push({
-          name,
-          kind,
-          entry,
-          real: `${n.host}:${n.port}`,
-          exit_ip: n.exit_ip || '',
-          org: n.org || '',
-          latency_ms: n.latency_ms,
-          residential: n.residential === 'residential',
-          vless: `vless://${uuid}@${entry.replace(':443', '')}:443?${qs}#${encodeURIComponent(name)}`,
-          protocol: proto,
-          sstp: nodeLink(n),
-        });
+  const nodes = [];
+  let idx = 0;
+  for (const { n, code, kind, name } of labeled) {
+    {
+      const entry = edge[idx++ % edge.length];
+      // 链式代理的 payload：协议不同，字段也不同。
+      // sstp 用固定的 vpn/vpn（VPN Gate 的约定）；socks5/http 有认证才带用户名密码，
+      // 否则只给 hostname/port —— edgetunnel 的 `获取SOCKS5账号` 两种都认。
+      const proto = String(n.protocol || n.proto || 'sstp').toLowerCase();
+      const payloadObj = { type: proto };
+      if (proto === 'sstp') {
+        payloadObj.username = 'vpn';
+        payloadObj.password = 'vpn';
+      } else if (n.user && n.pass) {
+        payloadObj.username = n.user;
+        payloadObj.password = n.pass;
       }
+      payloadObj.hostname = n.host;
+      payloadObj.port = n.port;
+      const payload = JSON.stringify(payloadObj);
+      const path = `/video/${xorB64(payload, uuid)}`;
+      const qs = [
+        'security=tls',
+        'type=ws',
+        `host=${host}`,
+        'fp=chrome',
+        `sni=${host}`,
+        `path=${encodeURIComponent(path)}`,
+        'encryption=none',
+        'alpn=',
+      ].join('&');
+      nodes.push({
+        name,
+        kind,
+        cc: code,
+        country_code: code,
+        entry,
+        real: `${n.host}:${n.port}`,
+        exit_ip: n.exit_ip || '',
+        org: n.org || '',
+        latency_ms: n.latency_ms,
+        worker_ms: Number.isFinite(n.worker_ms) ? n.worker_ms : null,
+        // real_ms 由 scripts/measure-real.mjs 事后用真 Xray 客户端测出并写回
+        // countries[].nodes，这里透传给页面，让用户看到「自己这条链的真实体感」。
+        real_ms: Number.isFinite(n.real_ms) ? n.real_ms : null,
+        residential: n.residential === 'residential',
+        vless: `vless://${uuid}@${entry.replace(':443', '')}:443?${qs}#${encodeURIComponent(name)}`,
+        protocol: proto,
+        sstp: nodeLink(n),
+      });
     }
   }
   return nodes;

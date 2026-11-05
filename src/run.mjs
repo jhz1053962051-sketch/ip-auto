@@ -27,9 +27,11 @@ import { checkNode } from './probe.mjs';
 import { collectProxyNodes } from './proxynodes.mjs';
 import { lookupIps, normalizeExit } from './geo.mjs';
 import { mapPool } from './pool.mjs';
-import { buildNodesText, EDGE_HOSTS, COUNTRY_ZH, nodeLink } from './edges.mjs';
+import { buildNodesText, EDGE_HOSTS, COUNTRY_ZH, nodeLink, sortLatency } from './edges.mjs';
+import { findAdminPassword, findEdgeBase, findUuid } from './secret.mjs';
 import { renderIndexHtml } from './render.mjs';
 import { subToken, subUrls, buildVlessNodes } from './sub.mjs';
+import { rankByWorker, sortByWorker } from './workerrank.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
@@ -59,24 +61,49 @@ const CONFIG = {
   publicDir: path.resolve(ROOT, args.out || env.IP_AUTO_PUBLIC_DIR || 'public'),
   edgeHosts: String(args.edges || env.IP_AUTO_EDGE_HOSTS || '').split(',').map((s) => s.trim()).filter(Boolean),
   nodesUrl: env.IP_AUTO_NODES_URL || '',
-  subHost: args['sub-host'] || env.IP_AUTO_SUB_HOST || 'ipauto-edge.pages.dev',
-  subUuid: args.uuid || env.IP_AUTO_UUID || '2900cf6a-b708-4358-8d38-189a4ad4cae7',
+  // 概览页地址（页面里「复制订阅」要完整 URL，客户端不认相对路径）
+  site: String(args.site || env.IP_AUTO_SITE || 'https://jhz1053962051-sketch.github.io/ip-auto').replace(/\/+$/, ''),
+  subHost: args['sub-host'] || env.IP_AUTO_SUB_HOST || new URL(findEdgeBase()).hostname,
+  subUuid: args.uuid || findUuid(),
   // VPN Gate 没有的国家（目前只有新加坡），走公共代理池支线
   proxyCountries: String(args['proxy-countries'] || env.IP_AUTO_PROXY_COUNTRIES || 'SG')
     .split(',').map((s) => s.trim().toUpperCase()).filter(Boolean),
+  // 「额外再去代理池捞一遍」的国家：这些国家 VPN Gate 也有，只是 SSTP 建链太慢（1.8~2.5s），
+  // 代理池里的 socks5/http 只要一次握手（Worker 侧 400~1400ms）。两边的节点都留下，
+  // 住宅节点仍然排在前面，但快的那几个能让用户自己挑。
+  proxyExtra: String(args['proxy-extra'] || env.IP_AUTO_PROXY_EXTRA || 'JP,KR')
+    .split(',').map((s) => s.trim().toUpperCase()).filter(Boolean),
   proxyMax: Number(args['proxy-max'] || env.IP_AUTO_PROXY_MAX || 260),
+  // 用线上 Worker 给节点打真实延迟分（worker 视角 = 用户实际路径）。
+  // 没给管理员密码就跳过，退回本地 latency_ms 排序。
+  // 注意：Worker 排名这一步默认**直连**，不套 7897 —— 实测 pages.dev 经代理会
+  // `schannel/socket disconnected before secure TLS` 直接失败，反而直连稳定（2.6s/200）。
+  rankProxyRaw: args['rank-proxy'] !== undefined
+    ? String(args['rank-proxy'])
+    : (env.IP_AUTO_RANK_PROXY ?? ''),
+  edgeAdmin: String(args['edge-admin'] || findAdminPassword() || ''),
+  edgeBase: String(args['edge-base'] || findEdgeBase()),
+  workerRank: Number(args['worker-rank'] || env.IP_AUTO_WORKER_RANK || 1),
 };
 
 const proxy = CONFIG.proxyRaw ? parseProxy(CONFIG.proxyRaw) : null;
+// Worker 排名单独一条链路：默认直连（见 CONFIG.rankProxyRaw 注释）
+const rankProxy = CONFIG.rankProxyRaw ? parseProxy(CONFIG.rankProxyRaw) : null;
 const countryFilter = /^all$/i.test(CONFIG.countries)
   ? []
   : CONFIG.countries.split(',').map((s) => s.trim().toUpperCase()).filter(Boolean);
 // VPN Gate 只负责它能覆盖的国家；新加坡这类它完全没有的，交给公共代理池支线。
 // 两边不能有交集，否则 SG 会白跑一趟抓取（VPN Gate 返回 0 条 SSTP）。
-const proxyCountryFilter = countryFilter.length
+const proxyOnlyFilter = countryFilter.length
   ? CONFIG.proxyCountries.filter((c) => countryFilter.includes(c))
   : CONFIG.proxyCountries;
-const vpnCountryFilter = countryFilter.filter((c) => !proxyCountryFilter.includes(c));
+// 额外支线：日韩在 VPN Gate 里有，但 SSTP 建链要 1.8~2.5s；代理池的 http/socks5 只要一次握手。
+// 两条线都跑，节点都留着 —— 住宅优先排序不变，快的机房节点排在后面给用户挑。
+const proxyExtraFilter = countryFilter.length
+  ? CONFIG.proxyExtra.filter((c) => countryFilter.includes(c) && !proxyOnlyFilter.includes(c))
+  : CONFIG.proxyExtra.filter((c) => !proxyOnlyFilter.includes(c));
+const proxyCountryFilter = [...proxyOnlyFilter, ...proxyExtraFilter];
+const vpnCountryFilter = countryFilter.filter((c) => !proxyOnlyFilter.includes(c));
 const edgeHosts = CONFIG.edgeHosts.length ? CONFIG.edgeHosts : EDGE_HOSTS;
 
 const t0 = Date.now();
@@ -90,6 +117,7 @@ function ensureDir(p) {
 async function main() {
   log('===== ip-auto 节点流水线启动 =====');
   log(`代理: ${proxy ? `${proxy.host}:${proxy.port}` : '直连(不推荐)'} | 国家: ${countryFilter.join(',') || '全部'} | 上限: ${CONFIG.maxNodes} | 并发: ${CONFIG.concurrency}`);
+  if (proxyCountryFilter.length) log(`代理池支线: ${proxyCountryFilter.join(',')}（其中 ${proxyExtraFilter.join(',') || '无'} 与 VPN Gate 并行取快节点）`);
 
   // 1) 抓取（VPN Gate 支线；如果本次国家全由代理池负责，就跳过抓取）
   let rows = [];
@@ -192,6 +220,42 @@ async function main() {
     ...proxyNodes.map((n) => ({ ...n, link: nodeLink(n) })),
   ].sort((a, b) => (a.latency_ms || 1e9) - (b.latency_ms || 1e9));
 
+  // 5.9) 用线上 Worker 复测一遍，拿到用户实际路径（本机→CF colo→Worker→节点）的延迟。
+  //      本地 probe 的 latency_ms 是「本机→代理→节点」，排序跟用户体感几乎不相关，
+  //      所以拿 worker_ms 当主排序键；这一步失败不影响交付，只是退回 latency_ms。
+  let workerStats = null;
+  if (CONFIG.workerRank && CONFIG.edgeAdmin && available.length) {
+    try {
+      workerStats = await rankByWorker(available, {
+        base: CONFIG.edgeBase,
+        password: CONFIG.edgeAdmin,
+        proxy: rankProxy,
+        concurrency: Math.min(6, Math.max(3, CONFIG.concurrency)),
+        timeoutMs: Math.max(CONFIG.timeoutMs, 35000),
+        log,
+        onProgress: (done, total, r, n) => {
+          if (done === total || done % 10 === 0) {
+            log(`[rank] ${done}/${total} 最后一个 ${n?.host || ''} → ${r.ok ? r.worker_ms + 'ms' : r.error}`);
+          }
+        },
+      });
+      // 只保留 Worker 测通的节点：Worker 都连不上的节点，客户端拿到也是死链。
+      const alive = available.filter((n) => Number.isFinite(n.worker_ms));
+      if (alive.length >= Math.max(3, Math.floor(available.length * 0.3))) {
+        const dropped = available.length - alive.length;
+        available.length = 0;
+        available.push(...sortByWorker(alive));
+        if (dropped) log(`[rank] 丢弃 ${dropped} 个 Worker 侧不可用节点`);
+      } else {
+        log(`[rank] Worker 只测通 ${alive.length}/${available.length}，结果不可信，保留全部节点`);
+        sortByWorker(available);
+      }
+    } catch (e) {
+      log(`[rank] Worker 复测失败（${e?.message || e}），退回本地延迟排序`);
+      workerStats = null;
+    }
+  }
+
   const countries = {};
   for (const n of available) {
     const code = n.country_code || '??';
@@ -202,6 +266,11 @@ async function main() {
     g.count = g.nodes.length;
     g.residential = g.nodes.filter((n) => n.residential === 'residential').length;
     g.datacenter = g.nodes.filter((n) => n.residential === 'datacenter').length;
+    // 组内也按 Worker 实测排，页面和订阅的顺序一致
+    g.nodes.sort(sortLatency);
+    const wl = g.nodes.map((n) => n.worker_ms).filter((v) => Number.isFinite(v)).sort((a, b) => a - b);
+    g.worker_ms_median = wl.length ? wl[Math.floor((wl.length - 1) / 2)] : null;
+    g.worker_ms_min = wl.length ? wl[0] : null;
   }
 
   const data = {
@@ -228,6 +297,10 @@ async function main() {
       proxy_candidates: proxyStats?.candidates ?? 0,
       proxy_alive: proxyStats?.alive ?? 0,
       proxy_matched: proxyStats?.matched ?? 0,
+      worker_ranked: workerStats?.ok ?? 0,
+      worker_rank_failed: workerStats?.failed ?? 0,
+      worker_ms_median: workerStats?.p50 ?? null,
+      worker_ms_min: workerStats?.min ?? null,
     },
     countries,
     available,
@@ -244,6 +317,29 @@ async function main() {
   const subs = token ? subUrls(CONFIG.subHost, token) : null;
   data.subscription = subs ? { host: CONFIG.subHost, uuid: CONFIG.subUuid, token, ...subs } : null;
   data.vless_nodes = subs ? buildVlessNodes(data, { host: CONFIG.subHost, uuid: CONFIG.subUuid, edgeHosts }) : [];
+
+  // 直连支线（scripts/make-direct-sub.mjs）的上一轮产物挂进页面。
+  // 它是唯一「比绕 Worker 快 600ms 以上」的一批节点，不挂进来等于白算。
+  // 顺序上 CI 是先跑本文件、再跑 make-direct-sub，所以那一轮会由它自己重渲染覆盖；
+  // 这里读旧文件只是保证「单跑 run.mjs」时页面不会丢掉直连面板。
+  try {
+    const directFile = path.join(ROOT, 'logs', 'direct-sub.json');
+    if (fs.existsSync(directFile)) {
+      const d = JSON.parse(fs.readFileSync(directFile, 'utf8'));
+      if (Array.isArray(d.nodes) && d.nodes.length) {
+        data.direct = {
+          generated_at: d.generated_at,
+          site: CONFIG.site,
+          max_ms: d.max_ms,
+          total: d.nodes.length,
+          nodes: d.nodes,
+        };
+        log(`直连面板：挂载上一轮 ${d.nodes.length} 个直连节点`);
+      }
+    }
+  } catch (e) {
+    log(`直连面板挂载失败（忽略）：${e?.message || e}`);
+  }
   fs.writeFileSync(path.join(CONFIG.publicDir, 'data.json'), JSON.stringify(data, null, 1), 'utf8');
   fs.writeFileSync(path.join(CONFIG.publicDir, 'nodes.txt'), nodesText, 'utf8');
   fs.writeFileSync(path.join(CONFIG.publicDir, 'index.html'), renderIndexHtml(data), 'utf8');

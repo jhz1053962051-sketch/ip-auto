@@ -18,9 +18,11 @@
  *   CF_API_TOKEN=xxx node scripts/deploy-pages-edge.mjs [--project NAME] [--dry-run]
  */
 import fs from 'node:fs';
+import crypto from 'node:crypto';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { httpRequest, parseProxy } from '../src/http.mjs';
+import { findAdminPassword } from '../src/secret.mjs';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
 const argv = process.argv.slice(2);
@@ -37,7 +39,8 @@ const PROXY = parseProxy(process.env.IP_AUTO_PROXY || 'http://127.0.0.1:7897');
 const API = 'https://api.cloudflare.com/client/v4';
 const PROJECT = arg('project', 'ipauto-edge');
 const KV_ID = arg('kv', '3e273048175f46438c6db20d360a68e6');
-const ADMIN = arg('admin', process.env.EDGETUNNEL_ADMIN || 'CNarKCJvMAYk');
+const ACCOUNT = String(arg('account', process.env.CF_ACCOUNT_ID || ''));
+const ADMIN = arg('admin', process.env.EDGETUNNEL_ADMIN || findAdminPassword() || crypto.randomBytes(9).toString('base64url'));
 const UUID = arg('uuid', '2900cf6a-b708-4358-8d38-189a4ad4cae7');
 const SRC = path.join(ROOT, '_src/cmliu_edgetunnel/_worker.js');
 const COMPAT_DATE = '2025-11-04';
@@ -64,7 +67,7 @@ const log = (...a) => console.log(...a);
 const me = await cf('GET', '/user');
 log(`账号: ${me.email}`);
 const accounts = await cf('GET', '/accounts?per_page=50');
-const acc = accounts.find((a) => a.id === '7e7fc6cc21ec7712ffd7c842dea3a209') || accounts[0];
+const acc = (ACCOUNT && accounts.find((a) => a.id === ACCOUNT || a.name === ACCOUNT)) || accounts[0];
 log(`账户: ${acc.name} (${acc.id})`);
 
 /* ---------- 2. 项目 ---------- */
@@ -142,7 +145,6 @@ log(`wrangler: ${out.trim().split('\n').filter((l) => /Deployment complete|Succe
 
 /* ---------- 5. 自检 ---------- */
 const base = `https://${PROJECT}.pages.dev`;
-const crypto = await import('node:crypto');
 const md5 = (s) => crypto.createHash('md5').update(s).digest('hex');
 const MD5MD5 = (t) => md5(md5(t).slice(7, 27));
 const token = MD5MD5(`${PROJECT}.pages.dev${UUID}`);

@@ -9,24 +9,37 @@
  * 现实约束（实测，不要抱幻想）：
  *   公共代理池里的「新加坡」几乎全是机房 IP —— 腾讯云 / 阿里云 / DigitalOcean /
  *   OVH / Oracle / Azure / Akamai。真实住宅 IP 极少且存活时间以小时计。
- *   实测 190 个候选组合里存活 4 个、SG 出口 3 个、住宅 0 个。
  *   因此本模块产出的节点会被 geo.mjs 标成「机房」，页面与订阅都会如实标注。
+ *
+ * 数据源实测（`test/proxy-sources.mjs`，2026-11-05，走 127.0.0.1:7897）：
+ *   proxifly  countries/SG/data.txt   205 条（带 socks5:// https:// 前缀）★ 最佳
+ *   proxifly  countries/JP/data.txt   141 条
+ *   proxyscrape v4                    23~27 条（每国），稳定
+ *   geonode                           HTTP 200 但 data 为空，已基本不可用
+ *   TheSpeedX / hookzof / zloi        几千条全球列表，**不带国家**，需先反查地理，成本高
+ *   monosans / proxy-list.download    404 / 502，弃用
+ * 所以按国家取候选只用 proxifly + proxyscrape 两个。
  */
 import { httpRequest } from './http.mjs';
 
-/** 每个源：{ name, url(cc, page), kind } */
+/** 每个源：{ name, url(cc), kind } —— kind: 'text' 纯文本 / 'geonode' JSON */
 export const PROXY_SOURCES = [
+  {
+    name: 'proxifly',
+    kind: 'text',
+    // jsDelivr 镜像比 raw.githubusercontent 稳（后者在本机偶发 TLS 中断）
+    url: (cc) => `https://cdn.jsdelivr.net/gh/proxifly/free-proxy-list@main/proxies/countries/${cc}/data.txt`,
+    keepPrefix: true,
+  },
   {
     name: 'proxyscrape',
     kind: 'text',
     url: (cc) => `https://api.proxyscrape.com/v4/free-proxy-list/get?request=display_proxies&country=${cc}&proxy_format=ipport&format=text`,
   },
   {
-    name: 'geonode',
-    kind: 'geonode',
-    pages: 3,
-    url: (cc, page) =>
-      `https://proxylist.geonode.com/api/proxy-list?limit=100&page=${page}&sort_by=lastChecked&sort_type=desc&country=${cc}`,
+    name: 'proxyscrape-v3',
+    kind: 'text',
+    url: (cc) => `https://api.proxyscrape.com/v3/free-proxy-list/get?request=displayproxies&country=${cc}&proxy_format=ipport&format=text`,
   },
 ];
 
@@ -40,32 +53,29 @@ export async function fetchProxyCandidates(country, opt = {}) {
   const errors = [];
 
   for (const src of PROXY_SOURCES) {
-    const pages = src.kind === 'geonode' ? src.pages : 1;
-    for (let page = 1; page <= pages; page++) {
-      const url = src.url(cc, page);
-      try {
-        const r = await httpRequest(url, {
-          proxy,
-          timeoutMs,
-          headers: { accept: 'text/plain, application/json', 'user-agent': 'ip-auto/1.0' },
-        });
-        if (r.status !== 200) throw new Error(`HTTP ${r.status}`);
-        if (src.kind === 'geonode') {
-          const data = JSON.parse(r.body);
-          for (const it of data.data || []) {
-            if (IPPORT.test(`${it.ip}:${it.port}`)) out.add(`${it.ip}:${it.port}`);
-          }
-        } else {
-          for (const line of r.body.split(/\r?\n/)) {
-            const s = line.trim().replace(/^(socks5|socks4|http|https):\/\//i, '');
-            if (IPPORT.test(s)) out.add(s);
-          }
-        }
-        log(`[proxy:${src.name}] ${cc} p${page} → 累计 ${out.size}`);
-      } catch (e) {
-        errors.push(`${src.name}: ${e?.message || e}`);
-        log(`[proxy:${src.name}] ${cc} p${page} 失败 ${e?.message || e}`);
+    const url = src.url(cc, 1);
+    try {
+      const r = await httpRequest(url, {
+        proxy,
+        timeoutMs,
+        headers: { accept: 'text/plain, application/json', 'user-agent': 'curl/8.4.0' },
+      });
+      if (r.status !== 200) throw new Error(`HTTP ${r.status}`);
+      let added = 0;
+      for (const line of String(r.body || '').split(/\r?\n/)) {
+        const raw = line.trim();
+        if (!raw) continue;
+        // 保留 `socks5://` / `https://` 前缀：proxifly 明确标了协议，探测时优先按它试
+        const m = /^(socks5|socks4|http|https):\/\/(.+)$/i.exec(raw);
+        const body = m ? m[2] : raw;
+        if (!IPPORT.test(body)) continue;
+        out.add(m ? `${m[1].toLowerCase()}://${body}` : body);
+        added++;
       }
+      log(`[proxy:${src.name}] ${cc} → +${added}，累计 ${out.size}`);
+    } catch (e) {
+      errors.push(`${src.name}: ${e?.message || e}`);
+      log(`[proxy:${src.name}] ${cc} 失败 ${e?.message || e}`);
     }
   }
   return { country: cc, candidates: [...out], errors };

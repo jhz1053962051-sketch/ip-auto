@@ -1,0 +1,163 @@
+{
+  "log": {
+    "loglevel": "warning"
+  },
+  "inbounds": [
+    {
+      "tag": "in-0",
+      "listen": "127.0.0.1",
+      "port": 10800,
+      "protocol": "socks",
+      "settings": {
+        "auth": "noauth",
+        "udp": false
+      }
+    },
+    {
+      "tag": "in-1",
+      "listen": "127.0.0.1",
+      "port": 10801,
+      "protocol": "socks",
+      "settings": {
+        "auth": "noauth",
+        "udp": false
+      }
+    },
+    {
+      "tag": "in-2",
+      "listen": "127.0.0.1",
+      "port": 10802,
+      "protocol": "socks",
+      "settings": {
+        "auth": "noauth",
+        "udp": false
+      }
+    },
+    {
+      "tag": "in-3",
+      "listen": "127.0.0.1",
+      "port": 10803,
+      "protocol": "socks",
+      "settings": {
+        "auth": "noauth",
+        "udp": false
+      }
+    },
+    {
+      "tag": "in-4",
+      "listen": "127.0.0.1",
+      "port": 10804,
+      "protocol": "socks",
+      "settings": {
+        "auth": "noauth",
+        "udp": false
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "tag": "direct",
+      "protocol": "freedom"
+    },
+    {
+      "tag": "p0",
+      "protocol": "http",
+      "settings": {
+        "servers": [
+          {
+            "address": "8.209.255.13",
+            "port": 3128
+          }
+        ]
+      }
+    },
+    {
+      "tag": "p1",
+      "protocol": "http",
+      "settings": {
+        "servers": [
+          {
+            "address": "4.144.146.21",
+            "port": 80
+          }
+        ]
+      }
+    },
+    {
+      "tag": "p2",
+      "protocol": "http",
+      "settings": {
+        "servers": [
+          {
+            "address": "8.213.151.128",
+            "port": 3128
+          }
+        ]
+      }
+    },
+    {
+      "tag": "p3",
+      "protocol": "http",
+      "settings": {
+        "servers": [
+          {
+            "address": "222.111.130.73",
+            "port": 8080
+          }
+        ]
+      }
+    },
+    {
+      "tag": "p4",
+      "protocol": "http",
+      "settings": {
+        "servers": [
+          {
+            "address": "8.219.97.248",
+            "port": 80
+          }
+        ]
+      }
+    }
+  ],
+  "routing": {
+    "domainStrategy": "AsIs",
+    "rules": [
+      {
+        "type": "field",
+        "inboundTag": [
+          "in-0"
+        ],
+        "outboundTag": "p0"
+      },
+      {
+        "type": "field",
+        "inboundTag": [
+          "in-1"
+        ],
+        "outboundTag": "p1"
+      },
+      {
+        "type": "field",
+        "inboundTag": [
+          "in-2"
+        ],
+        "outboundTag": "p2"
+      },
+      {
+        "type": "field",
+        "inboundTag": [
+          "in-3"
+        ],
+        "outboundTag": "p3"
+      },
+      {
+        "type": "field",
+        "inboundTag": [
+          "in-4"
+        ],
+        "outboundTag": "p4"
+      }
+    ]
+  }
+}

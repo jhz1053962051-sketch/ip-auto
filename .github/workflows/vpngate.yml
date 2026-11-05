@@ -57,6 +57,10 @@ jobs:
           # VPN Gate 没有的国家（新加坡）走公共代理池支线
           IP_AUTO_PROXY_COUNTRIES: 'SG'
           IP_AUTO_PROXY_MAX: '260'
+          # Worker 侧延迟复测：登录 edgetunnel 后台要用管理员密码，走 Secret 注入
+          IP_AUTO_ADMIN: ${{ secrets.EDGETUNNEL_ADMIN }}
+          IP_AUTO_EDGE_BASE: 'https://ipauto-edge.pages.dev'
+          IP_AUTO_WORKER_RANK: '1'
           # 产物里的订阅地址（可选，只用于页面展示）
           IP_AUTO_NODES_URL: ${{ vars.NODES_URL }}
         run: node src/run.mjs
@@ -64,11 +68,26 @@ jobs:
       - name: 展示结果摘要
         run: node scripts/summary.mjs
 
+      # 第二条线：直连节点（不经 Cloudflare / Worker）。
+      # 为什么要有它：同一个 http 代理，直连 292ms，绕一圈 CF+Worker 是 983ms。
+      # 住宅 SSTP 走不了这条路（Xray 不认 SSTP），所以这条线只补「要快」的场景。
+      # 公共代理池波动大，这一步失败或抓不到都不影响主订阅，因此 continue-on-error。
+      - name: 生成直连节点（不经 Cloudflare）
+        continue-on-error: true
+        env:
+          IP_AUTO_DOH_PROXY: ''
+        run: node scripts/make-direct-sub.mjs --countries JP,KR,SG --max 300 --max-ms 2500
+
       - name: 检查产物非空
         run: |
           test -s public/nodes.txt || { echo "::error::nodes.txt 为空，本轮没有可用节点"; exit 1; }
           echo "nodes.txt 共 $(grep -c . public/nodes.txt) 行"
           head -5 public/nodes.txt
+          if [ -s public/direct/nodes.txt ]; then
+            echo "直连节点 $(grep -cE '^[ ]*[0-9]+\.' public/direct/nodes.txt) 个"
+          else
+            echo "本轮没有直连节点（不影响主订阅）"
+          fi
 
       # 把每轮产物提交回仓库，这样即使 Pages 部署失败也能从 git 里取到历史
       - name: 提交产物

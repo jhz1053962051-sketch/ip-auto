@@ -1,0 +1,11 @@
+# 直连节点清单（不经 Cloudflare / Worker）
+# 序号 | 地区 | 类型 | 机房/住宅 | 地址 | 直连延迟 | 出口 IP | 组织
+#
+# Clash / mihomo：把 https://jhz1053962051-sketch.github.io/ip-auto/direct/clash.yaml 作为订阅地址导入
+# Xray：tools/xray.exe run -c public/direct/xray.json，socks 端口 10800 起（顺序与下表一致）
+
+ 1. JP | http | 机房 | 8.209.255.13:3128 | 250ms | 8.209.255.13 | Alibaba.com Singapore E-Commerce Private Limited
+ 2. SG | http | 机房 | 4.144.146.21:80 | 290ms | 20.44.210.140 | Microsoft Azure Cloud (southeastasia)
+ 3. KR | http | 机房 | 8.213.151.128:3128 | 852ms | 8.213.151.128 | Alibaba.com Singapore E-Commerce Private Limited
+ 4. KR | http | 住宅 | 222.111.130.73:8080 | 1016ms | 222.111.130.73 | Korea Telecom
+ 5. SG | http | 机房 | 8.219.97.248:80 | 1106ms | 8.219.64.236 | Alibaba.com Singapore E-Commerce Private Limited

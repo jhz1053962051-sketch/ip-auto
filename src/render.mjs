@@ -49,6 +49,8 @@ function collectNodes(data) {
         exit_ip: n.exit_ip || '',
         org: n.org || '',
         latency_ms: n.latency_ms,
+        worker_ms: Number.isFinite(n.worker_ms) ? n.worker_ms : null,
+        real_ms: Number.isFinite(n.real_ms) ? n.real_ms : null,
         residential: n.residential === 'residential',
         vless: '',
         protocol: String(n.protocol || n.proto || 'sstp').toLowerCase(),
@@ -66,6 +68,58 @@ function ccOf(name) {
   return '??';
 }
 
+/**
+ * 直连节点面板：http/socks5 代理，客户端原生支持，不经过 Cloudflare。
+ *
+ * 为什么单独一块而不是混进上面的表：这两类节点性质完全不同 ——
+ *  - 上面的 vless/SSTP 走「客户端 → CF colo → Worker → 住宅」，稳定但每跳串行，有 ~2.5s 地板；
+ *  - 这里的 http 代理直连，实测能省 600~700ms，但来自公共池，随时会失效，
+ *    而且部分代理做了 TLS 拦截（证书不受信），不适合当唯一出口。
+ * 混在一起会让人以为「住宅节点只要 300ms」，所以必须分区展示。
+ */
+function renderDirectPanel(data) {
+  const d = data && data.direct;
+  if (!d || !Array.isArray(d.nodes) || !d.nodes.length) return '';
+
+  const site = String(d.site || '').replace(/\/+$/, '');
+  const clashUrl = site ? `${site}/direct/clash.yaml` : 'direct/clash.yaml';
+  const byCc = {};
+  for (const n of d.nodes) (byCc[n.cc] ??= []).push(n);
+  const order = Object.keys(byCc).sort((a, b) => byCc[b].length - byCc[a].length);
+
+  const rows = d.nodes.map((n, i) => `<tr>
+      <td class="mono dim">${String(i + 1).padStart(2, '0')}</td>
+      <td class="nm">${FLAG[n.cc] || '🌐'} ${esc(COUNTRY_ZH[n.cc] || n.cc)}</td>
+      <td class="mono">${esc(String(n.proto || '').toUpperCase())}</td>
+      <td><span class="badge ${n.residential === 'residential' ? 'resi' : 'dc'}">${n.residential === 'residential' ? '住宅' : '机房'}</span></td>
+      <td class="mono">${esc(`${n.host}:${n.port}`)}</td>
+      <td class="mono"><b style="color:var(--acc)">${Math.round(n.direct_ms)} ms</b></td>
+      <td class="mono">${esc(n.exitIp || '—')}</td>
+      <td class="mono dim org">${esc(n.org || '—')}</td>
+      <td class="acts"><code class="copy" data-copy="${esc(`${n.host}:${n.port}`)}">复制地址</code></td>
+    </tr>`).join('');
+
+  return `<section class="card">
+    <header>
+      <h2>⚡ 直连节点 <span class="code">${d.nodes.length} 个 · 不经 Cloudflare</span></h2>
+      <div class="pills">
+        ${order.map((cc) => `<span class="pill">${FLAG[cc] || '🌐'} ${esc(COUNTRY_ZH[cc] || cc)} ${byCc[cc].length}</span>`).join('')}
+        ${site ? `<a class="open" href="${esc(clashUrl)}" target="_blank" rel="noreferrer">打开 clash.yaml</a>
+        <span class="copy pill btn" data-copy="${esc(clashUrl)}">复制订阅</span>` : ''}
+      </div>
+    </header>
+    <div style="padding:12px 18px;color:var(--dim);font-size:12.5px;line-height:1.8;border-bottom:1px solid #1a2432">
+      http / socks5 代理，客户端<b style="color:var(--acc2)">原生支持、直连不绕 Worker</b>，实测比走 Cloudflare 快 600~700ms。<br>
+      代价：来自公共代理池，<b style="color:var(--warn)">随时可能失效</b>；部分代理会做 TLS 拦截（证书不受信），
+      小请求（网页/API）可用，<b style="color:var(--warn)">不保证能看视频</b>。要稳定住宅出口请用上面那批。
+    </div>
+    <table>
+      <thead><tr><th>#</th><th>地区</th><th>类型</th><th>出口</th><th>地址</th><th>直连延迟</th><th>出口 IP</th><th>ASN / 组织</th><th></th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+  </section>`;
+}
+
 function renderNodeTable(nodes) {
   const rows = nodes.map((n, i) => `<tr>
       <td class="mono dim">${String(i + 1).padStart(2, '0')}</td>
@@ -74,7 +128,8 @@ function renderNodeTable(nodes) {
       <td class="mono dim">${esc(n.real)}</td>
       <td class="mono">${esc(n.exit_ip || '—')}</td>
       <td class="mono dim org">${esc(n.org || '—')}</td>
-      <td class="mono">${fmtMs(n.latency_ms)}</td>
+      <td class="mono">${fmtMs(n.worker_ms ?? n.latency_ms)}</td>
+      <td class="mono dim">${Number.isFinite(n.real_ms) ? `${Math.round(n.real_ms)} ms` : '—'}</td>
       <td class="acts">
         ${n.vless ? `<code class="copy" data-copy="${esc(n.vless)}">复制 vless</code>` : ''}
         <code class="copy" data-copy="${esc(n.sstp)}">复制 ${protoLabel(n)}</code>
@@ -82,7 +137,7 @@ function renderNodeTable(nodes) {
     </tr>`).join('');
 
   return `<table>
-      <thead><tr><th>#</th><th>名称</th><th>入口（Cloudflare）</th><th>真实出口</th><th>出口 IP</th><th>ASN / 组织</th><th>延迟</th><th></th></tr></thead>
+      <thead><tr><th>#</th><th>名称</th><th>入口（Cloudflare）</th><th>真实出口</th><th>出口 IP</th><th>ASN / 组织</th><th>延迟（Worker 实测）</th><th>实机实测</th><th></th></tr></thead>
       <tbody>${rows}</tbody>
     </table>`;
 }
@@ -119,6 +174,8 @@ export function renderIndexHtml(data) {
   const failed = (data.failed || []).slice(0, 30)
     .map((f) => `<li><span class="mono">${esc(f.host)}:${esc(f.port || 443)}</span> — <span class="dim">${esc(f.error)}</span></li>`)
     .join('');
+
+  const directPanel = renderDirectPanel(data);
 
   // 订阅面板：这是用户最常要复制的东西，放最上面、字号最大
   const subPanel = sub && sub.sub
@@ -236,10 +293,13 @@ export function renderIndexHtml(data) {
     <div class="stat r"><b>${s.residential ?? nodes.filter((n) => n.residential).length}</b><span>住宅出口</span></div>
     <div class="stat d"><b>${s.datacenter ?? 0}</b><span>机房出口</span></div>
     <div class="stat"><b>${s.countries ?? order.length}</b><span>国家/地区</span></div>
+    ${Number.isFinite(s.worker_ms_median) ? `<div class="stat"><b>${Math.round(s.worker_ms_median)}<small style="font-size:13px;color:var(--dim)">ms</small></b><span>延迟中位数（最快 ${Math.round(s.worker_ms_min)}ms）</span></div>` : ''}
     <div class="stat"><b>${s.failed ?? 0}</b><span>探测失败</span></div>
   </div>
 
   ${subPanel}
+
+  ${directPanel}
 
   ${cards || '<div class="card" style="padding:28px;text-align:center;color:var(--dim)">暂无可用节点</div>'}
 

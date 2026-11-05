@@ -216,14 +216,24 @@ function rawHttpOver(socket, { method = 'GET', host, path, headers, timeoutMs, b
 }
 
 export async function httpRequest(url, opts = {}) {
-  const { proxy = null, timeoutMs = 20000, headers = {}, method = 'GET', body: reqBody = null } = opts;
+  const { proxy = null, timeoutMs = 20000, headers = {}, method = 'GET', body: reqBody = null, connectIp = null } = opts;
   const u = new URL(url);
   const isHttps = u.protocol === 'https:';
   const port = Number(u.port || (isHttps ? 443 : 80));
   const host = u.hostname;
 
-  const raw = await connectTcp(host, port, proxy, timeoutMs);
-  const socket = isHttps ? await tlsUpgrade(raw, host, timeoutMs) : raw;
+  // 建连（TCP + TLS）单独用一个更短的预算：被掐的地址通常卡在握手阶段一动不动，
+  // 若跟整体超时共用 40s，一次死连接就把整个重试预算吃光。
+  // 真正的业务耗时（Worker 里建 SSTP 隧道）走 timeoutMs，不受这个影响。
+  const connectTimeout = Number(opts.connectTimeoutMs) > 0 ? Number(opts.connectTimeoutMs) : Math.min(timeoutMs, 10000);
+
+  // connectIp：连这个 IP，但 SNI 与 Host 仍是 URL 里的域名。
+  // 为什么要这个口子：`*.pages.dev` 直连经常在 TLS 握手阶段被掐（实测 5 次里 2 次超时），
+  // 而 Cloudflare 的 anycast IP（104.26.x.x 那批香港 colo）稳定得多 —— 同一个边缘节点，
+  // 按 SNI 路由到同一个 Pages 项目。少了 DNS 与「解析到哪个 colo」的不确定性。
+  const dialHost = connectIp || host;
+  const raw = await connectTcp(dialHost, port, proxy, connectTimeout);
+  const socket = isHttps ? await tlsUpgrade(raw, host, connectTimeout) : raw;
 
   const { head, body } = await rawHttpOver(socket, {
     method,

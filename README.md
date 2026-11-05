@@ -10,9 +10,10 @@
 | **节点总览（浏览器看这个）** | `https://jhz1053962051-sketch.github.io/ip-auto/` | 每条节点都带「复制 vless」，点一下就能导入；纯静态 0.6s 打开 |
 | **订阅链接（喂客户端）** | `https://ipauto-edge.pages.dev/sub?token=2ce8fa81f3da82450905b322ab649142` | 直连可用，不需要任何代理；日本 / 韩国 / 新加坡 三国节点 |
 | 订阅（Clash 版） | 同上加 `&clash` | 输出 Clash YAML |
-| 后台管理 | `https://ipauto-edge.pages.dev/admin` | 密码 `CNarKCJvMAYk` |
+| 后台管理 | `https://ipauto-edge.pages.dev/admin` | 密码不入库，见 `HANDOVER.local.md`（或 `logs/pages-edge.json` 的 `admin` 字段） |
 | 检测 Worker（Cloudflare） | `https://ipauto-check-sstp.jhz1053962051.workers.dev` | `/check?sstp=vpn:vpn@HOST:PORT` |
 | 节点池（GitHub Pages） | `https://jhz1053962051-sketch.github.io/ip-auto/nodes.txt` | edgetunnel 每天从这里取 |
+| **直连节点（要快用这个）** | `https://jhz1053962051-sketch.github.io/ip-auto/direct/clash.yaml` | 不经 Cloudflare，http/socks5 直连，比上面那批快 600~700ms；公共池，会失效 |
 | 仓库 | `https://github.com/jhz1053962051-sketch/ip-auto` | Actions 每天 11:17（北京）跑一轮 |
 
 **浏览器怎么用**：打开「节点总览」页 → 顶部「订阅地址」一行点「复制」→ 粘进 v2rayN / Clash Verge 的订阅栏；
@@ -50,6 +51,62 @@ VPN Gate 不给新加坡，只能从公开代理池捞。实测结果（`node sr
 | `CONNECT cloudflare.com:443` → TLS → `GET /cdn-cgi/trace` | ✅ 与线上 `/admin/check` 走同一条路，判定一致 |
 
 `src/proxycheck.mjs` 用的是第三种，文件头注释里写着前两种为什么不行。
+
+### 延迟是怎么降下来的（以及哪些路走不通）
+
+原来订阅里第一行是 1.7s 的韩国住宅，用户第一个测速的就是最慢的，体感「全都慢」。做了四件事：
+
+1. **排序改成全局按实测延迟**。以前是「按国家分组 → 住宅整体前置」，400ms 的机房节点排在 1800ms 的住宅后面。现在先给节点起好名字，再把全部节点混在一起按延迟排 —— 打开订阅第一个就是最快的那个。
+2. **用什么尺子量**。`latency_ms`（本地探测耗时）根本不是延迟：它包含 DoH 解析 + SSTP TLS 握手 + PPP(LCP/PAP/IPCP) 协商 + 隧道内 TCP 握手 + HTTP 往返，1.9~6s 是「建链总耗时」。换成 `/admin/check` 的返回（`worker_ms`）——那是**用户真实会经过的那条路径**的耗时。两者相关性极低：本地最快的节点（294ms）在 Worker 视角是 16680ms。
+3. **入口只留香港 colo**。扫了 35 个 CF anycast IP + 8 个优选域名，`104.26.x.x` 全落 HKG、`104.27.x.x` / `172.66.x.x` 全落 LAX。判据是 **colo 而不是本机 TLS 耗时**：`104.27.0.1` 直连 TLS 只要 179ms（全场最快），但落 LAX，端到端 3.3s 且抖动；HKG 的 10 个 IP A/B 全部 2/2 成功、min 2.2~2.8s。`src/edges.mjs` 现在只有这 10 个 IP + 6 个 LAX 域名兜底。
+4. **加一条直连支线**（见下节），绕开 Cloudflare 那一跳。
+
+**试过但走不通的**（留档，别重复踩）：
+
+| 尝试 | 结果 |
+|---|---|
+| 开 `启用0RTT` + Xray `maxEarlyData` | 反而更慢（2.2~2.6s vs 基线 1.6~2.0s），已回滚 |
+| Xray `mux.cool` 多路复用 | edgetunnel 只认 `cmd=1/2`，没有 mux 分支，全 `appconnect=0.000` |
+| 本机直连住宅节点跑原生 SSTP | TCP 三次握手只要 61~209ms，但 **SSTP+PPP 协商本身 3.8~5.6s**，比经 Worker 还慢 |
+| 443 端口直连 `public-vpn-NNN` | 7 个里只有 1 个通；随机高端口 28 个里 9 个通 —— 端口 443 被重点干扰 |
+| 同时起多个 vless outbound 指向同一 UUID | 除第一个外全部超时（Worker 侧互踢），A/B 必须串行 |
+
+**结论**：走 Worker 的住宅节点 ~2.2~3.0s 是结构性地板（CF 那一跳 ~1.0s + SSTP 协商 ~1.3s），换节点、换入口都动不了它。真要快就得绕开 Worker，用 http/socks5 直连。
+
+### 直连支线：同一条链上唯一能真正省时间的一段
+
+`scripts/make-direct-sub.mjs` 从公共池抓 JP/KR/SG 的 http/socks5 代理，**直连**探测（不经过 7897、不经过 Worker），出口必须在目标国，生成三份产物：
+
+```
+public/direct/clash.yaml   Clash / mihomo 订阅（url-test 自动选最快）
+public/direct/xray.json    Xray 配置（socks inbound 10800 起，一节点一端口）
+public/direct/nodes.txt    人读清单
+```
+
+同一批节点的对照：
+
+| 节点 | 直连 | 经 CF + Worker |
+|---|---|---|
+| `4.144.146.21:80`（SG） | **292ms** | 983ms |
+| `8.209.255.13:3128`（JP） | **258ms** | 565ms |
+
+差的这 600~700ms 全是 Cloudflare 那一跳 + Worker 里建链的开销，跟节点本身无关。
+
+**代价要说清楚**（`test/direct-e2e.mjs` 实测，curl 经每个代理打 3 个站）：
+
+| 代理 | gstatic | ipify | youtube |
+|---|---|---|---|
+| JP 8.209.255.13:3128 | ❌ 证书不受信 | ❌ | ❌ |
+| SG 4.144.146.21:80 | ✅ 0.81s | ✅ 0.55s | ❌ Recv failure |
+| SG 159.138.84.187:3128 | ✅ 0.27s | ✅ 16.19s | ❌ |
+| KR 222.111.130.73:8080 | ❌ 连接失败 | ❌ | ❌ |
+| SG 128.199.113.85:9090 | ✅ 2.61s | ✅ 2.31s | ❌ |
+| KR 8.213.151.128:3128 | ❌ 证书不受信 | ❌ | ❌ |
+| JP 140.238.32.108:3128 | ✅ 1.67s | ✅ 1.80s | ❌ |
+
+→ **`checkProxy` 通过（CONNECT `cloudflare.com:443`）不代表能访问任意站点**：3/7 有 TLS 拦截（`SEC_E_UNTRUSTED_ROOT`），7/7 打不开 YouTube。所以这条线只适合网页/API，不能当唯一出口，也不能承诺看视频。要稳定住宅 IP 还是用上面那批 vless。
+
+`public/direct/` 一轮抓不到节点时**不覆盖上一轮产物** —— 空订阅会让客户端把已有节点全清掉。
 
 ---
 
@@ -131,7 +188,9 @@ ip-auto/
 │  ├─ geo.mjs        出口 IP 归属判定（ip-api 批量 + 关键词兜底）
 │  ├─ edges.mjs      实测可用的入口池（8 个固定 CF IP + 14 个域名）+ nodes.txt 生成
 │  ├─ sub.mjs        订阅 token（MD5MD5）/ vless 链接生成，算法与 Worker 逐字节一致
-│  ├─ render.mjs     概览页 HTML（顶部订阅面板 + 每条节点的复制按钮）
+│  ├─ render.mjs     概览页 HTML（订阅面板 + 直连面板 + 每条节点的复制按钮）
+│  ├─ workerrank.mjs 经 Worker 复测延迟（worker_ms），排序的主依据
+│  ├─ secret.mjs     从环境变量 / logs/*.json 找管理员密码、入口域名、UUID
 │  └─ run.mjs        主流水线
 ├─ cloudflare/
 │  └─ check-worker.js  可直接粘贴到 CF 后台的单文件检测 Worker（真 SSTP 握手）
@@ -148,6 +207,10 @@ ip-auto/
 │  ├─ show-sub.mjs           只算并打印订阅地址（改域名/UUID 后重算 token）
 │  ├─ render-only.mjs        只重渲染 index.html，不重新探测（改样式时秒看效果）
 │  ├─ make-xray-node.mjs     从订阅生成 Xray 配置（单节点 / 指定国家 / 指定入口）
+│  ├─ make-direct-sub.mjs    直连节点订阅（绕开 Cloudflare，clash.yaml/xray.json/nodes.txt）
+│  ├─ rank-by-worker.mjs     只用 Worker 复测一遍延迟（--no-proxy 直连 pages.dev）
+│  ├─ measure-real.mjs       真客户端实测：Xray 起 N 个 socks，curl 打 gstatic 取 ttfb
+│  ├─ set-gh-secret.mjs      写 GitHub Actions Secret（libsodium crypto_box_seal）
 │  └─ summary.mjs            结果摘要
 ├─ test/
 │  ├─ mock-sockets.mjs      cloudflare:sockets 的 Node 替身
@@ -203,7 +266,13 @@ node scripts/schedule.mjs --every 6 --no-initial
 | `IP_AUTO_PROXY` | `http://127.0.0.1:7897` | 本机代理；CI 里置空走直连 |
 | `IP_AUTO_COUNTRIES` | `JP,KR,SG` | 国家白名单，`all` 不限 |
 | `IP_AUTO_PROXY_COUNTRIES` | `SG` | 走公共代理池的国家（VPN Gate 没有这些国家） |
+| `IP_AUTO_PROXY_EXTRA` | `JP,KR` | 额外并行抓代理池的国家（与 VPN Gate 并行，取快的机房节点） |
 | `IP_AUTO_PROXY_MAX` | `260` | 每个代理池国家最多取多少候选 |
+| `IP_AUTO_ADMIN` | 从 `logs/pages-edge.json` 读 | edgetunnel 管理员密码（Worker 复测要用） |
+| `IP_AUTO_EDGE_BASE` | `https://ipauto-edge.pages.dev` | edgetunnel 入口，复测与订阅 token 都基于它 |
+| `IP_AUTO_RANK_PROXY` | 空（**直连**） | Worker 复测走哪个代理；留空。**pages.dev 经 7897 会 `failed to receive handshake`** |
+| `IP_AUTO_WORKER_RANK` | `1` | 是否用 Worker 复测来排序（关掉则退回本地 `latency_ms`） |
+| `IP_AUTO_DOH_PROXY` | `http://127.0.0.1:7897` | 只给直连支线的 DoH 用；被探测的代理一律直连 |
 | `IP_AUTO_MAX_NODES` | `80` | 最多检测多少条 |
 | `IP_AUTO_CONCURRENCY` | `6` | 并发探测数 |
 | `IP_AUTO_TIMEOUT_MS` | `22000` | 单节点超时 |
@@ -301,9 +370,11 @@ https://jhz1053962051-sketch.github.io/ip-auto/nodes.txt
 一条命令版：
 
 ```bash
+# 密码不写进命令行走 shell 历史，从部署记录读
+export IP_AUTO_ADMIN="$(node -e "console.log(require('./logs/pages-edge.json').admin)")"
 node scripts/edgetunnel-setup.mjs \
   --base https://ipauto-edge.pages.dev \
-  --password CNarKCJvMAYk \
+  --password "$IP_AUTO_ADMIN" \
   --nodes https://jhz1053962051-sketch.github.io/ip-auto/nodes.txt
 ```
 
