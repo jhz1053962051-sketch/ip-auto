@@ -4,12 +4,12 @@
 # Clash / mihomo：把 https://jhz1053962051-sketch.github.io/ip-auto/direct/clash.yaml 作为订阅地址导入
 # Xray：tools/xray.exe run -c public/direct/xray.json，socks 端口 10800 起（顺序与下表一致）
 
- 1. JP | http | 机房 | 140.238.32.108:3128 | 642ms | 140.238.32.108 | Oracle Cloud Infrastructure (ap-tokyo-1)
- 2. JP | http | 机房 | 8.209.255.13:3128 | 657ms | 8.209.255.13 | Alibaba.com Singapore E-Commerce Private Limited
- 3. KR | http | 机房 | 8.213.151.128:3128 | 841ms | 8.213.151.128 | Alibaba.com Singapore E-Commerce Private Limited
- 4. SG | http | 机房 | 134.185.85.16:3128 | 894ms | 134.185.85.16 | Oracle Cloud Infrastructure (ap-singapore-1)
- 5. SG | http | 机房 | 4.144.146.21:80 | 899ms | 20.44.210.140 | Microsoft Azure Cloud (southeastasia)
- 6. SG | http | 机房 | 129.226.206.61:80 | 901ms | 129.226.206.61 | Aceville Pte.ltd
- 7. SG | http | 机房 | 43.156.137.7:10809 | 1532ms | 43.156.137.7 | Tencent Cloud Computing
- 8. SG | http | 机房 | 128.199.113.85:9090 | 1642ms | 128.199.113.85 | DigitalOcean, LLC
- 9. JP | http | 机房 | 140.227.61.201:3128 | 1653ms | 140.227.61.201 | NTTPC Communications, Inc
+ 1. JP | http | 机房 | 8.209.255.13:3128 | 437ms | 8.209.255.13 | Alibaba.com Singapore E-Commerce Private Limited
+ 2. SG | http | 机房 | 103.164.55.81:3128 | 674ms | 103.164.55.81 | Contabo Asia Private Limited
+ 3. SG | http | 机房 | 43.156.137.7:10809 | 678ms | 43.156.137.7 | Tencent Cloud Computing
+ 4. SG | http | 机房 | 129.226.206.61:80 | 685ms | 129.226.206.61 | Aceville Pte.ltd
+ 5. SG | http | 机房 | 4.144.146.21:80 | 688ms | 20.44.210.140 | Microsoft Azure Cloud (southeastasia)
+ 6. SG | http | 机房 | 43.156.236.238:80 | 689ms | 43.156.236.238 | Tencent Cloud Computing
+ 7. SG | http | 机房 | 128.199.113.85:9090 | 729ms | 128.199.113.85 | DigitalOcean, LLC
+ 8. KR | http | 机房 | 8.213.151.128:3128 | 877ms | 8.213.151.128 | Alibaba.com Singapore E-Commerce Private Limited
+ 9. JP | http | 机房 | 45.43.60.220:8080 | 2022ms | 45.43.60.220 | UCLOUD
