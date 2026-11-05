@@ -1,24 +1,27 @@
 {
- "at": "2026-11-05T12:34:12.957Z",
+ "at": "2026-11-05T13:24:14.017Z",
  "stats": {
-  "raw_rows": 98,
-  "sstp_nodes": 79,
-  "checked": 1036,
-  "success": 58,
-  "failed": 978,
-  "residential": 53,
-  "datacenter": 5,
+  "raw_rows": 100,
+  "sstp_nodes": 81,
+  "checked": 1094,
+  "success": 59,
+  "failed": 1035,
+  "residential": 50,
+  "datacenter": 9,
   "countries": 3,
-  "proxy_candidates": 484,
-  "proxy_alive": 18,
-  "proxy_matched": 11,
-  "worker_ranked": 58,
+  "proxy_candidates": 516,
+  "proxy_alive": 23,
+  "proxy_matched": 18,
+  "worker_ranked": 59,
   "worker_rank_failed": 10,
-  "worker_ms_median": 2754,
-  "worker_ms_min": 213
+  "worker_ms_median": 2565,
+  "worker_ms_min": 334,
+  "real_ms_measured": 59,
+  "real_ms_median": 431,
+  "real_ms_min": 371
  },
- "probe_ms": 40108,
- "total_ms": 614800,
+ "probe_ms": 42491,
+ "total_ms": 684803,
  "countries": [
   "JP",
   "KR",
@@ -27,104 +30,104 @@
  "proxy": "127.0.0.1:7897",
  "failed": [
   {
-   "host": "vpn721529125.opengw.net",
-   "port": 1896,
+   "host": "vpn564748125.opengw.net",
+   "port": 1491,
    "error": "Client network socket disconnected before secure TLS connection was established"
   },
   {
-   "host": "vpn382365411.opengw.net",
-   "port": 1314,
+   "host": "vpn245905369.opengw.net",
+   "port": 1362,
    "error": "Client network socket disconnected before secure TLS connection was established"
   },
   {
-   "host": "vpn152067795.opengw.net",
-   "port": 1631,
+   "host": "vpn716109838.opengw.net",
+   "port": 995,
+   "error": "隧道内 TCP 握手超时"
+  },
+  {
+   "host": "vpn965205483.opengw.net",
+   "port": 1800,
    "error": "Client network socket disconnected before secure TLS connection was established"
   },
   {
-   "host": "vpn649873227.opengw.net",
-   "port": 1308,
-   "error": "Client network socket disconnected before secure TLS connection was established"
-  },
-  {
-   "host": "vpn372901574.opengw.net",
+   "host": "vpn235782390.opengw.net",
    "port": 995,
    "error": "Client network socket disconnected before secure TLS connection was established"
   },
   {
-   "host": "vpn743793210.opengw.net",
-   "port": 1521,
+   "host": "vpn462059193.opengw.net",
+   "port": 1868,
    "error": "Client network socket disconnected before secure TLS connection was established"
   },
   {
-   "host": "vpn475174238.opengw.net",
-   "port": 1610,
+   "host": "vpn321198608.opengw.net",
+   "port": 995,
    "error": "Client network socket disconnected before secure TLS connection was established"
   },
   {
-   "host": "vpn249670903.opengw.net",
-   "port": 1481,
+   "host": "vpn187374041.opengw.net",
+   "port": 1665,
+   "error": "隧道内 TCP 握手超时"
+  },
+  {
+   "host": "vpn472930231.opengw.net",
+   "port": 995,
    "error": "Client network socket disconnected before secure TLS connection was established"
   },
   {
-   "host": "vpn952263865.opengw.net",
-   "port": 1264,
+   "host": "vpn292041802.opengw.net",
+   "port": 1952,
    "error": "Client network socket disconnected before secure TLS connection was established"
   },
   {
-   "host": "vpn146126089.opengw.net",
+   "host": "vpn401544461.opengw.net",
+   "port": 1872,
+   "error": "Client network socket disconnected before secure TLS connection was established"
+  },
+  {
+   "host": "vpn134237092.opengw.net",
+   "port": 1225,
+   "error": "Client network socket disconnected before secure TLS connection was established"
+  },
+  {
+   "host": "vpn125817256.opengw.net",
    "port": 1999,
    "error": "Client network socket disconnected before secure TLS connection was established"
   },
   {
-   "host": "vpn169949742.opengw.net",
-   "port": 1437,
+   "host": "vpn386813367.opengw.net",
+   "port": 1509,
    "error": "Client network socket disconnected before secure TLS connection was established"
   },
   {
-   "host": "vpn398540356.opengw.net",
-   "port": 1482,
-   "error": "隧道内 TCP 握手超时"
-  },
-  {
-   "host": "vpn833665549.opengw.net",
-   "port": 1809,
+   "host": "vpn469699740.opengw.net",
+   "port": 1702,
    "error": "Client network socket disconnected before secure TLS connection was established"
   },
   {
-   "host": "vpn441776892.opengw.net",
-   "port": 1580,
+   "host": "vpn419698713.opengw.net",
+   "port": 995,
    "error": "Client network socket disconnected before secure TLS connection was established"
   },
   {
-   "host": "vpn288376367.opengw.net",
-   "port": 1616,
+   "host": "vpn299308973.opengw.net",
+   "port": 1746,
    "error": "Client network socket disconnected before secure TLS connection was established"
   },
   {
-   "host": "vpn192189745.opengw.net",
-   "port": 1548,
+   "host": "vpn425038562.opengw.net",
+   "port": 1912,
    "error": "Client network socket disconnected before secure TLS connection was established"
   },
   {
-   "host": "vpn421902389.opengw.net",
-   "port": 1602,
+   "host": "vpn468770824.opengw.net",
+   "port": 1752,
    "error": "Client network socket disconnected before secure TLS connection was established"
   },
   {
-   "host": "public-vpn-50.opengw.net",
-   "port": 443,
-   "error": "连接已被对端关闭"
-  },
-  {
-   "host": "public-vpn-53.opengw.net",
-   "port": 443,
-   "error": "连接已被对端关闭"
-  },
-  {
-   "host": "public-vpn-203.opengw.net",
-   "port": 443,
-   "error": "连接已被对端关闭"
+   "host": "vpn161058622.opengw.net",
+   "port": 1232,
+   "error": "Client network socket disconnected before secure TLS connection was established"
   }
  ]
 }

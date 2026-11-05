@@ -128,8 +128,8 @@ function renderNodeTable(nodes) {
       <td class="mono dim">${esc(n.real)}</td>
       <td class="mono">${esc(n.exit_ip || '—')}</td>
       <td class="mono dim org">${esc(n.org || '—')}</td>
-      <td class="mono">${fmtMs(n.worker_ms ?? n.latency_ms)}</td>
-      <td class="mono dim">${Number.isFinite(n.real_ms) ? `${Math.round(n.real_ms)} ms` : '—'}</td>
+      <td class="mono">${Number.isFinite(n.real_ms) ? `<b>${Math.round(n.real_ms)} ms</b>` : fmtMs(n.worker_ms ?? n.latency_ms)}</td>
+      <td class="mono dim">${Number.isFinite(n.worker_ms) ? `${Math.round(n.worker_ms)} ms` : '—'}</td>
       <td class="acts">
         ${n.vless ? `<code class="copy" data-copy="${esc(n.vless)}">复制 vless</code>` : ''}
         <code class="copy" data-copy="${esc(n.sstp)}">复制 ${protoLabel(n)}</code>
@@ -137,7 +137,7 @@ function renderNodeTable(nodes) {
     </tr>`).join('');
 
   return `<table>
-      <thead><tr><th>#</th><th>名称</th><th>入口（Cloudflare）</th><th>真实出口</th><th>出口 IP</th><th>ASN / 组织</th><th>延迟（Worker 实测）</th><th>实机实测</th><th></th></tr></thead>
+      <thead><tr><th>#</th><th>名称</th><th>入口（Cloudflare）</th><th>真实出口</th><th>出口 IP</th><th>ASN / 组织</th><th>实测延迟</th><th>Worker 侧</th><th></th></tr></thead>
       <tbody>${rows}</tbody>
     </table>`;
 }
@@ -293,7 +293,11 @@ export function renderIndexHtml(data) {
     <div class="stat r"><b>${s.residential ?? nodes.filter((n) => n.residential).length}</b><span>住宅出口</span></div>
     <div class="stat d"><b>${s.datacenter ?? 0}</b><span>机房出口</span></div>
     <div class="stat"><b>${s.countries ?? order.length}</b><span>国家/地区</span></div>
-    ${Number.isFinite(s.worker_ms_median) ? `<div class="stat"><b>${Math.round(s.worker_ms_median)}<small style="font-size:13px;color:var(--dim)">ms</small></b><span>延迟中位数（最快 ${Math.round(s.worker_ms_min)}ms）</span></div>` : ''}
+    ${Number.isFinite(s.real_ms_median)
+      ? `<div class="stat ok"><b>${Math.round(s.real_ms_median)}<small style="font-size:13px;color:var(--dim)">ms</small></b><span>实测延迟中位数（最快 ${Math.round(s.real_ms_min)}ms）</span></div>`
+      : Number.isFinite(s.worker_ms_median)
+        ? `<div class="stat"><b>${Math.round(s.worker_ms_median)}<small style="font-size:13px;color:var(--dim)">ms</small></b><span>Worker 侧延迟中位数（最快 ${Math.round(s.worker_ms_min)}ms）</span></div>`
+        : ''}
     <div class="stat"><b>${s.failed ?? 0}</b><span>探测失败</span></div>
   </div>
 

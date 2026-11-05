@@ -32,6 +32,7 @@ import { findAdminPassword, findEdgeBase, findUuid } from './secret.mjs';
 import { renderIndexHtml } from './render.mjs';
 import { subToken, subUrls, buildVlessNodes } from './sub.mjs';
 import { rankByWorker, sortByWorker } from './workerrank.mjs';
+import { measureReal, applyRealMs } from './realmeas.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
@@ -84,6 +85,12 @@ const CONFIG = {
   edgeAdmin: String(args['edge-admin'] || findAdminPassword() || ''),
   edgeBase: String(args['edge-base'] || findEdgeBase()),
   workerRank: Number(args['worker-rank'] || env.IP_AUTO_WORKER_RANK || 1),
+  // 实测「客户端全链路 TTFB」：唯一覆盖「浏览器→CF colo→Worker→节点」的数字，
+  // 也是页面/订阅的主排序键。本地跑得动（55 节点约 3 分钟），CI 在美区且没装 Xray，
+  // 默认关闭（IP_AUTO_REAL_MEASURE=0），由本机计划任务负责刷新。
+  realMeasure: Number(args['real-measure'] || env.IP_AUTO_REAL_MEASURE || 1),
+  realLimit: Number(args['real-limit'] || env.IP_AUTO_REAL_LIMIT || 0),
+  realConcurrency: Number(args['real-concurrency'] || env.IP_AUTO_REAL_CONCURRENCY || 3),
 };
 
 const proxy = CONFIG.proxyRaw ? parseProxy(CONFIG.proxyRaw) : null;
@@ -344,6 +351,73 @@ async function main() {
   fs.writeFileSync(path.join(CONFIG.publicDir, 'nodes.txt'), nodesText, 'utf8');
   fs.writeFileSync(path.join(CONFIG.publicDir, 'index.html'), renderIndexHtml(data), 'utf8');
   fs.writeFileSync(path.join(CONFIG.publicDir, 'subscription.txt'), buildSimpleSubscription(available), 'utf8');
+
+  // 7.5) 实测客户端真实延迟（全链路 TTFB），然后**重排 + 重渲染**。
+  //      必须在 data.json / vless_nodes 都算好之后跑：它是按 vless_nodes[i].real 定位节点的。
+  //      这是唯一覆盖「浏览器→CF colo→Worker→节点」的数字，也是页面和订阅的主排序键。
+  if (CONFIG.realMeasure && available.length) {
+    try {
+      const xrayBin = path.join(ROOT, 'tools', process.platform === 'win32' ? 'xray.exe' : 'xray');
+      if (!fs.existsSync(xrayBin)) {
+        log('[real] 没有 tools/xray.exe，跳过实测（只在本机跑，CI 不需要）');
+      } else {
+        const targets = (CONFIG.realLimit > 0 ? data.vless_nodes.slice(0, CONFIG.realLimit) : data.vless_nodes)
+          .map((v) => ({ ...v }));
+        log(`[real] 开始实测 ${targets.length} 个节点的全链路 TTFB（每节点独立进程，并发 ${CONFIG.realConcurrency}）`);
+        const real = await measureReal(targets, {
+          root: ROOT,
+          bin: xrayBin,
+          basePort: Number(env.IP_AUTO_REAL_PORT || 14000),
+          concurrency: CONFIG.realConcurrency,
+          timeoutMs: Number(env.IP_AUTO_REAL_TIMEOUT || 20),
+          log,
+          onProgress: (done, total, it) => {
+            if (done === total || done % 10 === 0) log(`[real] ${done}/${total} 最后 ${it.name} → ${it.real_ms ?? 'FAIL'}`);
+          },
+        });
+        const hit = applyRealMs(available, real.flat);
+        data.stats.real_ms_measured = real.matched;
+        data.stats.real_ms_median = real.median;
+        data.stats.real_ms_min = real.min;
+        log(`[real] 实测完成：命中 ${hit}/${available.length}，可测 ${real.matched}/${real.total}，中位 ${real.median}ms，最快 ${real.min}ms`);
+
+        // 有 real_ms 的节点按它排；没测到的留在原相对位置（applyRealMs 只写命中的）
+        available.sort(sortLatency);
+        for (const g of Object.values(countries)) g.nodes.sort(sortLatency);
+        if (Array.isArray(data.vless_nodes)) {
+          const byReal = new Map(real.flat.filter((x) => Number.isFinite(x.real_ms)).map((x) => [x.real, x.real_ms]));
+          for (const v of data.vless_nodes) {
+            const ms = byReal.get(v.real);
+            if (Number.isFinite(ms)) v.real_ms = ms;
+          }
+          data.vless_nodes.sort((a, b) => {
+            const f = (x) => (Number.isFinite(x.real_ms) ? x.real_ms : 1e9);
+            return f(a) - f(b);
+          });
+        }
+
+        // 重算 nodesText / vless_nodes / index.html，让顺序真的生效
+        const nodesText2 = buildNodesText(data, edgeHosts);
+        data.vless_nodes = buildVlessNodes(data, { host: CONFIG.subHost, uuid: CONFIG.subUuid, edgeHosts });
+        // buildVlessNodes 会丢 real_ms（它是从 countries[].nodes 重建的），回填一次
+        const byReal2 = new Map(real.flat.filter((x) => Number.isFinite(x.real_ms)).map((x) => [x.real, x.real_ms]));
+        for (const v of data.vless_nodes) {
+          const ms = byReal2.get(v.real);
+          if (Number.isFinite(ms)) v.real_ms = ms;
+        }
+        fs.writeFileSync(path.join(CONFIG.publicDir, 'nodes.txt'), nodesText2, 'utf8');
+        fs.writeFileSync(path.join(CONFIG.publicDir, 'data.json'), JSON.stringify(data, null, 1), 'utf8');
+        fs.writeFileSync(path.join(CONFIG.publicDir, 'index.html'), renderIndexHtml(data), 'utf8');
+        const realLogDir = path.join(ROOT, 'logs');
+        ensureDir(realLogDir);
+        fs.writeFileSync(path.join(realLogDir, 'real-lat.json'), JSON.stringify(real.flat, null, 1), 'utf8');
+        log('[real] 已按实测延迟重排 nodes.txt / 订阅 / 页面');
+      }
+    } catch (e) {
+      log(`[real] 实测失败（${e?.message || e}），仅用 Worker 侧延迟排序`);
+    }
+  }
+
 
   // 8) 运行快照（便于看历史）
   const logsDir = path.join(ROOT, 'logs');

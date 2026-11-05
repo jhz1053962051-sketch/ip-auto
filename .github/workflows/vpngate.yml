@@ -61,6 +61,9 @@ jobs:
           IP_AUTO_ADMIN: ${{ secrets.EDGETUNNEL_ADMIN }}
           IP_AUTO_EDGE_BASE: 'https://ipauto-edge.pages.dev'
           IP_AUTO_WORKER_RANK: '1'
+          # 实测全链路 TTFB 需要本机 tools/xray.exe（CI 上没有），这里显式关掉：
+          # 而且 Actions 跑在美区，测出来的数字对中国用户没参考价值。
+          IP_AUTO_REAL_MEASURE: '0'
           # 产物里的订阅地址（可选，只用于页面展示）
           IP_AUTO_NODES_URL: ${{ vars.NODES_URL }}
         run: node src/run.mjs

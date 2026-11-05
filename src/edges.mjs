@@ -116,9 +116,22 @@ export function isResi(n) {
  * 本地最快的 SG 节点 294ms，Worker 视角 16680ms；Worker 最快的日本节点 1619ms，
  * 本地只是中位。用 latency_ms 排序 = 按错的尺子排队。
  */
+/**
+ * 排序键：优先 real_ms（本机实跑客户端的 TTFB，用户真正感受到的那个数字），
+ * 其次 worker_ms（Worker 侧 /admin/check 耗时，不含「浏览器→CF colo」），
+ * 最后 latency_ms（建链总耗时，最不准，只是兜底）。
+ *
+ * 为什么 real_ms 排第一：它是唯一包含「浏览器→CF colo→Worker→节点」全链路的实测值。
+ * 而 worker_ms 只是 Worker 到节点那一段，会把「入口 colo 很差」的节点排得太靠前。
+ */
 export function sortLatency(a, b) {
-  const av = Number.isFinite(a.worker_ms) ? a.worker_ms : Infinity;
-  const bv = Number.isFinite(b.worker_ms) ? b.worker_ms : Infinity;
+  const pick = (n) => {
+    if (Number.isFinite(n.real_ms)) return n.real_ms;
+    if (Number.isFinite(n.worker_ms)) return n.worker_ms + 1000; // 未实测的排在同档靠后
+    return (n.latency_ms || 1e9) + 5000;
+  };
+  const av = pick(a);
+  const bv = pick(b);
   if (av !== bv) return av - bv;
   return (a.latency_ms || 1e9) - (b.latency_ms || 1e9);
 }

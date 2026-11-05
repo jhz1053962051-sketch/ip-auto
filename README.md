@@ -52,16 +52,36 @@ VPN Gate 不给新加坡，只能从公开代理池捞。实测结果（`node sr
 
 `src/proxycheck.mjs` 用的是第三种，文件头注释里写着前两种为什么不行。
 
-### 延迟是怎么降下来的（以及哪些路走不通）
+### 延迟：先说结论，再说之前为什么量错了
 
-原来订阅里第一行是 1.7s 的韩国住宅，用户第一个测速的就是最慢的，体感「全都慢」。做了四件事：
+**真实延迟 195~900ms，中位约 400ms。** 每一个节点都能用（55/55 可测，无一 FAIL）。
+这不是「优化」出来的，是**把量错的尺子换掉之后才看见的** —— 之前那句「住宅节点 2.2~3.0s 是结构性地板」是测量 bug 造出来的假结论。
 
-1. **排序改成全局按实测延迟**。以前是「按国家分组 → 住宅整体前置」，400ms 的机房节点排在 1800ms 的住宅后面。现在先给节点起好名字，再把全部节点混在一起按延迟排 —— 打开订阅第一个就是最快的那个。
-2. **用什么尺子量**。`latency_ms`（本地探测耗时）根本不是延迟：它包含 DoH 解析 + SSTP TLS 握手 + PPP(LCP/PAP/IPCP) 协商 + 隧道内 TCP 握手 + HTTP 往返，1.9~6s 是「建链总耗时」。换成 `/admin/check` 的返回（`worker_ms`）——那是**用户真实会经过的那条路径**的耗时。两者相关性极低：本地最快的节点（294ms）在 Worker 视角是 16680ms。
-3. **入口只留香港 colo**。扫了 35 个 CF anycast IP + 8 个优选域名，`104.26.x.x` 全落 HKG、`104.27.x.x` / `172.66.x.x` 全落 LAX。判据是 **colo 而不是本机 TLS 耗时**：`104.27.0.1` 直连 TLS 只要 179ms（全场最快），但落 LAX，端到端 3.3s 且抖动；HKG 的 10 个 IP A/B 全部 2/2 成功、min 2.2~2.8s。`src/edges.mjs` 现在只有这 10 个 IP + 6 个 LAX 域名兜底。
-4. **加一条直连支线**（见下节），绕开 Cloudflare 那一跳。
+#### 三个「延迟」数字，含义完全不同
 
-**试过但走不通的**（留档，别重复踩）：
+| 字段 | 量的是什么 | 典型值 | 能不能当延迟用 |
+|---|---|---|---|
+| `latency_ms` | 建链总耗时：DoH 解析 + SSTP TLS 握手 + PPP(LCP/PAP/IPCP) 协商 + 隧道内 TCP 握手 + HTTP 往返 | 1.9~10s | ❌ 完全不能 |
+| `worker_ms` | Worker 到节点那一段（`/admin/check` 返回），**不含「浏览器 → CF colo」** | 200~6000ms | ⚠️ 偏乐观约 1.2s，只能粗排 |
+| `real_ms` | 真客户端全链路 TTFB：浏览器 → CF colo → Worker → 节点 → 目标站 | **195~900ms** | ✅ 唯一代表体感，排序主键 |
+
+三者相关性极低。实测反例：`worker_ms` 5456ms 的节点 `real_ms` 只有 382ms；本地探测最快（294ms）的新加坡节点在 Worker 视角是 16680ms。
+
+#### 之前量错在哪
+
+`scripts/measure-real.mjs` 原来把 N 个 vless outbound 塞进**同一个 Xray 进程**（各自 socks inbound + `routing.rules` 按 `inboundTag` 分流），而它们**共用同一个 UUID** —— 出站互相踢连接。症状是头几个节点直接 FAIL、后面的数字乱跳（同一节点既可能 1411ms 也可能 17751ms）。再加上 `curl` 没加 `--noproxy '*'`，请求还先绕了一圈系统代理 7897。
+
+改成**每节点独立 spawn 一个 Xray 进程**（测完 `child.kill()`）+ `--noproxy '*'` 之后，55 个节点一次全测通，数字立刻收敛到 195~900ms。独立验证：另起 `scripts/make-xray-node.mjs` 逐个单进程复测前 6 个节点，`ttfb 0.397 / 0.381 / 0.378 / 0.386 / 0.446 / 0.488 s`，与 measure-real 一致。
+
+#### 现在做的事
+
+1. **`real_ms` 是排序主键**。`src/edges.mjs` 的 `sortLatency()` 优先取 `real_ms`，没有实测值的退回 `worker_ms + 1000`，再退回 `latency_ms + 5000` —— 没测过的排在后面，而不是冒充最快。
+2. **排序全局化**。以前是「按国家分组 → 住宅整体前置」，400ms 的机房节点会排在 1800ms 的住宅后面。现在先给节点起名字，再把全部节点混在一起按 `real_ms` 排 —— 打开订阅第一个就是实测最快的那个。
+3. **实测进流水线**（`src/realmeas.mjs` + `src/run.mjs` 的「7.5) 实测客户端真实延迟」段）：探测 → Worker 排名 → 实测 → 按实测重排 `nodes.txt` / 订阅 / 页面。页面统计卡显示「实测延迟中位数（最快 Nms）」，表格里「实测延迟」和「Worker 侧」两列并列。
+4. **入口只留香港 colo**。扫了 35 个 CF anycast IP + 8 个优选域名，`104.26.x.x` 全落 HKG、`104.27.x.x` / `172.66.x.x` 全落 LAX。判据是 **colo 而不是本机 TLS 耗时**：`104.27.0.1` 直连 TLS 只要 179ms（全场最快），但落 LAX。`src/edges.mjs` 现在只有 10 个 HKG IP + 6 个 LAX 域名兜底。
+5. **加一条直连支线**（见下节），绕开 Cloudflare 那一跳，再省 600~700ms。
+
+#### 试过但走不通的（留档，别重复踩）
 
 | 尝试 | 结果 |
 |---|---|
@@ -69,9 +89,10 @@ VPN Gate 不给新加坡，只能从公开代理池捞。实测结果（`node sr
 | Xray `mux.cool` 多路复用 | edgetunnel 只认 `cmd=1/2`，没有 mux 分支，全 `appconnect=0.000` |
 | 本机直连住宅节点跑原生 SSTP | TCP 三次握手只要 61~209ms，但 **SSTP+PPP 协商本身 3.8~5.6s**，比经 Worker 还慢 |
 | 443 端口直连 `public-vpn-NNN` | 7 个里只有 1 个通；随机高端口 28 个里 9 个通 —— 端口 443 被重点干扰 |
-| 同时起多个 vless outbound 指向同一 UUID | 除第一个外全部超时（Worker 侧互踢），A/B 必须串行 |
+| 同时起多个 vless outbound 指向同一 UUID | 除第一个外全部超时（Worker 侧互踢），A/B 与实测**必须**每节点独立进程 |
+| `pages.dev` 经本地代理 7897 访问 | `schannel: failed to receive handshake`；必须直连，且要把 SNI 钉到已知 HKG IP（`src/http.mjs` 的 `connectIp`） |
 
-**结论**：走 Worker 的住宅节点 ~2.2~3.0s 是结构性地板（CF 那一跳 ~1.0s + SSTP 协商 ~1.3s），换节点、换入口都动不了它。真要快就得绕开 Worker，用 http/socks5 直连。
+**结论**：走 Worker 的节点**不是** 2.5s 地板，实测中位 400ms、最好 195ms。真正还能再省的是那 600~700ms 的 Cloudflare 跳转，办法就是下面的直连支线。
 
 ### 直连支线：同一条链上唯一能真正省时间的一段
 
@@ -182,14 +203,15 @@ ip-auto/
 │  ├─ sstp.mjs       SSTP / PPP / LCP / PAP / IPCP / PPP 上的 TCP —— 全手写
 │  ├─ probe.mjs      单节点探测（DoH 解析 → SSTP 隧道 → 取出口 IP → 严格校验）
 │  ├─ vpngate.mjs    VPN Gate 抓取与解析（含真实 SSTP 端口修复 + 截断重试）
-│  ├─ proxysrc.mjs   公共代理池数据源（proxyscrape / geonode），给新加坡这类 VPN Gate 没有的国家用
+│  ├─ proxysrc.mjs   公共代理池数据源（proxifly / proxyscrape v4+v3），给新加坡这类 VPN Gate 没有的国家用
 │  ├─ proxycheck.mjs socks5 / http 代理探针（路径与线上 Worker 的 /admin/check 完全一致）
 │  ├─ proxynodes.mjs 代理候选 → 探测 → 出口国家校验 → 节点（协议无关）
 │  ├─ geo.mjs        出口 IP 归属判定（ip-api 批量 + 关键词兜底）
-│  ├─ edges.mjs      实测可用的入口池（8 个固定 CF IP + 14 个域名）+ nodes.txt 生成
+│  ├─ edges.mjs      入口池（10 个 HKG colo IP + 6 个 LAX 域名兜底）+ nodes.txt 生成 + sortLatency
 │  ├─ sub.mjs        订阅 token（MD5MD5）/ vless 链接生成，算法与 Worker 逐字节一致
 │  ├─ render.mjs     概览页 HTML（订阅面板 + 直连面板 + 每条节点的复制按钮）
-│  ├─ workerrank.mjs 经 Worker 复测延迟（worker_ms），排序的主依据
+│  ├─ workerrank.mjs 经 Worker 复测延迟（worker_ms），粗排用
+│  ├─ realmeas.mjs   每节点独立 Xray 进程实测全链路 TTFB（real_ms），排序主依据
 │  ├─ secret.mjs     从环境变量 / logs/*.json 找管理员密码、入口域名、UUID
 │  └─ run.mjs        主流水线
 ├─ cloudflare/
@@ -209,7 +231,9 @@ ip-auto/
 │  ├─ make-xray-node.mjs     从订阅生成 Xray 配置（单节点 / 指定国家 / 指定入口）
 │  ├─ make-direct-sub.mjs    直连节点订阅（绕开 Cloudflare，clash.yaml/xray.json/nodes.txt）
 │  ├─ rank-by-worker.mjs     只用 Worker 复测一遍延迟（--no-proxy 直连 pages.dev）
-│  ├─ measure-real.mjs       真客户端实测：Xray 起 N 个 socks，curl 打 gstatic 取 ttfb
+│  ├─ measure-real.mjs       真客户端实测（旧版：同进程多 outbound 会互踢，已被 realmeas.mjs 取代）
+│  ├─ dump-sub.mjs           从本地 data.json 导出订阅文本（避免线上滞后导致索引错位）
+│  ├─ apply-real.mjs         按地址精确匹配把实测值写回 data.json
 │  ├─ set-gh-secret.mjs      写 GitHub Actions Secret（libsodium crypto_box_seal）
 │  └─ summary.mjs            结果摘要
 ├─ test/
