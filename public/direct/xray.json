@@ -52,6 +52,46 @@
         "auth": "noauth",
         "udp": false
       }
+    },
+    {
+      "tag": "in-5",
+      "listen": "127.0.0.1",
+      "port": 10805,
+      "protocol": "socks",
+      "settings": {
+        "auth": "noauth",
+        "udp": false
+      }
+    },
+    {
+      "tag": "in-6",
+      "listen": "127.0.0.1",
+      "port": 10806,
+      "protocol": "socks",
+      "settings": {
+        "auth": "noauth",
+        "udp": false
+      }
+    },
+    {
+      "tag": "in-7",
+      "listen": "127.0.0.1",
+      "port": 10807,
+      "protocol": "socks",
+      "settings": {
+        "auth": "noauth",
+        "udp": false
+      }
+    },
+    {
+      "tag": "in-8",
+      "listen": "127.0.0.1",
+      "port": 10808,
+      "protocol": "socks",
+      "settings": {
+        "auth": "noauth",
+        "udp": false
+      }
     }
   ],
   "outbounds": [
@@ -65,7 +105,7 @@
       "settings": {
         "servers": [
           {
-            "address": "8.209.255.13",
+            "address": "140.238.32.108",
             "port": 3128
           }
         ]
@@ -77,8 +117,8 @@
       "settings": {
         "servers": [
           {
-            "address": "4.144.146.21",
-            "port": 80
+            "address": "8.209.255.13",
+            "port": 3128
           }
         ]
       }
@@ -101,8 +141,8 @@
       "settings": {
         "servers": [
           {
-            "address": "222.111.130.73",
-            "port": 8080
+            "address": "134.185.85.16",
+            "port": 3128
           }
         ]
       }
@@ -113,8 +153,56 @@
       "settings": {
         "servers": [
           {
-            "address": "8.219.97.248",
+            "address": "4.144.146.21",
             "port": 80
+          }
+        ]
+      }
+    },
+    {
+      "tag": "p5",
+      "protocol": "http",
+      "settings": {
+        "servers": [
+          {
+            "address": "129.226.206.61",
+            "port": 80
+          }
+        ]
+      }
+    },
+    {
+      "tag": "p6",
+      "protocol": "http",
+      "settings": {
+        "servers": [
+          {
+            "address": "43.156.137.7",
+            "port": 10809
+          }
+        ]
+      }
+    },
+    {
+      "tag": "p7",
+      "protocol": "http",
+      "settings": {
+        "servers": [
+          {
+            "address": "128.199.113.85",
+            "port": 9090
+          }
+        ]
+      }
+    },
+    {
+      "tag": "p8",
+      "protocol": "http",
+      "settings": {
+        "servers": [
+          {
+            "address": "140.227.61.201",
+            "port": 3128
           }
         ]
       }
@@ -157,6 +245,34 @@
           "in-4"
         ],
         "outboundTag": "p4"
+      },
+      {
+        "type": "field",
+        "inboundTag": [
+          "in-5"
+        ],
+        "outboundTag": "p5"
+      },
+      {
+        "type": "field",
+        "inboundTag": [
+          "in-6"
+        ],
+        "outboundTag": "p6"
+      },
+      {
+        "type": "field",
+        "inboundTag": [
+          "in-7"
+        ],
+        "outboundTag": "p7"
+      },
+      {
+        "type": "field",
+        "inboundTag": [
+          "in-8"
+        ],
+        "outboundTag": "p8"
       }
     ]
   }
