@@ -1,0 +1,56 @@
+name: 部署当前产物到 Pages
+
+# 只做一件事：把仓库里现有的 public/ 原样发布到 Pages，不重新采集。
+#
+# 为什么单独开一个 workflow：
+#   vpngate.yml 会先跑一遍采集、用 CI 的结果覆盖 public/。而 real_ms（真实
+#   全链路延迟）只有本机有 tools/xray.exe 才测得出来，CI 跑在美区也测不准。
+#   所以本机 scripts/publish.mjs 推完产物后，调这个 workflow 直接发布，
+#   站点就会显示本机实测的排序与延迟数字。
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages-deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: 检出仓库
+        uses: actions/checkout@v4
+
+      - name: 检查产物
+        run: |
+          test -s public/nodes.txt || (echo "::error::public/nodes.txt 为空"; exit 1)
+          echo "节点数：$(grep -c . public/nodes.txt)"
+          node -e "const d=require('./public/data.json');const n=(d.vless_nodes||[]).filter(v=>Number.isFinite(v.real_ms)).length;console.log('real_ms 覆盖：'+n+'/'+((d.vless_nodes||[]).length));"
+
+      - name: 配置 Pages
+        uses: actions/configure-pages@v5
+
+      - name: 上传产物
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+      - name: 部署到 Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: 输出站点地址
+        run: |
+          echo "### 已发布（使用仓库现有产物，未重新采集）" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          echo "${{ steps.deployment.outputs.page_url }}" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
