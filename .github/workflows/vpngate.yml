@@ -10,7 +10,7 @@ on:
       countries:
         description: '国家白名单（逗号分隔，all 表示不限）'
         required: false
-        default: 'JP,KR'
+        default: 'JP,KR,SG'
       max_nodes:
         description: '最多检测多少个节点'
         required: false
@@ -50,10 +50,13 @@ jobs:
         env:
           # CI 里是直连，不需要本地代理；显式置空覆盖默认值
           IP_AUTO_PROXY: ''
-          IP_AUTO_COUNTRIES: ${{ inputs.countries || 'JP,KR' }}
+          IP_AUTO_COUNTRIES: ${{ inputs.countries || 'JP,KR,SG' }}
           IP_AUTO_MAX_NODES: ${{ inputs.max_nodes || '80' }}
           IP_AUTO_CONCURRENCY: ${{ inputs.concurrency || '8' }}
           IP_AUTO_TIMEOUT_MS: '22000'
+          # VPN Gate 没有的国家（新加坡）走公共代理池支线
+          IP_AUTO_PROXY_COUNTRIES: 'SG'
+          IP_AUTO_PROXY_MAX: '260'
           # 产物里的订阅地址（可选，只用于页面展示）
           IP_AUTO_NODES_URL: ${{ vars.NODES_URL }}
         run: node src/run.mjs

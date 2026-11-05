@@ -12,7 +12,7 @@
  * 与 `data.vless_nodes`（已排好序、带 vless 链接的节点列表）。
  * 两者缺省时回落到只看 `data.countries`，老 data.json 也能渲染。
  */
-import { COUNTRY_ZH } from './edges.mjs';
+import { COUNTRY_ZH, nodeLink, protoLabel } from './edges.mjs';
 
 const esc = (s) =>
   String(s == null ? '' : s)
@@ -51,7 +51,8 @@ function collectNodes(data) {
         latency_ms: n.latency_ms,
         residential: n.residential === 'residential',
         vless: '',
-        sstp: `sstp://vpn:vpn@${n.host}:${n.port}`,
+        protocol: String(n.protocol || n.proto || 'sstp').toLowerCase(),
+        sstp: nodeLink(n),
       });
     }
   }
@@ -76,12 +77,12 @@ function renderNodeTable(nodes) {
       <td class="mono">${fmtMs(n.latency_ms)}</td>
       <td class="acts">
         ${n.vless ? `<code class="copy" data-copy="${esc(n.vless)}">复制 vless</code>` : ''}
-        <code class="copy" data-copy="${esc(n.sstp)}">复制 SSTP</code>
+        <code class="copy" data-copy="${esc(n.sstp)}">复制 ${protoLabel(n)}</code>
       </td>
     </tr>`).join('');
 
   return `<table>
-      <thead><tr><th>#</th><th>名称</th><th>入口（Cloudflare）</th><th>真实住宅出口</th><th>出口 IP</th><th>ASN / 组织</th><th>延迟</th><th></th></tr></thead>
+      <thead><tr><th>#</th><th>名称</th><th>入口（Cloudflare）</th><th>真实出口</th><th>出口 IP</th><th>ASN / 组织</th><th>延迟</th><th></th></tr></thead>
       <tbody>${rows}</tbody>
     </table>`;
 }

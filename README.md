@@ -8,7 +8,7 @@
 | 用途 | 地址 | 备注 |
 |---|---|---|
 | **节点总览（浏览器看这个）** | `https://jhz1053962051-sketch.github.io/ip-auto/` | 每条节点都带「复制 vless」，点一下就能导入；纯静态 0.6s 打开 |
-| **订阅链接（喂客户端）** | `https://ipauto-edge.pages.dev/sub?token=2ce8fa81f3da82450905b322ab649142` | 直连可用，不需要任何代理；56 节点 |
+| **订阅链接（喂客户端）** | `https://ipauto-edge.pages.dev/sub?token=2ce8fa81f3da82450905b322ab649142` | 直连可用，不需要任何代理；日本 / 韩国 / 新加坡 三国节点 |
 | 订阅（Clash 版） | 同上加 `&clash` | 输出 Clash YAML |
 | 后台管理 | `https://ipauto-edge.pages.dev/admin` | 密码 `CNarKCJvMAYk` |
 | 检测 Worker（Cloudflare） | `https://ipauto-check-sstp.jhz1053962051.workers.dev` | `/check?sstp=vpn:vpn@HOST:PORT` |
@@ -28,6 +28,28 @@
 1. **SSTP 端口不能写死 443**。教程里的 `gate` 项目把端口固定为 443，而 VPN Gate 的**真实家宽节点几乎全用随机端口**（1223 / 995 / 1352 / 1591 …）。照教程做只能拿到 `public-vpn-NNN` 机房节点，真家宽会被 100% 误判为不可用。本项目从 OpenVPN 配置的 `remote <ip> <port>` 里读真实端口。
 2. **`*.workers.dev` 在部分网络被 SNI 阻断**。实测本机对任何 `*.workers.dev` 的 TLS 握手都是 `ECONNRESET`（换 `Host` 头也没用，CF 按 SNI 路由）。所以真正的入口放在 **Cloudflare Pages**（`*.pages.dev` 可直连），Worker 版本保留作备用。
 3. **订阅 token 不是简单 md5**。edgetunnel 用的是 `MD5MD5(t) = md5(md5(t).slice(7,27))`，自己改域名后算不出来会一直 401，脚本 `scripts/edgetunnel-setup.mjs` 会直接打印正确 token。
+4. **VPN Gate 根本没有新加坡**。抓全量 CSV 也只有 JP / KR / RU / VN / TH / US / TW / RO 这些国家，`grep ',SG,'` 零命中。所以新加坡走的是**另一条支线**：公共代理池 + edgetunnel 的 http 链式代理（`$http://host:port`）。代价是新加坡节点只能是机房 IP（详见下节）。
+
+### 新加坡这条支线为什么只能是机房
+
+VPN Gate 不给新加坡，只能从公开代理池捞。实测结果（`node src/run.mjs --countries SG`）：
+
+```
+候选 115 条 → 探测组合 230 个（http + socks5 各试一遍）→ 存活 1~12 → 出口在新加坡的 1~11 → 住宅 0
+```
+
+公共池里的新加坡 IP 几乎全是云厂商：腾讯云（`43.156.x.x` / `129.226.x.x`）、阿里云（`8.219.x.x`）、Azure（`20.44.x.x`）、Contabo（`103.164.54.x`）。ip-api 一律 `hosting:true`。
+所以订阅里新加坡节点的名字是 **`新加坡-机房-NN`**，日韩仍是 `日本-住宅-NN` / `韩国-住宅-NN` —— 名字里就是判定结果，不会混。
+
+**探针路径必须和 Worker 完全一致**，这是这条支线上唯一的坑：
+
+| 探针写法 | 结果 |
+|---|---|
+| `GET http://ip-api.com/...`（absolute-form，80 端口） | **假阳性**，本地通过但线上 Worker 报 `Connection failed: HTTP 404` |
+| `CONNECT ip-api.com:80` | **误杀好代理**，公共代理普遍只放行 CONNECT 到 443，403/404 一片 |
+| `CONNECT cloudflare.com:443` → TLS → `GET /cdn-cgi/trace` | ✅ 与线上 `/admin/check` 走同一条路，判定一致 |
+
+`src/proxycheck.mjs` 用的是第三种，文件头注释里写着前两种为什么不行。
 
 ---
 
@@ -82,7 +104,10 @@ ip-auto/
 │  ├─ http.mjs       无依赖 HTTP 客户端（手写 CONNECT 代理、TLS、响应解析）
 │  ├─ sstp.mjs       SSTP / PPP / LCP / PAP / IPCP / PPP 上的 TCP —— 全手写
 │  ├─ probe.mjs      单节点探测（DoH 解析 → SSTP 隧道 → 取出口 IP → 严格校验）
-│  ├─ vpngate.mjs    VPN Gate 抓取与解析（含真实 SSTP 端口修复）
+│  ├─ vpngate.mjs    VPN Gate 抓取与解析（含真实 SSTP 端口修复 + 截断重试）
+│  ├─ proxysrc.mjs   公共代理池数据源（proxyscrape / geonode），给新加坡这类 VPN Gate 没有的国家用
+│  ├─ proxycheck.mjs socks5 / http 代理探针（路径与线上 Worker 的 /admin/check 完全一致）
+│  ├─ proxynodes.mjs 代理候选 → 探测 → 出口国家校验 → 节点（协议无关）
 │  ├─ geo.mjs        出口 IP 归属判定（ip-api 批量 + 关键词兜底）
 │  ├─ edges.mjs      实测可用的入口池（8 个固定 CF IP + 14 个域名）+ nodes.txt 生成
 │  ├─ sub.mjs        订阅 token（MD5MD5）/ vless 链接生成，算法与 Worker 逐字节一致
@@ -126,6 +151,7 @@ cd C:/Users/J1053/Documents/ip-auto
 
 node src/run.mjs                       # 全量：抓 → 探测 → 生成
 node src/run.mjs --countries JP,KR --max 80 --concurrency 8
+node src/run.mjs --countries SG --max 1      # 只跑新加坡支线（会跳过 VPN Gate）
 
 node scripts/serve.mjs                 # http://127.0.0.1:8080 预览产物
 node scripts/local-worker.mjs          # http://127.0.0.1:8787 检测服务
@@ -155,7 +181,9 @@ node scripts/schedule.mjs --every 6 --no-initial
 | 变量 | 默认 | 说明 |
 |---|---|---|
 | `IP_AUTO_PROXY` | `http://127.0.0.1:7897` | 本机代理；CI 里置空走直连 |
-| `IP_AUTO_COUNTRIES` | `JP,KR` | 国家白名单，`all` 不限 |
+| `IP_AUTO_COUNTRIES` | `JP,KR,SG` | 国家白名单，`all` 不限 |
+| `IP_AUTO_PROXY_COUNTRIES` | `SG` | 走公共代理池的国家（VPN Gate 没有这些国家） |
+| `IP_AUTO_PROXY_MAX` | `260` | 每个代理池国家最多取多少候选 |
 | `IP_AUTO_MAX_NODES` | `80` | 最多检测多少条 |
 | `IP_AUTO_CONCURRENCY` | `6` | 并发探测数 |
 | `IP_AUTO_TIMEOUT_MS` | `22000` | 单节点超时 |

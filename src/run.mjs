@@ -3,17 +3,19 @@
  *
  * 用法：
  *   node src/run.mjs
- *   node src/run.mjs --countries JP,KR --max 60 --concurrency 8
+ *   node src/run.mjs --countries JP,KR,SG --max 60 --concurrency 8
  *
  * 环境变量（全部可选）：
  *   IP_AUTO_PROXY       代理，默认 http://127.0.0.1:7897；置空字符串表示直连
- *   IP_AUTO_COUNTRIES   国家白名单，逗号分隔，默认 JP,KR；置 all 表示不限
+ *   IP_AUTO_COUNTRIES   国家白名单，逗号分隔，默认 JP,KR,SG；置 all 表示不限
  *   IP_AUTO_MAX_NODES   最多检测多少个节点，默认 80
  *   IP_AUTO_CONCURRENCY 并发探测数，默认 6（本地 CPU/带宽友好）
  *   IP_AUTO_TIMEOUT_MS  单节点超时，默认 22000
  *   IP_AUTO_EDGE_HOSTS  自定义优选入口，逗号分隔，默认内置池
  *   IP_AUTO_PUBLIC_DIR  产物目录，默认 ./public
  *   IP_AUTO_DOH         DoH 端点，默认 https://dns.google/resolve
+ *   IP_AUTO_PROXY_COUNTRIES  走公共代理池的国家，默认 SG（VPN Gate 没有的国家）
+ *   IP_AUTO_PROXY_MAX        每国最多探测多少候选代理，默认 260
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -22,9 +24,10 @@ import { fileURLToPath } from 'node:url';
 import { parseProxy } from './http.mjs';
 import { fetchVpngate, toSstpNodes, dedupeNodes } from './vpngate.mjs';
 import { checkNode } from './probe.mjs';
+import { collectProxyNodes } from './proxynodes.mjs';
 import { lookupIps, normalizeExit } from './geo.mjs';
 import { mapPool } from './pool.mjs';
-import { buildNodesText, EDGE_HOSTS, COUNTRY_ZH } from './edges.mjs';
+import { buildNodesText, EDGE_HOSTS, COUNTRY_ZH, nodeLink } from './edges.mjs';
 import { renderIndexHtml } from './render.mjs';
 import { subToken, subUrls, buildVlessNodes } from './sub.mjs';
 
@@ -49,7 +52,7 @@ const env = process.env;
 
 const CONFIG = {
   proxyRaw: args.proxy !== undefined ? String(args.proxy) : (env.IP_AUTO_PROXY ?? 'http://127.0.0.1:7897'),
-  countries: String(args.countries || env.IP_AUTO_COUNTRIES || 'JP,KR'),
+  countries: String(args.countries || env.IP_AUTO_COUNTRIES || 'JP,KR,SG'),
   maxNodes: Number(args.max || env.IP_AUTO_MAX_NODES || 80),
   concurrency: Number(args.concurrency || env.IP_AUTO_CONCURRENCY || 6),
   timeoutMs: Number(args.timeout || env.IP_AUTO_TIMEOUT_MS || 22000),
@@ -58,12 +61,22 @@ const CONFIG = {
   nodesUrl: env.IP_AUTO_NODES_URL || '',
   subHost: args['sub-host'] || env.IP_AUTO_SUB_HOST || 'ipauto-edge.pages.dev',
   subUuid: args.uuid || env.IP_AUTO_UUID || '2900cf6a-b708-4358-8d38-189a4ad4cae7',
+  // VPN Gate 没有的国家（目前只有新加坡），走公共代理池支线
+  proxyCountries: String(args['proxy-countries'] || env.IP_AUTO_PROXY_COUNTRIES || 'SG')
+    .split(',').map((s) => s.trim().toUpperCase()).filter(Boolean),
+  proxyMax: Number(args['proxy-max'] || env.IP_AUTO_PROXY_MAX || 260),
 };
 
 const proxy = CONFIG.proxyRaw ? parseProxy(CONFIG.proxyRaw) : null;
 const countryFilter = /^all$/i.test(CONFIG.countries)
   ? []
   : CONFIG.countries.split(',').map((s) => s.trim().toUpperCase()).filter(Boolean);
+// VPN Gate 只负责它能覆盖的国家；新加坡这类它完全没有的，交给公共代理池支线。
+// 两边不能有交集，否则 SG 会白跑一趟抓取（VPN Gate 返回 0 条 SSTP）。
+const proxyCountryFilter = countryFilter.length
+  ? CONFIG.proxyCountries.filter((c) => countryFilter.includes(c))
+  : CONFIG.proxyCountries;
+const vpnCountryFilter = countryFilter.filter((c) => !proxyCountryFilter.includes(c));
 const edgeHosts = CONFIG.edgeHosts.length ? CONFIG.edgeHosts : EDGE_HOSTS;
 
 const t0 = Date.now();
@@ -78,14 +91,21 @@ async function main() {
   log('===== ip-auto 节点流水线启动 =====');
   log(`代理: ${proxy ? `${proxy.host}:${proxy.port}` : '直连(不推荐)'} | 国家: ${countryFilter.join(',') || '全部'} | 上限: ${CONFIG.maxNodes} | 并发: ${CONFIG.concurrency}`);
 
-  // 1) 抓取
-  const { rows, source } = await fetchVpngate({ proxy, log: (m) => log('[source]', m) });
-  log(`原始节点 ${rows.length} 条（来源 ${source}）`);
+  // 1) 抓取（VPN Gate 支线；如果本次国家全由代理池负责，就跳过抓取）
+  let rows = [];
+  let source = 'none';
+  if (vpnCountryFilter.length || !proxyCountryFilter.length) {
+    const r = await fetchVpngate({ proxy, log: (m) => log('[source]', m) });
+    rows = r.rows;
+    source = r.source;
+    log(`原始节点 ${rows.length} 条（来源 ${source}）`);
+  } else {
+    log('本次国家全部由公共代理池负责，跳过 VPN Gate 抓取');
+  }
 
   // 2) 解析 SSTP
-  const { nodes, stats } = toSstpNodes(rows, { countries: countryFilter });
+  const { nodes, stats } = toSstpNodes(rows, { countries: vpnCountryFilter });
   log(`SSTP(TCP) 节点 ${nodes.length} 条；跳过 非TCP ${stats.notTcp} / 国家过滤 ${stats.filtered} / 无配置 ${stats.noConfig}`);
-  if (!nodes.length) throw new Error('没有解析出任何 SSTP 节点');
 
   // 3) 去重 + 排序 + 截断
   // 排序规则：先用 hostname 启发式把「疑似家宽」(vpnNNNNNNNN) 排到前面，
@@ -116,8 +136,7 @@ async function main() {
   const probeMs = Date.now() - probeStart;
 
   const succeeded = results.filter((r) => r && r.ok);
-  log(`探测完成：成功 ${succeeded.length} / ${results.length}，耗时 ${(probeMs / 1000).toFixed(1)}s`);
-  if (!succeeded.length) throw new Error('全部节点探测失败（检查代理、网络或 VPN Gate 可用性）');
+  log(`SSTP 探测完成：成功 ${succeeded.length} / ${results.length}，耗时 ${(probeMs / 1000).toFixed(1)}s`);
 
   // 5) 出口 IP 归属
   const exitIps = succeeded.map((r) => r.exitIp).filter(Boolean);
@@ -127,16 +146,37 @@ async function main() {
   }
 
   const resiCount = succeeded.filter((r) => r.exit.residential === 'residential').length;
-  log(`出口归属：住宅 ${resiCount} / 机房 ${succeeded.filter((r) => r.exit.residential === 'datacenter').length} / 未知 ${succeeded.filter((r) => r.exit.residential === 'unknown').length}`);
+  log(`SSTP 出口归属：住宅 ${resiCount} / 机房 ${succeeded.filter((r) => r.exit.residential === 'datacenter').length} / 未知 ${succeeded.filter((r) => r.exit.residential === 'unknown').length}`);
+
+  // 5.5) 公共代理池支线（新加坡这类 VPN Gate 没有的国家）
+  let proxyNodes = [];
+  let proxyStats = null;
+  if (proxyCountryFilter.length) {
+    const pr = await collectProxyNodes(proxyCountryFilter, {
+      proxy,
+      concurrency: 24,
+      timeoutMs: 12000,
+      maxPerCountry: CONFIG.proxyMax,
+      log,
+    });
+    proxyNodes = pr.nodes;
+    proxyStats = pr.stats;
+    results.push(...pr.failed.map((f) => ({ ...f, ok: false })));
+    log(`公共代理池：候选 ${pr.stats.candidates} / 探测 ${pr.stats.checked} / 存活 ${pr.stats.alive} / 出口匹配 ${pr.stats.matched} → 采用 ${proxyNodes.length}`);
+  }
+
+  if (!succeeded.length && !proxyNodes.length) {
+    throw new Error('全部节点探测失败（检查代理、网络或数据源可用性）');
+  }
 
   // 6) 生成数据
   const generatedAt = new Date();
-  const available = succeeded
-    .map((r) => ({
+  const available = [
+    ...succeeded.map((r) => ({
       host: r.host,
       port: r.port,
       protocol: 'sstp',
-      link: `sstp://vpn:vpn@${r.host}:${r.port}`,
+      link: nodeLink({ host: r.host, port: r.port, protocol: 'sstp' }),
       country: r.exit.country || null,
       country_code: r.exit.country_code || null,
       city: r.exit.city || null,
@@ -148,8 +188,9 @@ async function main() {
       residential: r.exit.residential,
       latency_ms: r.responseTime,
       checked_at: generatedAt.toISOString(),
-    }))
-    .sort((a, b) => (a.latency_ms || 1e9) - (b.latency_ms || 1e9));
+    })),
+    ...proxyNodes.map((n) => ({ ...n, link: nodeLink(n) })),
+  ].sort((a, b) => (a.latency_ms || 1e9) - (b.latency_ms || 1e9));
 
   const countries = {};
   for (const n of available) {
@@ -184,6 +225,9 @@ async function main() {
       residential: available.filter((n) => n.residential === 'residential').length,
       datacenter: available.filter((n) => n.residential === 'datacenter').length,
       countries: Object.keys(countries).length,
+      proxy_candidates: proxyStats?.candidates ?? 0,
+      proxy_alive: proxyStats?.alive ?? 0,
+      proxy_matched: proxyStats?.matched ?? 0,
     },
     countries,
     available,
@@ -233,7 +277,7 @@ async function main() {
 /** 纯 sstp:// 列表（给只认协议链接的客户端/调试用） */
 function buildSimpleSubscription(available) {
   return available
-    .map((n) => `#${n.country_code || '??'}-${n.residential === 'residential' ? '住宅' : '机房'}-${n.exit_ip || ''}\nsstp://vpn:vpn@${n.host}:${n.port}`)
+    .map((n) => `#${n.country_code || '??'}-${n.residential === 'residential' ? '住宅' : '机房'}-${n.exit_ip || ''}\n${nodeLink(n)}`)
     .join('\n') + '\n';
 }
 

@@ -101,6 +101,31 @@ export const COUNTRY_ZH = {
  *   `$sstp://...` 是链式代理后缀，前半段是 Cloudflare 优选入口。
  * 住宅节点排在机房节点之前，方便客户端优先挑纯净住宅 IP。
  */
+/**
+ * 一条节点对应的「真实代理」链接，直接喂给 edgetunnel 的链式代理。
+ *
+ * 为什么需要按协议区分：VPN Gate 只能给 SSTP（`sstp://vpn:vpn@host:port`），
+ * 而新加坡这类 VPN Gate 根本没有的国家，只能从公共代理池里捞 socks5 / http，
+ * 它们的写法完全不同，认证信息也常常为空。edgetunnel 侧
+ * `_worker.js:427` 的正则是 `\$(socks5|http|https|turn|sstp)://...`，
+ * 所以 `$` 后面直接跟协议名即可，用户名密码有则带上、无则省略。
+ */
+export function nodeLink(n) {
+  const proto = String(n?.protocol || n?.proto || 'sstp').toLowerCase();
+  const host = n?.host;
+  const port = n?.port;
+  if (!host || !port) return '';
+  if (proto === 'sstp') return `sstp://vpn:vpn@${host}:${port}`;
+  const auth = n.user && n.pass ? `${encodeURIComponent(n.user)}:${encodeURIComponent(n.pass)}@` : '';
+  return `${proto}://${auth}${host}:${port}`;
+}
+
+/** 节点的协议短标签，用于页面按钮文案 */
+export function protoLabel(n) {
+  const proto = String(n?.protocol || n?.proto || 'sstp').toLowerCase();
+  return { sstp: 'SSTP', socks5: 'SOCKS5', http: 'HTTP', https: 'HTTPS', turn: 'TURN' }[proto] || proto.toUpperCase();
+}
+
 export function buildNodesText(data, edgeHosts = EDGE_HOSTS) {
   const edge = (edgeHosts && edgeHosts.length ? edgeHosts : EDGE_HOSTS).filter(Boolean);
   const groups = Object.values(data.countries || {});
@@ -125,13 +150,13 @@ export function buildNodesText(data, edgeHosts = EDGE_HOSTS) {
     for (const n of resi) {
       i++;
       const entry = edge[idx++ % edge.length];
-      lines.push(`${entry}#${zh}-住宅-${String(i).padStart(2, '0')}$sstp://vpn:vpn@${n.host}:${n.port}`);
+      lines.push(`${entry}#${zh}-住宅-${String(i).padStart(2, '0')}$${nodeLink(n)}`);
     }
     i = 0;
     for (const n of dc) {
       i++;
       const entry = edge[idx++ % edge.length];
-      lines.push(`${entry}#${zh}-机房-${String(i).padStart(2, '0')}$sstp://vpn:vpn@${n.host}:${n.port}`);
+      lines.push(`${entry}#${zh}-机房-${String(i).padStart(2, '0')}$${nodeLink(n)}`);
     }
   }
   return lines.length ? `${lines.join('\n')}\n` : '';

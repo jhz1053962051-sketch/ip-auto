@@ -15,7 +15,7 @@
  * 生成结果已与线上 `/sub` 逐条比对，字符串完全一致（见 README「订阅地址」一节）。
  */
 import crypto from 'node:crypto';
-import { COUNTRY_ZH, EDGE_HOSTS } from './edges.mjs';
+import { COUNTRY_ZH, EDGE_HOSTS, nodeLink } from './edges.mjs';
 
 const md5 = (s) => crypto.createHash('md5').update(s, 'utf8').digest('hex');
 
@@ -69,13 +69,21 @@ export function buildVlessNodes(data, { host, uuid, edgeHosts = EDGE_HOSTS }) {
         i++;
         const entry = edge[idx++ % edge.length];
         const name = `${zh}-${kind}-${String(i).padStart(2, '0')}`;
-        const payload = JSON.stringify({
-          type: 'sstp',
-          username: 'vpn',
-          password: 'vpn',
-          hostname: n.host,
-          port: n.port,
-        });
+        // 链式代理的 payload：协议不同，字段也不同。
+        // sstp 用固定的 vpn/vpn（VPN Gate 的约定）；socks5/http 有认证才带用户名密码，
+        // 否则只给 hostname/port —— edgetunnel 的 `获取SOCKS5账号` 两种都认。
+        const proto = String(n.protocol || n.proto || 'sstp').toLowerCase();
+        const payloadObj = { type: proto };
+        if (proto === 'sstp') {
+          payloadObj.username = 'vpn';
+          payloadObj.password = 'vpn';
+        } else if (n.user && n.pass) {
+          payloadObj.username = n.user;
+          payloadObj.password = n.pass;
+        }
+        payloadObj.hostname = n.host;
+        payloadObj.port = n.port;
+        const payload = JSON.stringify(payloadObj);
         const path = `/video/${xorB64(payload, uuid)}`;
         const qs = [
           'security=tls',
@@ -97,7 +105,8 @@ export function buildVlessNodes(data, { host, uuid, edgeHosts = EDGE_HOSTS }) {
           latency_ms: n.latency_ms,
           residential: n.residential === 'residential',
           vless: `vless://${uuid}@${entry.replace(':443', '')}:443?${qs}#${encodeURIComponent(name)}`,
-          sstp: `sstp://vpn:vpn@${n.host}:${n.port}`,
+          protocol: proto,
+          sstp: nodeLink(n),
         });
       }
     }

@@ -158,27 +158,47 @@ export function parseMirror(json) {
  * @param {{proxy?:object, timeoutMs?:number, log?:(s:string)=>void}} opt
  */
 export async function fetchVpngate(opt = {}) {
-  const { proxy = null, timeoutMs = 45000, log = () => {} } = opt;
+  const {
+    proxy = null,
+    timeoutMs = 45000,
+    log = () => {},
+    // 少于这个行数就当作「响应被截断」重试。
+    // VPN Gate 主站在链路上经常提前断流（curl: end of response with N bytes missing），
+    // 半截 CSV 只解析出个位数行，不重试就会把整轮结果做废。
+    minRows = 20,
+    retries = 3,
+    retryDelayMs = 2500,
+  } = opt;
   const attempts = [
     { name: 'vpngate-https', url: VPNGATE_API_TLS, kind: 'csv' },
     { name: 'vpngate-http', url: VPNGATE_API, kind: 'csv' },
     { name: 'mirror-json', url: VPNGATE_MIRROR, kind: 'json' },
   ];
   const errors = [];
+  let best = null; // 兜底：所有源都拿不到完整数据时，用行数最多的那份
   for (const a of attempts) {
-    try {
-      log(`尝试数据源 ${a.name}: ${a.url}`);
-      const r = await httpRequest(a.url, { proxy, timeoutMs });
-      if (r.status !== 200) throw new Error(`HTTP ${r.status}`);
-      const rows = a.kind === 'csv' ? parseCsv(r.body) : parseMirror(JSON.parse(r.body));
-      if (!rows.length) throw new Error('解析结果为空');
-      log(`数据源 ${a.name} 成功，共 ${rows.length} 行`);
-      return { rows, source: a.name, url: a.url };
-    } catch (e) {
-      const msg = e?.message || String(e);
-      log(`数据源 ${a.name} 失败: ${msg}`);
-      errors.push(`${a.name}: ${msg}`);
+    for (let k = 0; k < retries; k++) {
+      try {
+        log(`尝试数据源 ${a.name}${k ? ` (第 ${k + 1} 次)` : ''}: ${a.url}`);
+        const r = await httpRequest(a.url, { proxy, timeoutMs });
+        if (r.status !== 200) throw new Error(`HTTP ${r.status}`);
+        const rows = a.kind === 'csv' ? parseCsv(r.body) : parseMirror(JSON.parse(r.body));
+        if (!rows.length) throw new Error('解析结果为空');
+        if (!best || rows.length > best.rows.length) best = { rows, source: a.name, url: a.url };
+        if (rows.length < minRows) throw new Error(`只有 ${rows.length} 行，疑似响应被截断`);
+        log(`数据源 ${a.name} 成功，共 ${rows.length} 行`);
+        return { rows, source: a.name, url: a.url };
+      } catch (e) {
+        const msg = e?.message || String(e);
+        log(`数据源 ${a.name} 第 ${k + 1} 次失败: ${msg}`);
+        if (k === retries - 1) errors.push(`${a.name}: ${msg}`);
+        else await new Promise((res) => setTimeout(res, retryDelayMs));
+      }
     }
+  }
+  if (best && best.rows.length) {
+    log(`全部数据源都不完整，回退到行数最多的一份：${best.source} ${best.rows.length} 行`);
+    return best;
   }
   throw new Error(`全部数据源失败 → ${errors.join(' | ')}`);
 }
