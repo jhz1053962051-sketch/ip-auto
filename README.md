@@ -86,6 +86,26 @@ $ node test/sub-e2e.mjs --sub logs/sub-kr.txt --count 5
 
 ip-api 复核这些出口全部 `hosting:false`、`proxy:false`，反向解析是家宽 PTR（如 `p1897019-ipxg06701aobadori.miyagi.ocn.ne.jp`）。
 
+**加新加坡之后（2026-11-05T09:33Z 那轮，GitHub Actions 实跑）**
+
+```
+$ node scripts/summary.mjs
+原始 97 条 → SSTP 76 条 → 检测 280 条
+成功 66（住宅 62 / 机房 4），失败 214
+国家分布：日本 41 个（住宅 41） / 韩国 21 个（住宅 21） / 新加坡 4 个（住宅 0）
+```
+
+新加坡 4 个节点逐个过 Xray 真出网（入口不同、出口不同，全部 `loc=SG`）：
+
+| 节点 | 入口 | 出口 IP | 组织 |
+|---|---|---|---|
+| 新加坡-机房-01 | `www.carousell.sg:443` | `43.156.137.7` | Tencent Cloud |
+| 新加坡-机房-02 | `op.chinwa.eu.cc:443` | `20.44.210.140` | Microsoft Azure (southeastasia) |
+| 新加坡-机房-03 | `www.dbs.com.sg:443` | `8.219.64.236` | Alibaba.com Singapore |
+| 新加坡-机房-04 | `www.mfyx.cn:443` | `47.84.179.9` | Zenlayer |
+
+回归验证日韩没被影响：`日本-住宅-01 → 126.71.98.195 loc=JP`、`韩国-住宅-01 → 121.162.237.104 loc=KR`。
+
 **Cloudflare Worker 代码在部署前就被证明可用**（Node 里用 `cloudflare:sockets` 替身真跑）
 
 ```
