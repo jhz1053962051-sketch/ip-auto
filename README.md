@@ -54,7 +54,7 @@ VPN Gate 不给新加坡，只能从公开代理池捞。实测结果（`node sr
 
 ### 延迟：先说结论，再说之前为什么量错了
 
-**真实延迟 195~900ms，中位约 400ms。** 每一个节点都能用（55/55 可测，无一 FAIL）。
+**真实延迟 200~900ms，中位约 430ms。** 最近一轮本机全量 59 个节点，59/59 全部可测、无一 FAIL，`real_ms` 落在 371~1431ms，中位 431ms（不同批次会浮动几十毫秒，节点池每天换）。
 这不是「优化」出来的，是**把量错的尺子换掉之后才看见的** —— 之前那句「住宅节点 2.2~3.0s 是结构性地板」是测量 bug 造出来的假结论。
 
 #### 三个「延迟」数字，含义完全不同
@@ -63,7 +63,7 @@ VPN Gate 不给新加坡，只能从公开代理池捞。实测结果（`node sr
 |---|---|---|---|
 | `latency_ms` | 建链总耗时：DoH 解析 + SSTP TLS 握手 + PPP(LCP/PAP/IPCP) 协商 + 隧道内 TCP 握手 + HTTP 往返 | 1.9~10s | ❌ 完全不能 |
 | `worker_ms` | Worker 到节点那一段（`/admin/check` 返回），**不含「浏览器 → CF colo」** | 200~6000ms | ⚠️ 偏乐观约 1.2s，只能粗排 |
-| `real_ms` | 真客户端全链路 TTFB：浏览器 → CF colo → Worker → 节点 → 目标站 | **195~900ms** | ✅ 唯一代表体感，排序主键 |
+| `real_ms` | 真客户端全链路 TTFB：浏览器 → CF colo → Worker → 节点 → 目标站 | **371~1431ms（中位 431ms）** | ✅ 唯一代表体感，排序主键 |
 
 三者相关性极低。实测反例：`worker_ms` 5456ms 的节点 `real_ms` 只有 382ms；本地探测最快（294ms）的新加坡节点在 Worker 视角是 16680ms。
 
@@ -71,7 +71,7 @@ VPN Gate 不给新加坡，只能从公开代理池捞。实测结果（`node sr
 
 `scripts/measure-real.mjs` 原来把 N 个 vless outbound 塞进**同一个 Xray 进程**（各自 socks inbound + `routing.rules` 按 `inboundTag` 分流），而它们**共用同一个 UUID** —— 出站互相踢连接。症状是头几个节点直接 FAIL、后面的数字乱跳（同一节点既可能 1411ms 也可能 17751ms）。再加上 `curl` 没加 `--noproxy '*'`，请求还先绕了一圈系统代理 7897。
 
-改成**每节点独立 spawn 一个 Xray 进程**（测完 `child.kill()`）+ `--noproxy '*'` 之后，55 个节点一次全测通，数字立刻收敛到 195~900ms。独立验证：另起 `scripts/make-xray-node.mjs` 逐个单进程复测前 6 个节点，`ttfb 0.397 / 0.381 / 0.378 / 0.386 / 0.446 / 0.488 s`，与 measure-real 一致。
+改成**每节点独立 spawn 一个 Xray 进程**（测完 `child.kill()`）+ `--noproxy '*'` 之后，节点一次全测通，数字立刻收敛到 370~900ms（早期另一轮池子里出现过 195ms 的节点）。独立验证：用 `scripts/make-xray-node.mjs` 逐个单进程复测前 5 个节点，`ttfb 0.482 / 0.391 / 0.382 / 0.604 / 0.414 s`，与 `real_ms`（371/375/378/380/383）同量级，偏差来自 Xray 冷启动抖动。
 
 #### 现在做的事
 
@@ -92,7 +92,7 @@ VPN Gate 不给新加坡，只能从公开代理池捞。实测结果（`node sr
 | 同时起多个 vless outbound 指向同一 UUID | 除第一个外全部超时（Worker 侧互踢），A/B 与实测**必须**每节点独立进程 |
 | `pages.dev` 经本地代理 7897 访问 | `schannel: failed to receive handshake`；必须直连，且要把 SNI 钉到已知 HKG IP（`src/http.mjs` 的 `connectIp`） |
 
-**结论**：走 Worker 的节点**不是** 2.5s 地板，实测中位 400ms、最好 195ms。真正还能再省的是那 600~700ms 的 Cloudflare 跳转，办法就是下面的直连支线。
+**结论**：走 Worker 的节点**不是** 2.5s 地板，实测中位 430ms、最好 370ms 上下。真正还能再省的是那 600~700ms 的 Cloudflare 跳转，办法就是下面的直连支线。
 
 ### 直连支线：同一条链上唯一能真正省时间的一段
 
