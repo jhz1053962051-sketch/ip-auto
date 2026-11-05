@@ -1,0 +1,21 @@
+# 依赖与产物
+node_modules/
+logs/*.out
+logs/run-*.json
+logs/round-*.log
+logs/schedule.lock
+logs/*.log
+
+# 上游参考源码（只用于本地比对，不进仓库）
+_src/
+
+# 本地测试中间产物
+test/.worker-under-test.mjs
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 部署凭据（绝不要提交）
+.env
+*.token

@@ -1,0 +1,17 @@
+{
+  "name": "ip-auto",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "VPN Gate SSTP 住宅 IP 节点自动采集 / 检测 / 订阅生成（本地 + Cloudflare + GitHub Actions）",
+  "scripts": {
+    "run": "node src/run.mjs",
+    "probe": "node src/probe.mjs",
+    "worker": "node scripts/local-worker.mjs",
+    "watch": "node scripts/schedule.mjs",
+    "serve": "node scripts/serve.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

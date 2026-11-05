@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>住宅 IP 节点订阅 · ip-auto</title>
+<style>
+  :root{
+    --bg:#0b0f17; --panel:#121a26; --panel2:#0f1621; --line:#22303f;
+    --text:#e6edf6; --dim:#8b9bb0; --acc:#4dd4ac; --acc2:#5b9cff; --warn:#ffb84d; --err:#ff6b6b;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:radial-gradient(1200px 600px at 20% -10%,#16283c 0%,var(--bg) 55%);color:var(--text);
+       font:14px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}
+  .wrap{max-width:1180px;margin:0 auto;padding:32px 20px 80px}
+  h1{font-size:26px;margin:0 0 6px;letter-spacing:.5px}
+  .sub{color:var(--dim);font-size:13px;margin-bottom:24px}
+  .sub .k{color:var(--acc)}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:26px}
+  .stat{background:linear-gradient(180deg,var(--panel) 0%,var(--panel2) 100%);border:1px solid var(--line);
+        border-radius:14px;padding:14px 16px}
+  .stat b{display:block;font-size:24px;letter-spacing:.5px}
+  .stat span{color:var(--dim);font-size:12px}
+  .stat.ok b{color:var(--acc)} .stat.r b{color:var(--acc2)} .stat.d b{color:var(--warn)}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;margin-bottom:18px;overflow:hidden}
+  .card header{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;
+               padding:16px 18px;border-bottom:1px solid var(--line);background:var(--panel2)}
+  .card h2{margin:0;font-size:17px}
+  .card h2 .code{color:var(--dim);font-size:12px;font-weight:400;margin-left:6px}
+  .pills{display:flex;gap:8px;flex-wrap:wrap}
+  .pill{font-size:12px;padding:3px 10px;border-radius:999px;border:1px solid var(--line);color:var(--dim)}
+  .pill.resi{color:var(--acc);border-color:#1d4b3e} .pill.dc{color:var(--warn);border-color:#4b3d1d}
+  table{width:100%;border-collapse:collapse}
+  th,td{padding:10px 18px;text-align:left;border-bottom:1px solid #1a2432;font-size:13px;white-space:nowrap}
+  th{color:var(--dim);font-weight:500;font-size:12px;text-transform:uppercase;letter-spacing:.6px}
+  tbody tr:hover{background:#16202d}
+  tbody tr:last-child td{border-bottom:none}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  .dim{color:var(--dim)}
+  .badge{font-size:11px;padding:2px 8px;border-radius:999px}
+  .badge.resi{background:rgba(77,212,172,.13);color:var(--acc);border:1px solid rgba(77,212,172,.35)}
+  .badge.dc{background:rgba(255,184,77,.12);color:var(--warn);border:1px solid rgba(255,184,77,.35)}
+  .copy{cursor:pointer;font-size:12px;color:var(--acc2);border:1px solid #23384f;border-radius:8px;padding:2px 9px}
+  .copy:hover{background:#16263a}
+  details{margin-top:8px}
+  summary{cursor:pointer;color:var(--dim);font-size:13px}
+  footer{margin-top:34px;color:var(--dim);font-size:12px;line-height:1.9}
+  code{font-family:ui-monospace,Menlo,Consolas,monospace;background:#0d1520;padding:1px 6px;border-radius:6px;color:#9fd7ff}
+  ul.plays{margin:10px 0 0;padding-left:20px;display:grid;gap:4px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>住宅 IP 节点订阅</h1>
+  <div class="sub">
+    生成时间 <span class="k">2026-11-05T06:36:47.047Z</span> ·
+    数据源 <span class="k">vpngate-https</span> ·
+    代理 <span class="k">本机</span>
+  </div>
+
+  <div class="stats">
+    <div class="stat ok"><b>20</b><span>可用节点</span></div>
+    <div class="stat r"><b>20</b><span>住宅出口</span></div>
+    <div class="stat d"><b>0</b><span>机房出口</span></div>
+    <div class="stat"><b>2</b><span>国家/地区</span></div>
+    <div class="stat"><b>4</b><span>探测失败</span></div>
+    <div class="stat"><b>15s</b><span>探测耗时</span></div>
+  </div>
+
+  <section class="card">
+        <header>
+          <h2>日本 <span class="code">JP</span></h2>
+          <div class="pills">
+            <span class="pill">10 节点</span>
+            <span class="pill resi">住宅 10</span>
+            <span class="pill dc">机房 0</span>
+          </div>
+        </header>
+        <table>
+          <thead><tr><th>入口</th><th>类型</th><th>出口 IP</th><th>ASN / 组织</th><th>延迟</th><th></th></tr></thead>
+          <tbody><tr>
+            <td class="mono">vpn492686662.opengw.net:1591</td>
+            <td><span class="badge resi">住宅</span></td>
+            <td class="mono">183.86.164.36</td>
+            <td class="mono dim">TOKAI</td>
+            <td class="mono">1887 ms</td>
+            <td><code class="copy" data-copy="sstp://vpn:vpn@vpn492686662.opengw.net:1591">复制</code></td>
+          </tr><tr>
+            <td class="mono">vpn825186256.opengw.net:1352</td>
+            <td><span class="badge resi">住宅</span></td>
+            <td class="mono">14.101.10.239</td>
+            <td class="mono dim">KDDI</td>
+            <td class="mono">1980 ms</td>
+            <td><code class="copy" data-copy="sstp://vpn:vpn@vpn825186256.opengw.net:1352">复制</code></td>
+          </tr><tr>
+            <td class="mono">vpn836042621.opengw.net:1294</td>
+            <td><span class="badge resi">住宅</span></td>
+            <td class="mono">211.128.17.88</td>
+            <td class="mono dim">STARCAT CABLE NETWORK Co ., LTD.</td>
+            <td class="mono">2034 ms</td>
+            <td><code class="copy" data-copy="sstp://vpn:vpn@vpn836042621.opengw.net:1294">复制</code></td>
+          </tr><tr>
+            <td class="mono">vpn582545304.opengw.net:1996</td>
+            <td><span class="badge resi">住宅</span></td>
+            <td class="mono">60.112.15.145</td>
+            <td class="mono dim">Japan Nation-wide Network of Softbank Corp.</td>
+            <td class="mono">2124 ms</td>
+            <td><code class="copy" data-copy="sstp://vpn:vpn@vpn582545304.opengw.net:1996">复制</code></td>
+          </tr><tr>
+            <td class="mono">vpn433650989.opengw.net:1903</td>
+            <td><span class="badge resi">住宅</span></td>
+            <td class="mono">114.19.166.236</td>
+            <td class="mono dim">KDDI</td>
+            <td class="mono">2238 ms</td>
+            <td><code class="copy" data-copy="sstp://vpn:vpn@vpn433650989.opengw.net:1903">复制</code></td>
+          </tr><tr>
+            <td class="mono">vpn953960224.opengw.net:1223</td>
+            <td><span class="badge resi">住宅</span></td>
+            <td class="mono">114.16.18.46</td>
+            <td class="mono dim">KDDI</td>
+            <td class="mono">2358 ms</td>
+            <td><code class="copy" data-copy="sstp://vpn:vpn@vpn953960224.opengw.net:1223">复制</code></td>
+          </tr><tr>
+            <td class="mono">vpn353329268.opengw.net:1508</td>
+            <td><span class="badge resi">住宅</span></td>
+            <td class="mono">180.19.240.86</td>
+            <td class="mono dim">Open Computer Network</td>
+            <td class="mono">2373 ms</td>
+            <td><code class="copy" data-copy="sstp://vpn:vpn@vpn353329268.opengw.net:1508">复制</code></td>
+          </tr><tr>
+            <td class="mono">vpn267143494.opengw.net:1512</td>
+            <td><span class="badge resi">住宅</span></td>
+            <td class="mono">14.132.109.178</td>
+            <td class="mono dim">Chubu Telecommunications Co., Inc.</td>
+            <td class="mono">2531 ms</td>
+            <td><code class="copy" data-copy="sstp://vpn:vpn@vpn267143494.opengw.net:1512">复制</code></td>
+          </tr><tr>
+            <td class="mono">vpn132141539.opengw.net:1339</td>
+            <td><span class="badge resi">住宅</span></td>
+            <td class="mono">220.217.200.42</td>
+            <td class="mono dim">KDDI</td>
+            <td class="mono">3141 ms</td>
+            <td><code class="copy" data-copy="sstp://vpn:vpn@vpn132141539.opengw.net:1339">复制</code></td>
+          </tr><tr>
+            <td class="mono">vpn495179031.opengw.net:1426</td>
+            <td><span class="badge resi">住宅</span></td>
+            <td class="mono">119.244.114.221</td>
+            <td class="mono dim">BIGLOBE</td>
+            <td class="mono">6814 ms</td>
+            <td><code class="copy" data-copy="sstp://vpn:vpn@vpn495179031.opengw.net:1426">复制</code></td>
+          </tr></tbody>
+        </table>
+      </section><section class="card">
+        <header>
+          <h2>韩国 <span class="code">KR</span></h2>
+          <div class="pills">
+            <span class="pill">10 节点</span>
+            <span class="pill resi">住宅 10</span>
+            <span class="pill dc">机房 0</span>
+          </div>
+        </header>
+        <table>
+          <thead><tr><th>入口</th><th>类型</th><th>出口 IP</th><th>ASN / 组织</th><th>延迟</th><th></th></tr></thead>
+          <tbody><tr>
+            <td class="mono">vpn546914302.opengw.net:1338</td>
+            <td><span class="badge resi">住宅</span></td>
+            <td class="mono">27.119.130.58</td>
+            <td class="mono dim">broadNnet</td>
+            <td class="mono">1954 ms</td>
+            <td><code class="copy" data-copy="sstp://vpn:vpn@vpn546914302.opengw.net:1338">复制</code></td>
+          </tr><tr>
+            <td class="mono">vpn239647879.opengw.net:1455</td>
+            <td><span class="badge resi">住宅</span></td>
+            <td class="mono">106.244.202.130</td>
+            <td class="mono dim">Boranet</td>
+            <td class="mono">1959 ms</td>
+            <td><code class="copy" data-copy="sstp://vpn:vpn@vpn239647879.opengw.net:1455">复制</code></td>
+          </tr><tr>
+            <td class="mono">vpn157412522.opengw.net:1821</td>
+            <td><span class="badge resi">住宅</span></td>
+            <td class="mono">58.77.30.52</td>
+            <td class="mono dim">LG POWERCOMM</td>
+            <td class="mono">2154 ms</td>
+            <td><code class="copy" data-copy="sstp://vpn:vpn@vpn157412522.opengw.net:1821">复制</code></td>
+          </tr><tr>
+            <td class="mono">vpn131652721.opengw.net:995</td>
+            <td><span class="badge resi">住宅</span></td>
+            <td class="mono">222.120.20.69</td>
+            <td class="mono dim">Kornet</td>
+            <td class="mono">2199 ms</td>
+            <td><code class="copy" data-copy="sstp://vpn:vpn@vpn131652721.opengw.net:995">复制</code></td>
+          </tr><tr>
+            <td class="mono">vpn833192079.opengw.net:995</td>
+            <td><span class="badge resi">住宅</span></td>
+            <td class="mono">211.224.33.47</td>
+            <td class="mono dim">Korea Telecom</td>
+            <td class="mono">2202 ms</td>
+            <td><code class="copy" data-copy="sstp://vpn:vpn@vpn833192079.opengw.net:995">复制</code></td>
+          </tr><tr>
+            <td class="mono">vpn108955624.opengw.net:995</td>
+            <td><span class="badge resi">住宅</span></td>
+            <td class="mono">59.30.112.90</td>
+            <td class="mono dim">Korea Telecom</td>
+            <td class="mono">2283 ms</td>
+            <td><code class="copy" data-copy="sstp://vpn:vpn@vpn108955624.opengw.net:995">复制</code></td>
+          </tr><tr>
+            <td class="mono">vpn169225991.opengw.net:995</td>
+            <td><span class="badge resi">住宅</span></td>
+            <td class="mono">125.240.231.54</td>
+            <td class="mono dim">Pubnetplus</td>
+            <td class="mono">2357 ms</td>
+            <td><code class="copy" data-copy="sstp://vpn:vpn@vpn169225991.opengw.net:995">复制</code></td>
+          </tr><tr>
+            <td class="mono">vpn587535377.opengw.net:995</td>
+            <td><span class="badge resi">住宅</span></td>
+            <td class="mono">119.193.240.243</td>
+            <td class="mono dim">Korea Telecom</td>
+            <td class="mono">2397 ms</td>
+            <td><code class="copy" data-copy="sstp://vpn:vpn@vpn587535377.opengw.net:995">复制</code></td>
+          </tr><tr>
+            <td class="mono">vpn305114740.opengw.net:995</td>
+            <td><span class="badge resi">住宅</span></td>
+            <td class="mono">121.187.145.165</td>
+            <td class="mono dim">Kornet</td>
+            <td class="mono">2504 ms</td>
+            <td><code class="copy" data-copy="sstp://vpn:vpn@vpn305114740.opengw.net:995">复制</code></td>
+          </tr><tr>
+            <td class="mono">vpn574906134.opengw.net:1463</td>
+            <td><span class="badge resi">住宅</span></td>
+            <td class="mono">61.253.166.119</td>
+            <td class="mono dim">broadNnet</td>
+            <td class="mono">2834 ms</td>
+            <td><code class="copy" data-copy="sstp://vpn:vpn@vpn574906134.opengw.net:1463">复制</code></td>
+          </tr></tbody>
+        </table>
+      </section>
+
+  <details>
+    <summary>失败的节点（4）</summary>
+    <ul class="plays"><li><span class="mono">vpn584377130.opengw.net:1822</span> — <span class="dim">隧道内 TCP 握手超时</span></li><li><span class="mono">vpn705688819.opengw.net:995</span> — <span class="dim">040B0000:error:0A000119:SSL routines:tls_get_more_records:decryption failed or bad record mac:openssl\ssl\record\methods\tls_common.c:874:
+</span></li><li><span class="mono">vpn676301515.opengw.net:1594</span> — <span class="dim">Client network socket disconnected before secure TLS connection was established</span></li><li><span class="mono">vpn802843515.opengw.net:1498</span> — <span class="dim">Client network socket disconnected before secure TLS connection was established</span></li></ul>
+  </details>
+
+  <footer>
+    订阅用法：把 <code>nodes.txt</code> 的网址填进 edgetunnel 后台「自定义优选IP」框，一次配置长期自动更新。<br>
+    本页由 <code>ip-auto</code> 本地流水线生成，纯静态、无外部依赖。
+  </footer>
+</div>
+<script>
+document.addEventListener('click', function (e) {
+  var el = e.target.closest('.copy');
+  if (!el) return;
+  var text = el.getAttribute('data-copy') || '';
+  var done = function () { var old = el.textContent; el.textContent = '已复制'; setTimeout(function(){ el.textContent = old; }, 1200); };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(done, function(){ fallback(text); done(); });
+  } else { fallback(text); done(); }
+  function fallback(t) {
+    var ta = document.createElement('textarea');
+    ta.value = t; document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); } catch (err) {}
+    document.body.removeChild(ta);
+  }
+});
+</script>
+</body>
+</html>
