@@ -146,7 +146,8 @@ const FILES_TO_PUSH = [
       git(['-c', 'user.name=ip-auto', '-c', 'user.email=ip-auto@local', 'commit', '-m', 'chore: 初始化住宅节点订阅流水线']);
       log('已创建初始化提交');
     } catch (e) {
-      if (!/nothing to commit|no changes added/.test(String(e.stderr || e.message))) throw e;
+      const msg = String(e.stderr || '') + String(e.stdout || '') + String(e.message || '');
+      if (!/nothing to commit|no changes added|nothing added to commit|no changes added to commit/.test(msg)) throw e;
       log('工作区无变化，跳过提交');
     }
     const remote = `https://github.com/${OWNER}/${REPO}.git`;
