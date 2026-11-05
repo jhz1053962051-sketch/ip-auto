@@ -1,7 +1,7 @@
 {
- "generated_at": "2026-11-05T09:28:00.036Z",
- "generated_at_local": "Thu Nov 05 2026 17:28:00 GMT+0800 (中国标准时间)",
- "source": "vpngate-http",
+ "generated_at": "2026-11-05T09:33:49.984Z",
+ "generated_at_local": "Thu Nov 05 2026 09:33:49 GMT+0000 (Coordinated Universal Time)",
+ "source": "vpngate-https",
  "generator": "ip-auto/1.0 (local)",
  "config": {
   "countries": [
@@ -11,21 +11,21 @@
   ],
   "max_nodes": 80,
   "concurrency": 10,
-  "probe_ms": 27539,
-  "total_ms": 90987
+  "probe_ms": 49051,
+  "total_ms": 119095
  },
  "stats": {
-  "raw_rows": 95,
-  "sstp_nodes": 79,
-  "checked": 115,
-  "success": 23,
-  "failed": 92,
-  "residential": 21,
-  "datacenter": 2,
+  "raw_rows": 97,
+  "sstp_nodes": 76,
+  "checked": 280,
+  "success": 66,
+  "failed": 214,
+  "residential": 62,
+  "datacenter": 4,
   "countries": 3,
-  "proxy_candidates": 19,
-  "proxy_alive": 2,
-  "proxy_matched": 2
+  "proxy_candidates": 104,
+  "proxy_alive": 9,
+  "proxy_matched": 4
  },
  "countries": {
   "SG": {
@@ -33,24 +33,6 @@
    "name": "Singapore",
    "name_zh": "新加坡",
    "nodes": [
-    {
-     "host": "4.144.146.21",
-     "port": 80,
-     "protocol": "http",
-     "user": null,
-     "pass": null,
-     "country": "Singapore",
-     "country_code": "SG",
-     "city": "Singapore",
-     "org": "Microsoft Azure Cloud (southeastasia)",
-     "asn": "AS8075",
-     "isp": "Microsoft Corporation",
-     "exit_ip": "20.44.210.140",
-     "residential": "datacenter",
-     "latency_ms": 285,
-     "source": "proxy-pool",
-     "link": "http://4.144.146.21:80"
-    },
     {
      "host": "43.156.137.7",
      "port": 10809,
@@ -65,160 +47,68 @@
      "isp": "Shenzhen Tencent Computer Systems Company Limited",
      "exit_ip": "43.156.137.7",
      "residential": "datacenter",
-     "latency_ms": 5474,
+     "latency_ms": 838,
      "source": "proxy-pool",
      "link": "http://43.156.137.7:10809"
+    },
+    {
+     "host": "4.144.146.21",
+     "port": 80,
+     "protocol": "http",
+     "user": null,
+     "pass": null,
+     "country": "Singapore",
+     "country_code": "SG",
+     "city": "Singapore",
+     "org": "Microsoft Azure Cloud (southeastasia)",
+     "asn": "AS8075",
+     "isp": "Microsoft Corporation",
+     "exit_ip": "20.44.210.140",
+     "residential": "datacenter",
+     "latency_ms": 866,
+     "source": "proxy-pool",
+     "link": "http://4.144.146.21:80"
+    },
+    {
+     "host": "8.219.97.248",
+     "port": 80,
+     "protocol": "http",
+     "user": null,
+     "pass": null,
+     "country": "Singapore",
+     "country_code": "SG",
+     "city": "Singapore",
+     "org": "Alibaba.com Singapore E-Commerce Private Limited",
+     "asn": "AS45102",
+     "isp": "Alibaba (US) Technology Co., Ltd.",
+     "exit_ip": "8.219.64.236",
+     "residential": "datacenter",
+     "latency_ms": 2105,
+     "source": "proxy-pool",
+     "link": "http://8.219.97.248:80"
+    },
+    {
+     "host": "47.84.179.9",
+     "port": 3128,
+     "protocol": "http",
+     "user": null,
+     "pass": null,
+     "country": "Singapore",
+     "country_code": "SG",
+     "city": "Singapore",
+     "org": "Delta Centric LLC, Zenlayer Inc",
+     "asn": "AS45102",
+     "isp": "Alibaba.com LLC",
+     "exit_ip": "47.84.179.9",
+     "residential": "datacenter",
+     "latency_ms": 11695,
+     "source": "proxy-pool",
+     "link": "http://47.84.179.9:3128"
     }
    ],
-   "count": 2,
+   "count": 4,
    "residential": 0,
-   "datacenter": 2
-  },
-  "KR": {
-   "code": "KR",
-   "name": "South Korea",
-   "name_zh": "韩国",
-   "nodes": [
-    {
-     "host": "vpn496296722.opengw.net",
-     "port": 995,
-     "protocol": "sstp",
-     "link": "sstp://vpn:vpn@vpn496296722.opengw.net:995",
-     "country": "South Korea",
-     "country_code": "KR",
-     "city": "Jeongeup",
-     "org": "SK Broadband Co Ltd",
-     "asn": "AS9318",
-     "isp": "SK Broadband Co Ltd",
-     "exit_ip": "222.236.151.149",
-     "assigned_ip": "10.211.1.10",
-     "residential": "residential",
-     "latency_ms": 4344,
-     "checked_at": "2026-11-05T09:28:00.036Z"
-    },
-    {
-     "host": "vpn273241885.opengw.net",
-     "port": 995,
-     "protocol": "sstp",
-     "link": "sstp://vpn:vpn@vpn273241885.opengw.net:995",
-     "country": "South Korea",
-     "country_code": "KR",
-     "city": "Gangnam-gu",
-     "org": "Kornet",
-     "asn": "AS4766",
-     "isp": "Korea Telecom",
-     "exit_ip": "218.153.172.214",
-     "assigned_ip": "10.211.1.20",
-     "residential": "residential",
-     "latency_ms": 4553,
-     "checked_at": "2026-11-05T09:28:00.036Z"
-    },
-    {
-     "host": "vpn562698180.opengw.net",
-     "port": 1402,
-     "protocol": "sstp",
-     "link": "sstp://vpn:vpn@vpn562698180.opengw.net:1402",
-     "country": "South Korea",
-     "country_code": "KR",
-     "city": "Namyangju",
-     "org": "broadNnet",
-     "asn": "AS9318",
-     "isp": "SK Broadband Co Ltd",
-     "exit_ip": "1.240.213.38",
-     "assigned_ip": "10.211.1.24",
-     "residential": "residential",
-     "latency_ms": 4602,
-     "checked_at": "2026-11-05T09:28:00.036Z"
-    },
-    {
-     "host": "vpn842523171.opengw.net",
-     "port": 995,
-     "protocol": "sstp",
-     "link": "sstp://vpn:vpn@vpn842523171.opengw.net:995",
-     "country": "South Korea",
-     "country_code": "KR",
-     "city": "Seoul",
-     "org": "Korea Telecom",
-     "asn": "AS4766",
-     "isp": "Korea Telecom",
-     "exit_ip": "112.172.238.220",
-     "assigned_ip": "10.211.1.11",
-     "residential": "residential",
-     "latency_ms": 4696,
-     "checked_at": "2026-11-05T09:28:00.036Z"
-    },
-    {
-     "host": "vpn505854977.opengw.net",
-     "port": 1908,
-     "protocol": "sstp",
-     "link": "sstp://vpn:vpn@vpn505854977.opengw.net:1908",
-     "country": "South Korea",
-     "country_code": "KR",
-     "city": "Dalseong-gun",
-     "org": "KORNET",
-     "asn": "AS4766",
-     "isp": "Korea Telecom",
-     "exit_ip": "211.51.178.239",
-     "assigned_ip": "10.211.1.4",
-     "residential": "residential",
-     "latency_ms": 4759,
-     "checked_at": "2026-11-05T09:28:00.036Z"
-    },
-    {
-     "host": "vpn333824249.opengw.net",
-     "port": 995,
-     "protocol": "sstp",
-     "link": "sstp://vpn:vpn@vpn333824249.opengw.net:995",
-     "country": "South Korea",
-     "country_code": "KR",
-     "city": "Changwon",
-     "org": "Boranet",
-     "asn": "AS3786",
-     "isp": "LG DACOM Corporation",
-     "exit_ip": "106.250.211.111",
-     "assigned_ip": "10.211.1.10",
-     "residential": "residential",
-     "latency_ms": 4998,
-     "checked_at": "2026-11-05T09:28:00.036Z"
-    },
-    {
-     "host": "vpn610812005.opengw.net",
-     "port": 995,
-     "protocol": "sstp",
-     "link": "sstp://vpn:vpn@vpn610812005.opengw.net:995",
-     "country": "South Korea",
-     "country_code": "KR",
-     "city": "Goyang-si",
-     "org": "LG POWERCOMM",
-     "asn": "AS17858",
-     "isp": "LG POWERCOMM",
-     "exit_ip": "49.168.191.160",
-     "assigned_ip": "10.211.1.3",
-     "residential": "residential",
-     "latency_ms": 6874,
-     "checked_at": "2026-11-05T09:28:00.036Z"
-    },
-    {
-     "host": "vpn669851144.opengw.net",
-     "port": 995,
-     "protocol": "sstp",
-     "link": "sstp://vpn:vpn@vpn669851144.opengw.net:995",
-     "country": "South Korea",
-     "country_code": "KR",
-     "city": "Yangsan",
-     "org": "LG Hellovision Corp.",
-     "asn": "AS10066",
-     "isp": "LG HelloVision Corp.",
-     "exit_ip": "123.199.89.86",
-     "assigned_ip": "10.211.1.14",
-     "residential": "residential",
-     "latency_ms": 6992,
-     "checked_at": "2026-11-05T09:28:00.036Z"
-    }
-   ],
-   "count": 8,
-   "residential": 8,
-   "datacenter": 0
+   "datacenter": 4
   },
   "JP": {
    "code": "JP",
@@ -226,21 +116,582 @@
    "name_zh": "日本",
    "nodes": [
     {
-     "host": "vpn300897894.opengw.net",
-     "port": 1429,
+     "host": "vpn349489107.opengw.net",
+     "port": 1826,
      "protocol": "sstp",
-     "link": "sstp://vpn:vpn@vpn300897894.opengw.net:1429",
+     "link": "sstp://vpn:vpn@vpn349489107.opengw.net:1826",
      "country": "Japan",
      "country_code": "JP",
-     "city": "Toyota",
-     "org": "AITAI-NET(Himawari Network Inc.)",
-     "asn": "AS9354",
-     "isp": "AITAI",
-     "exit_ip": "221.118.138.87",
-     "assigned_ip": "10.211.1.39",
+     "city": "Minato",
+     "org": "SOFTBANK Corp",
+     "asn": "AS17676",
+     "isp": "SoftBank Corp.",
+     "exit_ip": "126.71.98.195",
+     "assigned_ip": "10.211.1.31",
      "residential": "residential",
-     "latency_ms": 4706,
-     "checked_at": "2026-11-05T09:28:00.036Z"
+     "latency_ms": 1900,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "vpn324264097.opengw.net",
+     "port": 1937,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@vpn324264097.opengw.net:1937",
+     "country": "Japan",
+     "country_code": "JP",
+     "city": "Kumamoto",
+     "org": "QTnet, Inc.",
+     "asn": "AS7679",
+     "isp": "QTnet, Inc.",
+     "exit_ip": "116.94.12.234",
+     "assigned_ip": "10.211.1.15",
+     "residential": "residential",
+     "latency_ms": 2026,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "public-vpn-139.opengw.net",
+     "port": 443,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@public-vpn-139.opengw.net:443",
+     "country": "Japan",
+     "country_code": "JP",
+     "city": "Chiyoda City",
+     "org": "SoftEther Corporation",
+     "asn": "AS36599",
+     "isp": "SoftEther",
+     "exit_ip": "219.100.37.239",
+     "assigned_ip": "10.239.133.45",
+     "residential": "residential",
+     "latency_ms": 2046,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "public-vpn-155.opengw.net",
+     "port": 443,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@public-vpn-155.opengw.net:443",
+     "country": "Japan",
+     "country_code": "JP",
+     "city": "Chiyoda City",
+     "org": "SoftEther Corporation",
+     "asn": "AS36599",
+     "isp": "SoftEther",
+     "exit_ip": "219.100.37.239",
+     "assigned_ip": "10.239.109.147",
+     "residential": "residential",
+     "latency_ms": 2065,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "public-vpn-55.opengw.net",
+     "port": 443,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@public-vpn-55.opengw.net:443",
+     "country": "Japan",
+     "country_code": "JP",
+     "city": "Chiyoda City",
+     "org": "SoftEther Corporation",
+     "asn": "AS36599",
+     "isp": "SoftEther",
+     "exit_ip": "219.100.37.234",
+     "assigned_ip": "10.234.194.131",
+     "residential": "residential",
+     "latency_ms": 2188,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "public-vpn-163.opengw.net",
+     "port": 443,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@public-vpn-163.opengw.net:443",
+     "country": "Japan",
+     "country_code": "JP",
+     "city": "Matsushige",
+     "org": "SoftEther Corporation",
+     "asn": "AS36599",
+     "isp": "SoftEther",
+     "exit_ip": "219.100.37.240",
+     "assigned_ip": "10.240.217.55",
+     "residential": "residential",
+     "latency_ms": 2246,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "public-vpn-145.opengw.net",
+     "port": 443,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@public-vpn-145.opengw.net:443",
+     "country": "Japan",
+     "country_code": "JP",
+     "city": "Matsushige",
+     "org": "SoftEther Corporation",
+     "asn": "AS36599",
+     "isp": "SoftEther",
+     "exit_ip": "219.100.37.240",
+     "assigned_ip": "10.240.217.74",
+     "residential": "residential",
+     "latency_ms": 2280,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "public-vpn-161.opengw.net",
+     "port": 443,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@public-vpn-161.opengw.net:443",
+     "country": "Japan",
+     "country_code": "JP",
+     "city": "Matsushige",
+     "org": "SoftEther Corporation",
+     "asn": "AS36599",
+     "isp": "SoftEther",
+     "exit_ip": "219.100.37.240",
+     "assigned_ip": "10.240.217.34",
+     "residential": "residential",
+     "latency_ms": 2294,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "public-vpn-90.opengw.net",
+     "port": 443,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@public-vpn-90.opengw.net:443",
+     "country": "Japan",
+     "country_code": "JP",
+     "city": "Chiyoda City",
+     "org": "SoftEther Corporation",
+     "asn": "AS36599",
+     "isp": "SoftEther",
+     "exit_ip": "219.100.37.236",
+     "assigned_ip": "10.236.5.135",
+     "residential": "residential",
+     "latency_ms": 2316,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "public-vpn-131.opengw.net",
+     "port": 443,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@public-vpn-131.opengw.net:443",
+     "country": "Japan",
+     "country_code": "JP",
+     "city": "Chiyoda City",
+     "org": "SoftEther Corporation",
+     "asn": "AS36599",
+     "isp": "SoftEther",
+     "exit_ip": "219.100.37.236",
+     "assigned_ip": "10.236.5.168",
+     "residential": "residential",
+     "latency_ms": 2317,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "vpn133692637.opengw.net",
+     "port": 1451,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@vpn133692637.opengw.net:1451",
+     "country": "Japan",
+     "country_code": "JP",
+     "city": "Ōi",
+     "org": "Japan Network Information Center",
+     "asn": "AS2527",
+     "isp": "Sony Network Communications Inc.",
+     "exit_ip": "219.104.35.195",
+     "assigned_ip": "10.211.1.1",
+     "residential": "residential",
+     "latency_ms": 2318,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "public-vpn-146.opengw.net",
+     "port": 443,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@public-vpn-146.opengw.net:443",
+     "country": "Japan",
+     "country_code": "JP",
+     "city": "Chiyoda City",
+     "org": "SoftEther Corporation",
+     "asn": "AS36599",
+     "isp": "SoftEther",
+     "exit_ip": "219.100.37.238",
+     "assigned_ip": "10.238.8.228",
+     "residential": "residential",
+     "latency_ms": 2326,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "vpn949832711.opengw.net",
+     "port": 1631,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@vpn949832711.opengw.net:1631",
+     "country": "Japan",
+     "country_code": "JP",
+     "city": "Tokyo",
+     "org": "KDDI",
+     "asn": "AS2516",
+     "isp": "Kddi Corporation",
+     "exit_ip": "106.179.46.146",
+     "assigned_ip": "10.211.1.74",
+     "residential": "residential",
+     "latency_ms": 2327,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "vpn329987705.opengw.net",
+     "port": 1483,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@vpn329987705.opengw.net:1483",
+     "country": "Japan",
+     "country_code": "JP",
+     "city": "Minamisumiyoshi",
+     "org": "Sony Network Communications Inc.",
+     "asn": "AS2527",
+     "isp": "Sony Network Communications Inc",
+     "exit_ip": "120.74.54.109",
+     "assigned_ip": "10.211.1.11",
+     "residential": "residential",
+     "latency_ms": 2334,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "vpn182621256.opengw.net",
+     "port": 1517,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@vpn182621256.opengw.net:1517",
+     "country": "Japan",
+     "country_code": "JP",
+     "city": "Matsudo",
+     "org": "SO-Net Service",
+     "asn": "AS2527",
+     "isp": "Japan Network Information Center",
+     "exit_ip": "210.174.52.249",
+     "assigned_ip": "10.211.1.7",
+     "residential": "residential",
+     "latency_ms": 2346,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "vpn273687459.opengw.net",
+     "port": 1510,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@vpn273687459.opengw.net:1510",
+     "country": "Japan",
+     "country_code": "JP",
+     "city": "Yaizu",
+     "org": "TOKAI",
+     "asn": "AS10010",
+     "isp": "TOKAI Communications Corporation",
+     "exit_ip": "42.127.190.184",
+     "assigned_ip": "10.211.1.24",
+     "residential": "residential",
+     "latency_ms": 2356,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "public-vpn-72.opengw.net",
+     "port": 443,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@public-vpn-72.opengw.net:443",
+     "country": "Japan",
+     "country_code": "JP",
+     "city": "Chiyoda City",
+     "org": "SoftEther Corporation",
+     "asn": "AS36599",
+     "isp": "SoftEther",
+     "exit_ip": "219.100.37.234",
+     "assigned_ip": "10.234.194.112",
+     "residential": "residential",
+     "latency_ms": 2435,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "vpn645484140.opengw.net",
+     "port": 1229,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@vpn645484140.opengw.net:1229",
+     "country": "Japan",
+     "country_code": "JP",
+     "city": "Chiyoda City",
+     "org": "InfoSphere",
+     "asn": "AS2514",
+     "isp": "NTT PC Communications, Inc.",
+     "exit_ip": "111.89.220.76",
+     "assigned_ip": "10.211.1.10",
+     "residential": "residential",
+     "latency_ms": 2437,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "public-vpn-78.opengw.net",
+     "port": 443,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@public-vpn-78.opengw.net:443",
+     "country": "Japan",
+     "country_code": "JP",
+     "city": "Chiyoda City",
+     "org": "SoftEther Corporation",
+     "asn": "AS36599",
+     "isp": "SoftEther",
+     "exit_ip": "219.100.37.236",
+     "assigned_ip": "10.236.5.195",
+     "residential": "residential",
+     "latency_ms": 2456,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "vpn634109661.opengw.net",
+     "port": 1284,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@vpn634109661.opengw.net:1284",
+     "country": "Japan",
+     "country_code": "JP",
+     "city": "Minato",
+     "org": "SOFTBANK Corp",
+     "asn": "AS17676",
+     "isp": "SoftBank Corp.",
+     "exit_ip": "126.218.26.174",
+     "assigned_ip": "10.211.1.1",
+     "residential": "residential",
+     "latency_ms": 2464,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "vpn332082897.opengw.net",
+     "port": 1726,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@vpn332082897.opengw.net:1726",
+     "country": "Japan",
+     "country_code": "JP",
+     "city": "Minato",
+     "org": "SOFTBANK Corp",
+     "asn": "AS17676",
+     "isp": "SoftBank Corp.",
+     "exit_ip": "221.44.201.239",
+     "assigned_ip": "10.211.1.46",
+     "residential": "residential",
+     "latency_ms": 2489,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "vpn686472682.opengw.net",
+     "port": 1490,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@vpn686472682.opengw.net:1490",
+     "country": "Japan",
+     "country_code": "JP",
+     "city": "Fujisawa",
+     "org": "JCOM Co., Ltd",
+     "asn": "AS9824",
+     "isp": "JCOM Co., Ltd.",
+     "exit_ip": "110.132.228.211",
+     "assigned_ip": "10.211.1.19",
+     "residential": "residential",
+     "latency_ms": 2496,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "vpn706828378.opengw.net",
+     "port": 1468,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@vpn706828378.opengw.net:1468",
+     "country": "Japan",
+     "country_code": "JP",
+     "city": "Sugita",
+     "org": "KDDI",
+     "asn": "AS2516",
+     "isp": "Kddi Corporation",
+     "exit_ip": "106.161.41.4",
+     "assigned_ip": "10.211.1.7",
+     "residential": "residential",
+     "latency_ms": 2500,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "public-vpn-40.opengw.net",
+     "port": 443,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@public-vpn-40.opengw.net:443",
+     "country": "Japan",
+     "country_code": "JP",
+     "city": "Chiyoda City",
+     "org": "SoftEther Corporation",
+     "asn": "AS36599",
+     "isp": "SoftEther",
+     "exit_ip": "219.100.37.233",
+     "assigned_ip": "10.233.7.64",
+     "residential": "residential",
+     "latency_ms": 2520,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "vpn789702980.opengw.net",
+     "port": 1539,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@vpn789702980.opengw.net:1539",
+     "country": "Japan",
+     "country_code": "JP",
+     "city": "Naha",
+     "org": "KDDI",
+     "asn": "AS2516",
+     "isp": "Kddi Corporation",
+     "exit_ip": "175.129.85.67",
+     "assigned_ip": "10.211.1.30",
+     "residential": "residential",
+     "latency_ms": 2523,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "vpn290770797.opengw.net",
+     "port": 1792,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@vpn290770797.opengw.net:1792",
+     "country": "Japan",
+     "country_code": "JP",
+     "city": "Miharadai",
+     "org": "Open Data Network",
+     "asn": "AS4725",
+     "isp": "Open Data Network",
+     "exit_ip": "218.46.238.239",
+     "assigned_ip": "10.211.1.36",
+     "residential": "residential",
+     "latency_ms": 2528,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "public-vpn-238.opengw.net",
+     "port": 443,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@public-vpn-238.opengw.net:443",
+     "country": "Japan",
+     "country_code": "JP",
+     "city": "Chiyoda City",
+     "org": "SoftEther Corporation",
+     "asn": "AS36599",
+     "isp": "SoftEther",
+     "exit_ip": "219.100.37.245",
+     "assigned_ip": "10.245.199.90",
+     "residential": "residential",
+     "latency_ms": 2531,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "vpn739981111.opengw.net",
+     "port": 1811,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@vpn739981111.opengw.net:1811",
+     "country": "Japan",
+     "country_code": "JP",
+     "city": "Yokohama",
+     "org": "Yokohama Cable Vision",
+     "asn": "AS9365",
+     "isp": "its communications Inc.",
+     "exit_ip": "101.111.51.86",
+     "assigned_ip": "10.211.1.7",
+     "residential": "residential",
+     "latency_ms": 2538,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "public-vpn-187.opengw.net",
+     "port": 443,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@public-vpn-187.opengw.net:443",
+     "country": "Japan",
+     "country_code": "JP",
+     "city": "Chiyoda City",
+     "org": "SoftEther Corporation",
+     "asn": "AS36599",
+     "isp": "SoftEther",
+     "exit_ip": "219.100.37.244",
+     "assigned_ip": "10.244.78.63",
+     "residential": "residential",
+     "latency_ms": 2567,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "public-vpn-258.opengw.net",
+     "port": 443,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@public-vpn-258.opengw.net:443",
+     "country": "Japan",
+     "country_code": "JP",
+     "city": "Chiyoda City",
+     "org": "SoftEther Corporation",
+     "asn": "AS36599",
+     "isp": "SoftEther",
+     "exit_ip": "219.100.37.244",
+     "assigned_ip": "10.244.78.100",
+     "residential": "residential",
+     "latency_ms": 2600,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "vpn686659377.opengw.net",
+     "port": 1909,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@vpn686659377.opengw.net:1909",
+     "country": "Japan",
+     "country_code": "JP",
+     "city": "Minato",
+     "org": "Japan Nation-wide Network of Softbank BB Corp.",
+     "asn": "AS17676",
+     "isp": "SoftBank Corp.",
+     "exit_ip": "218.183.114.77",
+     "assigned_ip": "10.211.1.3",
+     "residential": "residential",
+     "latency_ms": 2606,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "vpn451268085.opengw.net",
+     "port": 1731,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@vpn451268085.opengw.net:1731",
+     "country": "Japan",
+     "country_code": "JP",
+     "city": "Noborito",
+     "org": "TOKAI",
+     "asn": "AS10010",
+     "isp": "TOKAI Communications Corporation",
+     "exit_ip": "120.137.194.191",
+     "assigned_ip": "10.211.1.12",
+     "residential": "residential",
+     "latency_ms": 2761,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "vpn274345019.opengw.net",
+     "port": 1258,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@vpn274345019.opengw.net:1258",
+     "country": "Japan",
+     "country_code": "JP",
+     "city": "Shiki",
+     "org": "JCOM Co., Ltd",
+     "asn": "AS9824",
+     "isp": "JCOM Co., Ltd.",
+     "exit_ip": "110.132.120.239",
+     "assigned_ip": "10.211.1.11",
+     "residential": "residential",
+     "latency_ms": 2860,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "vpn198732322.opengw.net",
+     "port": 1312,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@vpn198732322.opengw.net:1312",
+     "country": "Japan",
+     "country_code": "JP",
+     "city": "Sapporo",
+     "org": "NTT Communications Corporation",
+     "asn": "AS4713",
+     "isp": "NTT Communications Corporation",
+     "exit_ip": "180.57.87.157",
+     "assigned_ip": "10.211.1.12",
+     "residential": "residential",
+     "latency_ms": 2939,
+     "checked_at": "2026-11-05T09:33:49.984Z"
     },
     {
      "host": "public-vpn-241.opengw.net",
@@ -254,101 +705,84 @@
      "asn": "AS36599",
      "isp": "SoftEther",
      "exit_ip": "219.100.37.244",
-     "assigned_ip": "10.244.71.87",
+     "assigned_ip": "10.244.78.114",
      "residential": "residential",
-     "latency_ms": 4722,
-     "checked_at": "2026-11-05T09:28:00.036Z"
+     "latency_ms": 3087,
+     "checked_at": "2026-11-05T09:33:49.984Z"
     },
     {
-     "host": "vpn601908098.opengw.net",
-     "port": 1281,
+     "host": "vpn584377130.opengw.net",
+     "port": 1822,
      "protocol": "sstp",
-     "link": "sstp://vpn:vpn@vpn601908098.opengw.net:1281",
+     "link": "sstp://vpn:vpn@vpn584377130.opengw.net:1822",
      "country": "Japan",
      "country_code": "JP",
-     "city": "Tokyo",
-     "org": "ASAHI",
-     "asn": "AS4685",
-     "isp": "ASAHI Net, Inc.",
-     "exit_ip": "220.146.157.52",
-     "assigned_ip": "10.211.1.43",
+     "city": "Tama",
+     "org": "Kddi Corporation",
+     "asn": "AS131933",
+     "isp": "TTV",
+     "exit_ip": "14.14.148.93",
+     "assigned_ip": "10.211.1.34",
      "residential": "residential",
-     "latency_ms": 4764,
-     "checked_at": "2026-11-05T09:28:00.036Z"
+     "latency_ms": 3170,
+     "checked_at": "2026-11-05T09:33:49.984Z"
     },
     {
-     "host": "vpn395180292.opengw.net",
-     "port": 1483,
-     "protocol": "sstp",
-     "link": "sstp://vpn:vpn@vpn395180292.opengw.net:1483",
-     "country": "Japan",
-     "country_code": "JP",
-     "city": "Kasuga",
-     "org": "QTnet, Inc.",
-     "asn": "AS7679",
-     "isp": "QTnet, Inc.",
-     "exit_ip": "110.54.126.138",
-     "assigned_ip": "10.211.1.8",
-     "residential": "residential",
-     "latency_ms": 4834,
-     "checked_at": "2026-11-05T09:28:00.036Z"
-    },
-    {
-     "host": "public-vpn-229.opengw.net",
+     "host": "public-vpn-215.opengw.net",
      "port": 443,
      "protocol": "sstp",
-     "link": "sstp://vpn:vpn@public-vpn-229.opengw.net:443",
+     "link": "sstp://vpn:vpn@public-vpn-215.opengw.net:443",
      "country": "Japan",
      "country_code": "JP",
      "city": "Chiyoda City",
      "org": "SoftEther Corporation",
      "asn": "AS36599",
      "isp": "SoftEther",
-     "exit_ip": "219.100.37.246",
-     "assigned_ip": "10.246.34.54",
+     "exit_ip": "219.100.37.243",
+     "assigned_ip": "10.243.39.20",
      "residential": "residential",
-     "latency_ms": 4996,
-     "checked_at": "2026-11-05T09:28:00.036Z"
+     "latency_ms": 3320,
+     "checked_at": "2026-11-05T09:33:49.984Z"
     },
     {
-     "host": "public-vpn-194.opengw.net",
+     "host": "public-vpn-104.opengw.net",
      "port": 443,
      "protocol": "sstp",
-     "link": "sstp://vpn:vpn@public-vpn-194.opengw.net:443",
+     "link": "sstp://vpn:vpn@public-vpn-104.opengw.net:443",
      "country": "Japan",
      "country_code": "JP",
      "city": "Chiyoda City",
      "org": "SoftEther Corporation",
      "asn": "AS36599",
      "isp": "SoftEther",
-     "exit_ip": "219.100.37.246",
-     "assigned_ip": "10.246.34.43",
+     "exit_ip": "219.100.37.236",
+     "assigned_ip": "10.236.5.147",
      "residential": "residential",
-     "latency_ms": 5006,
-     "checked_at": "2026-11-05T09:28:00.036Z"
+     "latency_ms": 3434,
+     "checked_at": "2026-11-05T09:33:49.984Z"
     },
     {
-     "host": "public-vpn-221.opengw.net",
-     "port": 443,
+     "host": "vpn184169581.opengw.net",
+     "port": 1713,
      "protocol": "sstp",
-     "link": "sstp://vpn:vpn@public-vpn-221.opengw.net:443",
+     "link": "sstp://vpn:vpn@vpn184169581.opengw.net:1713",
      "country": "Japan",
      "country_code": "JP",
-     "city": "Chiyoda City",
-     "org": "SoftEther Corporation",
-     "asn": "AS36599",
-     "isp": "SoftEther",
-     "exit_ip": "219.100.37.244",
-     "assigned_ip": "10.244.71.80",
+     "city": "Sanda Shi",
+     "org": "J:COM WEST Co., Ltd.",
+     "asn": "AS9617",
+     "isp": "JCOM Co., Ltd.",
+     "exit_ip": "218.220.209.82",
+     "assigned_ip": "10.211.1.47",
      "residential": "residential",
-     "latency_ms": 5029,
-     "checked_at": "2026-11-05T09:28:00.036Z"
+     "latency_ms": 3965,
+     "checked_at": "2026-11-05T09:33:49.984Z"
     },
     {
-     "host": "public-vpn-210.opengw.net",
+     "host": "public-vpn-219.opengw.net",
      "port": 443,
      "protocol": "sstp",
-     "link": "sstp://vpn:vpn@public-vpn-210.opengw.net:443",
+     "link": "sstp://vpn:vpn@public-vpn-219.opengw.net:443",
      "country": "Japan",
      "country_code": "JP",
      "city": "Chiyoda City",
@@ -356,393 +790,402 @@
      "asn": "AS36599",
      "isp": "SoftEther",
      "exit_ip": "219.100.37.245",
-     "assigned_ip": "10.245.192.43",
+     "assigned_ip": "10.245.199.26",
      "residential": "residential",
-     "latency_ms": 5047,
-     "checked_at": "2026-11-05T09:28:00.036Z"
+     "latency_ms": 5476,
+     "checked_at": "2026-11-05T09:33:49.984Z"
     },
     {
-     "host": "public-vpn-121.opengw.net",
-     "port": 443,
+     "host": "vpn435394266.opengw.net",
+     "port": 1495,
      "protocol": "sstp",
-     "link": "sstp://vpn:vpn@public-vpn-121.opengw.net:443",
+     "link": "sstp://vpn:vpn@vpn435394266.opengw.net:1495",
      "country": "Japan",
      "country_code": "JP",
-     "city": "Chiyoda City",
-     "org": "SoftEther Corporation",
-     "asn": "AS36599",
-     "isp": "SoftEther",
-     "exit_ip": "219.100.37.238",
-     "assigned_ip": "10.238.1.23",
+     "city": "Kyoto",
+     "org": "OPTAGE Inc.",
+     "asn": "AS17511",
+     "isp": "OPTAGE Inc.",
+     "exit_ip": "121.86.244.13",
+     "assigned_ip": "10.211.1.52",
      "residential": "residential",
-     "latency_ms": 5149,
-     "checked_at": "2026-11-05T09:28:00.036Z"
-    },
-    {
-     "host": "vpn479658800.opengw.net",
-     "port": 1722,
-     "protocol": "sstp",
-     "link": "sstp://vpn:vpn@vpn479658800.opengw.net:1722",
-     "country": "Japan",
-     "country_code": "JP",
-     "city": "Mutsukawa",
-     "org": "Open Computer Network",
-     "asn": "AS4713",
-     "isp": "NTT Communications Corporation",
-     "exit_ip": "153.202.235.235",
-     "assigned_ip": "10.211.1.8",
-     "residential": "residential",
-     "latency_ms": 5184,
-     "checked_at": "2026-11-05T09:28:00.036Z"
-    },
-    {
-     "host": "vpn475849261.opengw.net",
-     "port": 1270,
-     "protocol": "sstp",
-     "link": "sstp://vpn:vpn@vpn475849261.opengw.net:1270",
-     "country": "Japan",
-     "country_code": "JP",
-     "city": "Ryōgoku",
-     "org": "Sony Network Communications Inc.",
-     "asn": "AS2527",
-     "isp": "Sony Network Communications Inc",
-     "exit_ip": "207.65.181.159",
-     "assigned_ip": "10.211.1.16",
-     "residential": "residential",
-     "latency_ms": 5599,
-     "checked_at": "2026-11-05T09:28:00.036Z"
-    },
-    {
-     "host": "public-vpn-46.opengw.net",
-     "port": 443,
-     "protocol": "sstp",
-     "link": "sstp://vpn:vpn@public-vpn-46.opengw.net:443",
-     "country": "Japan",
-     "country_code": "JP",
-     "city": "Chiyoda City",
-     "org": "SoftEther Corporation",
-     "asn": "AS36599",
-     "isp": "SoftEther",
-     "exit_ip": "219.100.37.233",
-     "assigned_ip": "10.233.252.76",
-     "residential": "residential",
-     "latency_ms": 5883,
-     "checked_at": "2026-11-05T09:28:00.036Z"
-    },
-    {
-     "host": "vpn497910382.opengw.net",
-     "port": 1213,
-     "protocol": "sstp",
-     "link": "sstp://vpn:vpn@vpn497910382.opengw.net:1213",
-     "country": "Japan",
-     "country_code": "JP",
-     "city": "Shimotsuruma",
-     "org": "KDDI",
-     "asn": "AS2516",
-     "isp": "Kddi Corporation",
-     "exit_ip": "175.129.117.170",
-     "assigned_ip": "10.211.1.106",
-     "residential": "residential",
-     "latency_ms": 6746,
-     "checked_at": "2026-11-05T09:28:00.036Z"
+     "latency_ms": 5884,
+     "checked_at": "2026-11-05T09:33:49.984Z"
     }
    ],
-   "count": 13,
-   "residential": 13,
+   "count": 41,
+   "residential": 41,
+   "datacenter": 0
+  },
+  "KR": {
+   "code": "KR",
+   "name": "South Korea",
+   "name_zh": "韩国",
+   "nodes": [
+    {
+     "host": "vpn831866080.opengw.net",
+     "port": 995,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@vpn831866080.opengw.net:995",
+     "country": "South Korea",
+     "country_code": "KR",
+     "city": "Seoul",
+     "org": "Kornet",
+     "asn": "AS4766",
+     "isp": "Korea Telecom",
+     "exit_ip": "121.162.237.104",
+     "assigned_ip": "10.211.1.15",
+     "residential": "residential",
+     "latency_ms": 2129,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "vpn739046807.opengw.net",
+     "port": 1977,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@vpn739046807.opengw.net:1977",
+     "country": "South Korea",
+     "country_code": "KR",
+     "city": "Jeonju",
+     "org": "Kornet",
+     "asn": "AS4766",
+     "isp": "Korea Telecom",
+     "exit_ip": "59.1.223.120",
+     "assigned_ip": "10.211.1.14",
+     "residential": "residential",
+     "latency_ms": 2206,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "vpn623799048.opengw.net",
+     "port": 1625,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@vpn623799048.opengw.net:1625",
+     "country": "South Korea",
+     "country_code": "KR",
+     "city": "Gangseo-gu",
+     "org": "SKBroadband Co. Inc",
+     "asn": "AS9318",
+     "isp": "SK Broadband Co Ltd",
+     "exit_ip": "115.178.67.246",
+     "assigned_ip": "10.211.1.10",
+     "residential": "residential",
+     "latency_ms": 2585,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "vpn879253505.opengw.net",
+     "port": 995,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@vpn879253505.opengw.net:995",
+     "country": "South Korea",
+     "country_code": "KR",
+     "city": "Anseong",
+     "org": "SK Broadband Co Ltd",
+     "asn": "AS9318",
+     "isp": "SK Broadband Co Ltd",
+     "exit_ip": "211.178.136.73",
+     "assigned_ip": "10.211.1.11",
+     "residential": "residential",
+     "latency_ms": 2593,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "vpn733186000.opengw.net",
+     "port": 995,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@vpn733186000.opengw.net:995",
+     "country": "South Korea",
+     "country_code": "KR",
+     "city": "Seo-gu",
+     "org": "Kornet",
+     "asn": "AS4766",
+     "isp": "Korea Telecom",
+     "exit_ip": "59.16.199.17",
+     "assigned_ip": "10.211.1.14",
+     "residential": "residential",
+     "latency_ms": 2627,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "vpn616200329.opengw.net",
+     "port": 995,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@vpn616200329.opengw.net:995",
+     "country": "South Korea",
+     "country_code": "KR",
+     "city": "Jongno-gu",
+     "org": "Sudogwonseobubonbu",
+     "asn": "AS4766",
+     "isp": "Korea Telecom",
+     "exit_ip": "121.140.218.217",
+     "assigned_ip": "10.211.1.12",
+     "residential": "residential",
+     "latency_ms": 2673,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "vpn741602089.opengw.net",
+     "port": 1210,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@vpn741602089.opengw.net:1210",
+     "country": "South Korea",
+     "country_code": "KR",
+     "city": "Chungju",
+     "org": "SK Broadband Co Ltd",
+     "asn": "AS9318",
+     "isp": "SK Broadband Co Ltd",
+     "exit_ip": "221.138.46.130",
+     "assigned_ip": "10.211.1.23",
+     "residential": "residential",
+     "latency_ms": 2759,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "vpn196131915.opengw.net",
+     "port": 995,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@vpn196131915.opengw.net:995",
+     "country": "South Korea",
+     "country_code": "KR",
+     "city": "Siheung-si",
+     "org": "LG POWERCOMM",
+     "asn": "AS17858",
+     "isp": "LG POWERCOMM",
+     "exit_ip": "125.188.5.153",
+     "assigned_ip": "10.211.1.6",
+     "residential": "residential",
+     "latency_ms": 2783,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "vpn898866193.opengw.net",
+     "port": 1446,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@vpn898866193.opengw.net:1446",
+     "country": "South Korea",
+     "country_code": "KR",
+     "city": "Seoul",
+     "org": "Sudogwonseobubonbu",
+     "asn": "AS4766",
+     "isp": "Korea Telecom",
+     "exit_ip": "121.140.177.212",
+     "assigned_ip": "10.211.1.7",
+     "residential": "residential",
+     "latency_ms": 2786,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "vpn398540356.opengw.net",
+     "port": 1482,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@vpn398540356.opengw.net:1482",
+     "country": "South Korea",
+     "country_code": "KR",
+     "city": "Jeonju-si",
+     "org": "Korea Telecom",
+     "asn": "AS4766",
+     "isp": "Korea Telecom",
+     "exit_ip": "121.154.66.138",
+     "assigned_ip": "10.211.1.14",
+     "residential": "residential",
+     "latency_ms": 2880,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "vpn459624604.opengw.net",
+     "port": 995,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@vpn459624604.opengw.net:995",
+     "country": "South Korea",
+     "country_code": "KR",
+     "city": "Incheon",
+     "org": "Kornet",
+     "asn": "AS4766",
+     "isp": "Korea Telecom",
+     "exit_ip": "211.38.57.123",
+     "assigned_ip": "10.211.1.23",
+     "residential": "residential",
+     "latency_ms": 2964,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "vpn886191021.opengw.net",
+     "port": 1814,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@vpn886191021.opengw.net:1814",
+     "country": "South Korea",
+     "country_code": "KR",
+     "city": "Hongcheon-gun",
+     "org": "Korea Telecom",
+     "asn": "AS4766",
+     "isp": "Korea Telecom",
+     "exit_ip": "211.104.71.136",
+     "assigned_ip": "10.211.1.4",
+     "residential": "residential",
+     "latency_ms": 2965,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "vpn165692380.opengw.net",
+     "port": 995,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@vpn165692380.opengw.net:995",
+     "country": "South Korea",
+     "country_code": "KR",
+     "city": "Sacheon-si",
+     "org": "Kornet",
+     "asn": "AS4766",
+     "isp": "Korea Telecom",
+     "exit_ip": "119.198.236.48",
+     "assigned_ip": "10.211.1.71",
+     "residential": "residential",
+     "latency_ms": 3283,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "vpn508965699.opengw.net",
+     "port": 995,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@vpn508965699.opengw.net:995",
+     "country": "South Korea",
+     "country_code": "KR",
+     "city": "Incheon",
+     "org": "Kornet",
+     "asn": "AS4766",
+     "isp": "Korea Telecom",
+     "exit_ip": "169.212.48.167",
+     "assigned_ip": "10.211.1.19",
+     "residential": "residential",
+     "latency_ms": 3663,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "vpn859746213.opengw.net",
+     "port": 995,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@vpn859746213.opengw.net:995",
+     "country": "South Korea",
+     "country_code": "KR",
+     "city": "Daegu",
+     "org": "Kornet",
+     "asn": "AS4766",
+     "isp": "Korea Telecom",
+     "exit_ip": "211.57.221.30",
+     "assigned_ip": "10.211.1.12",
+     "residential": "residential",
+     "latency_ms": 3801,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "vpn819358376.opengw.net",
+     "port": 1298,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@vpn819358376.opengw.net:1298",
+     "country": "South Korea",
+     "country_code": "KR",
+     "city": "Buk-gu",
+     "org": "broadNnet",
+     "asn": "AS9318",
+     "isp": "broadNnet",
+     "exit_ip": "175.122.73.80",
+     "assigned_ip": "10.211.1.2",
+     "residential": "residential",
+     "latency_ms": 3904,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "vpn842317346.opengw.net",
+     "port": 1795,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@vpn842317346.opengw.net:1795",
+     "country": "South Korea",
+     "country_code": "KR",
+     "city": "Gimhae",
+     "org": "Kornet",
+     "asn": "AS4766",
+     "isp": "Korea Telecom",
+     "exit_ip": "59.21.241.135",
+     "assigned_ip": "10.211.1.10",
+     "residential": "residential",
+     "latency_ms": 3905,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "vpn468282901.opengw.net",
+     "port": 1508,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@vpn468282901.opengw.net:1508",
+     "country": "South Korea",
+     "country_code": "KR",
+     "city": "Gwangsan-gu",
+     "org": "Jeonnambonbujang",
+     "asn": "AS4766",
+     "isp": "Korea Telecom",
+     "exit_ip": "59.28.8.40",
+     "assigned_ip": "10.211.1.15",
+     "residential": "residential",
+     "latency_ms": 4676,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "vpn251678351.opengw.net",
+     "port": 995,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@vpn251678351.opengw.net:995",
+     "country": "South Korea",
+     "country_code": "KR",
+     "city": "Gangseo-gu",
+     "org": "Korea Telecom",
+     "asn": "AS4766",
+     "isp": "Korea Telecom",
+     "exit_ip": "59.15.75.44",
+     "assigned_ip": "10.211.1.26",
+     "residential": "residential",
+     "latency_ms": 5141,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "vpn311787559.opengw.net",
+     "port": 1249,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@vpn311787559.opengw.net:1249",
+     "country": "South Korea",
+     "country_code": "KR",
+     "city": "Seongnam-si",
+     "org": "Korea Telecom",
+     "asn": "AS4766",
+     "isp": "Korea Telecom",
+     "exit_ip": "211.221.198.244",
+     "assigned_ip": "10.211.1.60",
+     "residential": "residential",
+     "latency_ms": 5600,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    },
+    {
+     "host": "vpn887613862.opengw.net",
+     "port": 1524,
+     "protocol": "sstp",
+     "link": "sstp://vpn:vpn@vpn887613862.opengw.net:1524",
+     "country": "South Korea",
+     "country_code": "KR",
+     "city": "Seo-gu",
+     "org": "Korea Telecom",
+     "asn": "AS4766",
+     "isp": "Korea Telecom",
+     "exit_ip": "211.194.138.171",
+     "assigned_ip": "10.211.1.16",
+     "residential": "residential",
+     "latency_ms": 6403,
+     "checked_at": "2026-11-05T09:33:49.984Z"
+    }
+   ],
+   "count": 21,
+   "residential": 21,
    "datacenter": 0
   }
  },
  "available": [
-  {
-   "host": "4.144.146.21",
-   "port": 80,
-   "protocol": "http",
-   "user": null,
-   "pass": null,
-   "country": "Singapore",
-   "country_code": "SG",
-   "city": "Singapore",
-   "org": "Microsoft Azure Cloud (southeastasia)",
-   "asn": "AS8075",
-   "isp": "Microsoft Corporation",
-   "exit_ip": "20.44.210.140",
-   "residential": "datacenter",
-   "latency_ms": 285,
-   "source": "proxy-pool",
-   "link": "http://4.144.146.21:80"
-  },
-  {
-   "host": "vpn496296722.opengw.net",
-   "port": 995,
-   "protocol": "sstp",
-   "link": "sstp://vpn:vpn@vpn496296722.opengw.net:995",
-   "country": "South Korea",
-   "country_code": "KR",
-   "city": "Jeongeup",
-   "org": "SK Broadband Co Ltd",
-   "asn": "AS9318",
-   "isp": "SK Broadband Co Ltd",
-   "exit_ip": "222.236.151.149",
-   "assigned_ip": "10.211.1.10",
-   "residential": "residential",
-   "latency_ms": 4344,
-   "checked_at": "2026-11-05T09:28:00.036Z"
-  },
-  {
-   "host": "vpn273241885.opengw.net",
-   "port": 995,
-   "protocol": "sstp",
-   "link": "sstp://vpn:vpn@vpn273241885.opengw.net:995",
-   "country": "South Korea",
-   "country_code": "KR",
-   "city": "Gangnam-gu",
-   "org": "Kornet",
-   "asn": "AS4766",
-   "isp": "Korea Telecom",
-   "exit_ip": "218.153.172.214",
-   "assigned_ip": "10.211.1.20",
-   "residential": "residential",
-   "latency_ms": 4553,
-   "checked_at": "2026-11-05T09:28:00.036Z"
-  },
-  {
-   "host": "vpn562698180.opengw.net",
-   "port": 1402,
-   "protocol": "sstp",
-   "link": "sstp://vpn:vpn@vpn562698180.opengw.net:1402",
-   "country": "South Korea",
-   "country_code": "KR",
-   "city": "Namyangju",
-   "org": "broadNnet",
-   "asn": "AS9318",
-   "isp": "SK Broadband Co Ltd",
-   "exit_ip": "1.240.213.38",
-   "assigned_ip": "10.211.1.24",
-   "residential": "residential",
-   "latency_ms": 4602,
-   "checked_at": "2026-11-05T09:28:00.036Z"
-  },
-  {
-   "host": "vpn842523171.opengw.net",
-   "port": 995,
-   "protocol": "sstp",
-   "link": "sstp://vpn:vpn@vpn842523171.opengw.net:995",
-   "country": "South Korea",
-   "country_code": "KR",
-   "city": "Seoul",
-   "org": "Korea Telecom",
-   "asn": "AS4766",
-   "isp": "Korea Telecom",
-   "exit_ip": "112.172.238.220",
-   "assigned_ip": "10.211.1.11",
-   "residential": "residential",
-   "latency_ms": 4696,
-   "checked_at": "2026-11-05T09:28:00.036Z"
-  },
-  {
-   "host": "vpn300897894.opengw.net",
-   "port": 1429,
-   "protocol": "sstp",
-   "link": "sstp://vpn:vpn@vpn300897894.opengw.net:1429",
-   "country": "Japan",
-   "country_code": "JP",
-   "city": "Toyota",
-   "org": "AITAI-NET(Himawari Network Inc.)",
-   "asn": "AS9354",
-   "isp": "AITAI",
-   "exit_ip": "221.118.138.87",
-   "assigned_ip": "10.211.1.39",
-   "residential": "residential",
-   "latency_ms": 4706,
-   "checked_at": "2026-11-05T09:28:00.036Z"
-  },
-  {
-   "host": "public-vpn-241.opengw.net",
-   "port": 443,
-   "protocol": "sstp",
-   "link": "sstp://vpn:vpn@public-vpn-241.opengw.net:443",
-   "country": "Japan",
-   "country_code": "JP",
-   "city": "Chiyoda City",
-   "org": "SoftEther Corporation",
-   "asn": "AS36599",
-   "isp": "SoftEther",
-   "exit_ip": "219.100.37.244",
-   "assigned_ip": "10.244.71.87",
-   "residential": "residential",
-   "latency_ms": 4722,
-   "checked_at": "2026-11-05T09:28:00.036Z"
-  },
-  {
-   "host": "vpn505854977.opengw.net",
-   "port": 1908,
-   "protocol": "sstp",
-   "link": "sstp://vpn:vpn@vpn505854977.opengw.net:1908",
-   "country": "South Korea",
-   "country_code": "KR",
-   "city": "Dalseong-gun",
-   "org": "KORNET",
-   "asn": "AS4766",
-   "isp": "Korea Telecom",
-   "exit_ip": "211.51.178.239",
-   "assigned_ip": "10.211.1.4",
-   "residential": "residential",
-   "latency_ms": 4759,
-   "checked_at": "2026-11-05T09:28:00.036Z"
-  },
-  {
-   "host": "vpn601908098.opengw.net",
-   "port": 1281,
-   "protocol": "sstp",
-   "link": "sstp://vpn:vpn@vpn601908098.opengw.net:1281",
-   "country": "Japan",
-   "country_code": "JP",
-   "city": "Tokyo",
-   "org": "ASAHI",
-   "asn": "AS4685",
-   "isp": "ASAHI Net, Inc.",
-   "exit_ip": "220.146.157.52",
-   "assigned_ip": "10.211.1.43",
-   "residential": "residential",
-   "latency_ms": 4764,
-   "checked_at": "2026-11-05T09:28:00.036Z"
-  },
-  {
-   "host": "vpn395180292.opengw.net",
-   "port": 1483,
-   "protocol": "sstp",
-   "link": "sstp://vpn:vpn@vpn395180292.opengw.net:1483",
-   "country": "Japan",
-   "country_code": "JP",
-   "city": "Kasuga",
-   "org": "QTnet, Inc.",
-   "asn": "AS7679",
-   "isp": "QTnet, Inc.",
-   "exit_ip": "110.54.126.138",
-   "assigned_ip": "10.211.1.8",
-   "residential": "residential",
-   "latency_ms": 4834,
-   "checked_at": "2026-11-05T09:28:00.036Z"
-  },
-  {
-   "host": "public-vpn-229.opengw.net",
-   "port": 443,
-   "protocol": "sstp",
-   "link": "sstp://vpn:vpn@public-vpn-229.opengw.net:443",
-   "country": "Japan",
-   "country_code": "JP",
-   "city": "Chiyoda City",
-   "org": "SoftEther Corporation",
-   "asn": "AS36599",
-   "isp": "SoftEther",
-   "exit_ip": "219.100.37.246",
-   "assigned_ip": "10.246.34.54",
-   "residential": "residential",
-   "latency_ms": 4996,
-   "checked_at": "2026-11-05T09:28:00.036Z"
-  },
-  {
-   "host": "vpn333824249.opengw.net",
-   "port": 995,
-   "protocol": "sstp",
-   "link": "sstp://vpn:vpn@vpn333824249.opengw.net:995",
-   "country": "South Korea",
-   "country_code": "KR",
-   "city": "Changwon",
-   "org": "Boranet",
-   "asn": "AS3786",
-   "isp": "LG DACOM Corporation",
-   "exit_ip": "106.250.211.111",
-   "assigned_ip": "10.211.1.10",
-   "residential": "residential",
-   "latency_ms": 4998,
-   "checked_at": "2026-11-05T09:28:00.036Z"
-  },
-  {
-   "host": "public-vpn-194.opengw.net",
-   "port": 443,
-   "protocol": "sstp",
-   "link": "sstp://vpn:vpn@public-vpn-194.opengw.net:443",
-   "country": "Japan",
-   "country_code": "JP",
-   "city": "Chiyoda City",
-   "org": "SoftEther Corporation",
-   "asn": "AS36599",
-   "isp": "SoftEther",
-   "exit_ip": "219.100.37.246",
-   "assigned_ip": "10.246.34.43",
-   "residential": "residential",
-   "latency_ms": 5006,
-   "checked_at": "2026-11-05T09:28:00.036Z"
-  },
-  {
-   "host": "public-vpn-221.opengw.net",
-   "port": 443,
-   "protocol": "sstp",
-   "link": "sstp://vpn:vpn@public-vpn-221.opengw.net:443",
-   "country": "Japan",
-   "country_code": "JP",
-   "city": "Chiyoda City",
-   "org": "SoftEther Corporation",
-   "asn": "AS36599",
-   "isp": "SoftEther",
-   "exit_ip": "219.100.37.244",
-   "assigned_ip": "10.244.71.80",
-   "residential": "residential",
-   "latency_ms": 5029,
-   "checked_at": "2026-11-05T09:28:00.036Z"
-  },
-  {
-   "host": "public-vpn-210.opengw.net",
-   "port": 443,
-   "protocol": "sstp",
-   "link": "sstp://vpn:vpn@public-vpn-210.opengw.net:443",
-   "country": "Japan",
-   "country_code": "JP",
-   "city": "Chiyoda City",
-   "org": "SoftEther Corporation",
-   "asn": "AS36599",
-   "isp": "SoftEther",
-   "exit_ip": "219.100.37.245",
-   "assigned_ip": "10.245.192.43",
-   "residential": "residential",
-   "latency_ms": 5047,
-   "checked_at": "2026-11-05T09:28:00.036Z"
-  },
-  {
-   "host": "public-vpn-121.opengw.net",
-   "port": 443,
-   "protocol": "sstp",
-   "link": "sstp://vpn:vpn@public-vpn-121.opengw.net:443",
-   "country": "Japan",
-   "country_code": "JP",
-   "city": "Chiyoda City",
-   "org": "SoftEther Corporation",
-   "asn": "AS36599",
-   "isp": "SoftEther",
-   "exit_ip": "219.100.37.238",
-   "assigned_ip": "10.238.1.23",
-   "residential": "residential",
-   "latency_ms": 5149,
-   "checked_at": "2026-11-05T09:28:00.036Z"
-  },
-  {
-   "host": "vpn479658800.opengw.net",
-   "port": 1722,
-   "protocol": "sstp",
-   "link": "sstp://vpn:vpn@vpn479658800.opengw.net:1722",
-   "country": "Japan",
-   "country_code": "JP",
-   "city": "Mutsukawa",
-   "org": "Open Computer Network",
-   "asn": "AS4713",
-   "isp": "NTT Communications Corporation",
-   "exit_ip": "153.202.235.235",
-   "assigned_ip": "10.211.1.8",
-   "residential": "residential",
-   "latency_ms": 5184,
-   "checked_at": "2026-11-05T09:28:00.036Z"
-  },
   {
    "host": "43.156.137.7",
    "port": 10809,
@@ -757,32 +1200,476 @@
    "isp": "Shenzhen Tencent Computer Systems Company Limited",
    "exit_ip": "43.156.137.7",
    "residential": "datacenter",
-   "latency_ms": 5474,
+   "latency_ms": 838,
    "source": "proxy-pool",
    "link": "http://43.156.137.7:10809"
   },
   {
-   "host": "vpn475849261.opengw.net",
-   "port": 1270,
+   "host": "4.144.146.21",
+   "port": 80,
+   "protocol": "http",
+   "user": null,
+   "pass": null,
+   "country": "Singapore",
+   "country_code": "SG",
+   "city": "Singapore",
+   "org": "Microsoft Azure Cloud (southeastasia)",
+   "asn": "AS8075",
+   "isp": "Microsoft Corporation",
+   "exit_ip": "20.44.210.140",
+   "residential": "datacenter",
+   "latency_ms": 866,
+   "source": "proxy-pool",
+   "link": "http://4.144.146.21:80"
+  },
+  {
+   "host": "vpn349489107.opengw.net",
+   "port": 1826,
    "protocol": "sstp",
-   "link": "sstp://vpn:vpn@vpn475849261.opengw.net:1270",
+   "link": "sstp://vpn:vpn@vpn349489107.opengw.net:1826",
    "country": "Japan",
    "country_code": "JP",
-   "city": "Ryōgoku",
+   "city": "Minato",
+   "org": "SOFTBANK Corp",
+   "asn": "AS17676",
+   "isp": "SoftBank Corp.",
+   "exit_ip": "126.71.98.195",
+   "assigned_ip": "10.211.1.31",
+   "residential": "residential",
+   "latency_ms": 1900,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "vpn324264097.opengw.net",
+   "port": 1937,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@vpn324264097.opengw.net:1937",
+   "country": "Japan",
+   "country_code": "JP",
+   "city": "Kumamoto",
+   "org": "QTnet, Inc.",
+   "asn": "AS7679",
+   "isp": "QTnet, Inc.",
+   "exit_ip": "116.94.12.234",
+   "assigned_ip": "10.211.1.15",
+   "residential": "residential",
+   "latency_ms": 2026,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "public-vpn-139.opengw.net",
+   "port": 443,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@public-vpn-139.opengw.net:443",
+   "country": "Japan",
+   "country_code": "JP",
+   "city": "Chiyoda City",
+   "org": "SoftEther Corporation",
+   "asn": "AS36599",
+   "isp": "SoftEther",
+   "exit_ip": "219.100.37.239",
+   "assigned_ip": "10.239.133.45",
+   "residential": "residential",
+   "latency_ms": 2046,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "public-vpn-155.opengw.net",
+   "port": 443,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@public-vpn-155.opengw.net:443",
+   "country": "Japan",
+   "country_code": "JP",
+   "city": "Chiyoda City",
+   "org": "SoftEther Corporation",
+   "asn": "AS36599",
+   "isp": "SoftEther",
+   "exit_ip": "219.100.37.239",
+   "assigned_ip": "10.239.109.147",
+   "residential": "residential",
+   "latency_ms": 2065,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "8.219.97.248",
+   "port": 80,
+   "protocol": "http",
+   "user": null,
+   "pass": null,
+   "country": "Singapore",
+   "country_code": "SG",
+   "city": "Singapore",
+   "org": "Alibaba.com Singapore E-Commerce Private Limited",
+   "asn": "AS45102",
+   "isp": "Alibaba (US) Technology Co., Ltd.",
+   "exit_ip": "8.219.64.236",
+   "residential": "datacenter",
+   "latency_ms": 2105,
+   "source": "proxy-pool",
+   "link": "http://8.219.97.248:80"
+  },
+  {
+   "host": "vpn831866080.opengw.net",
+   "port": 995,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@vpn831866080.opengw.net:995",
+   "country": "South Korea",
+   "country_code": "KR",
+   "city": "Seoul",
+   "org": "Kornet",
+   "asn": "AS4766",
+   "isp": "Korea Telecom",
+   "exit_ip": "121.162.237.104",
+   "assigned_ip": "10.211.1.15",
+   "residential": "residential",
+   "latency_ms": 2129,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "public-vpn-55.opengw.net",
+   "port": 443,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@public-vpn-55.opengw.net:443",
+   "country": "Japan",
+   "country_code": "JP",
+   "city": "Chiyoda City",
+   "org": "SoftEther Corporation",
+   "asn": "AS36599",
+   "isp": "SoftEther",
+   "exit_ip": "219.100.37.234",
+   "assigned_ip": "10.234.194.131",
+   "residential": "residential",
+   "latency_ms": 2188,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "vpn739046807.opengw.net",
+   "port": 1977,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@vpn739046807.opengw.net:1977",
+   "country": "South Korea",
+   "country_code": "KR",
+   "city": "Jeonju",
+   "org": "Kornet",
+   "asn": "AS4766",
+   "isp": "Korea Telecom",
+   "exit_ip": "59.1.223.120",
+   "assigned_ip": "10.211.1.14",
+   "residential": "residential",
+   "latency_ms": 2206,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "public-vpn-163.opengw.net",
+   "port": 443,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@public-vpn-163.opengw.net:443",
+   "country": "Japan",
+   "country_code": "JP",
+   "city": "Matsushige",
+   "org": "SoftEther Corporation",
+   "asn": "AS36599",
+   "isp": "SoftEther",
+   "exit_ip": "219.100.37.240",
+   "assigned_ip": "10.240.217.55",
+   "residential": "residential",
+   "latency_ms": 2246,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "public-vpn-145.opengw.net",
+   "port": 443,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@public-vpn-145.opengw.net:443",
+   "country": "Japan",
+   "country_code": "JP",
+   "city": "Matsushige",
+   "org": "SoftEther Corporation",
+   "asn": "AS36599",
+   "isp": "SoftEther",
+   "exit_ip": "219.100.37.240",
+   "assigned_ip": "10.240.217.74",
+   "residential": "residential",
+   "latency_ms": 2280,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "public-vpn-161.opengw.net",
+   "port": 443,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@public-vpn-161.opengw.net:443",
+   "country": "Japan",
+   "country_code": "JP",
+   "city": "Matsushige",
+   "org": "SoftEther Corporation",
+   "asn": "AS36599",
+   "isp": "SoftEther",
+   "exit_ip": "219.100.37.240",
+   "assigned_ip": "10.240.217.34",
+   "residential": "residential",
+   "latency_ms": 2294,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "public-vpn-90.opengw.net",
+   "port": 443,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@public-vpn-90.opengw.net:443",
+   "country": "Japan",
+   "country_code": "JP",
+   "city": "Chiyoda City",
+   "org": "SoftEther Corporation",
+   "asn": "AS36599",
+   "isp": "SoftEther",
+   "exit_ip": "219.100.37.236",
+   "assigned_ip": "10.236.5.135",
+   "residential": "residential",
+   "latency_ms": 2316,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "public-vpn-131.opengw.net",
+   "port": 443,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@public-vpn-131.opengw.net:443",
+   "country": "Japan",
+   "country_code": "JP",
+   "city": "Chiyoda City",
+   "org": "SoftEther Corporation",
+   "asn": "AS36599",
+   "isp": "SoftEther",
+   "exit_ip": "219.100.37.236",
+   "assigned_ip": "10.236.5.168",
+   "residential": "residential",
+   "latency_ms": 2317,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "vpn133692637.opengw.net",
+   "port": 1451,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@vpn133692637.opengw.net:1451",
+   "country": "Japan",
+   "country_code": "JP",
+   "city": "Ōi",
+   "org": "Japan Network Information Center",
+   "asn": "AS2527",
+   "isp": "Sony Network Communications Inc.",
+   "exit_ip": "219.104.35.195",
+   "assigned_ip": "10.211.1.1",
+   "residential": "residential",
+   "latency_ms": 2318,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "public-vpn-146.opengw.net",
+   "port": 443,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@public-vpn-146.opengw.net:443",
+   "country": "Japan",
+   "country_code": "JP",
+   "city": "Chiyoda City",
+   "org": "SoftEther Corporation",
+   "asn": "AS36599",
+   "isp": "SoftEther",
+   "exit_ip": "219.100.37.238",
+   "assigned_ip": "10.238.8.228",
+   "residential": "residential",
+   "latency_ms": 2326,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "vpn949832711.opengw.net",
+   "port": 1631,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@vpn949832711.opengw.net:1631",
+   "country": "Japan",
+   "country_code": "JP",
+   "city": "Tokyo",
+   "org": "KDDI",
+   "asn": "AS2516",
+   "isp": "Kddi Corporation",
+   "exit_ip": "106.179.46.146",
+   "assigned_ip": "10.211.1.74",
+   "residential": "residential",
+   "latency_ms": 2327,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "vpn329987705.opengw.net",
+   "port": 1483,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@vpn329987705.opengw.net:1483",
+   "country": "Japan",
+   "country_code": "JP",
+   "city": "Minamisumiyoshi",
    "org": "Sony Network Communications Inc.",
    "asn": "AS2527",
    "isp": "Sony Network Communications Inc",
-   "exit_ip": "207.65.181.159",
-   "assigned_ip": "10.211.1.16",
+   "exit_ip": "120.74.54.109",
+   "assigned_ip": "10.211.1.11",
    "residential": "residential",
-   "latency_ms": 5599,
-   "checked_at": "2026-11-05T09:28:00.036Z"
+   "latency_ms": 2334,
+   "checked_at": "2026-11-05T09:33:49.984Z"
   },
   {
-   "host": "public-vpn-46.opengw.net",
+   "host": "vpn182621256.opengw.net",
+   "port": 1517,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@vpn182621256.opengw.net:1517",
+   "country": "Japan",
+   "country_code": "JP",
+   "city": "Matsudo",
+   "org": "SO-Net Service",
+   "asn": "AS2527",
+   "isp": "Japan Network Information Center",
+   "exit_ip": "210.174.52.249",
+   "assigned_ip": "10.211.1.7",
+   "residential": "residential",
+   "latency_ms": 2346,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "vpn273687459.opengw.net",
+   "port": 1510,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@vpn273687459.opengw.net:1510",
+   "country": "Japan",
+   "country_code": "JP",
+   "city": "Yaizu",
+   "org": "TOKAI",
+   "asn": "AS10010",
+   "isp": "TOKAI Communications Corporation",
+   "exit_ip": "42.127.190.184",
+   "assigned_ip": "10.211.1.24",
+   "residential": "residential",
+   "latency_ms": 2356,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "public-vpn-72.opengw.net",
    "port": 443,
    "protocol": "sstp",
-   "link": "sstp://vpn:vpn@public-vpn-46.opengw.net:443",
+   "link": "sstp://vpn:vpn@public-vpn-72.opengw.net:443",
+   "country": "Japan",
+   "country_code": "JP",
+   "city": "Chiyoda City",
+   "org": "SoftEther Corporation",
+   "asn": "AS36599",
+   "isp": "SoftEther",
+   "exit_ip": "219.100.37.234",
+   "assigned_ip": "10.234.194.112",
+   "residential": "residential",
+   "latency_ms": 2435,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "vpn645484140.opengw.net",
+   "port": 1229,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@vpn645484140.opengw.net:1229",
+   "country": "Japan",
+   "country_code": "JP",
+   "city": "Chiyoda City",
+   "org": "InfoSphere",
+   "asn": "AS2514",
+   "isp": "NTT PC Communications, Inc.",
+   "exit_ip": "111.89.220.76",
+   "assigned_ip": "10.211.1.10",
+   "residential": "residential",
+   "latency_ms": 2437,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "public-vpn-78.opengw.net",
+   "port": 443,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@public-vpn-78.opengw.net:443",
+   "country": "Japan",
+   "country_code": "JP",
+   "city": "Chiyoda City",
+   "org": "SoftEther Corporation",
+   "asn": "AS36599",
+   "isp": "SoftEther",
+   "exit_ip": "219.100.37.236",
+   "assigned_ip": "10.236.5.195",
+   "residential": "residential",
+   "latency_ms": 2456,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "vpn634109661.opengw.net",
+   "port": 1284,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@vpn634109661.opengw.net:1284",
+   "country": "Japan",
+   "country_code": "JP",
+   "city": "Minato",
+   "org": "SOFTBANK Corp",
+   "asn": "AS17676",
+   "isp": "SoftBank Corp.",
+   "exit_ip": "126.218.26.174",
+   "assigned_ip": "10.211.1.1",
+   "residential": "residential",
+   "latency_ms": 2464,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "vpn332082897.opengw.net",
+   "port": 1726,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@vpn332082897.opengw.net:1726",
+   "country": "Japan",
+   "country_code": "JP",
+   "city": "Minato",
+   "org": "SOFTBANK Corp",
+   "asn": "AS17676",
+   "isp": "SoftBank Corp.",
+   "exit_ip": "221.44.201.239",
+   "assigned_ip": "10.211.1.46",
+   "residential": "residential",
+   "latency_ms": 2489,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "vpn686472682.opengw.net",
+   "port": 1490,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@vpn686472682.opengw.net:1490",
+   "country": "Japan",
+   "country_code": "JP",
+   "city": "Fujisawa",
+   "org": "JCOM Co., Ltd",
+   "asn": "AS9824",
+   "isp": "JCOM Co., Ltd.",
+   "exit_ip": "110.132.228.211",
+   "assigned_ip": "10.211.1.19",
+   "residential": "residential",
+   "latency_ms": 2496,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "vpn706828378.opengw.net",
+   "port": 1468,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@vpn706828378.opengw.net:1468",
+   "country": "Japan",
+   "country_code": "JP",
+   "city": "Sugita",
+   "org": "KDDI",
+   "asn": "AS2516",
+   "isp": "Kddi Corporation",
+   "exit_ip": "106.161.41.4",
+   "assigned_ip": "10.211.1.7",
+   "residential": "residential",
+   "latency_ms": 2500,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "public-vpn-40.opengw.net",
+   "port": 443,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@public-vpn-40.opengw.net:443",
    "country": "Japan",
    "country_code": "JP",
    "city": "Chiyoda City",
@@ -790,353 +1677,737 @@
    "asn": "AS36599",
    "isp": "SoftEther",
    "exit_ip": "219.100.37.233",
-   "assigned_ip": "10.233.252.76",
+   "assigned_ip": "10.233.7.64",
    "residential": "residential",
-   "latency_ms": 5883,
-   "checked_at": "2026-11-05T09:28:00.036Z"
-  },
-  {
-   "host": "vpn497910382.opengw.net",
-   "port": 1213,
-   "protocol": "sstp",
-   "link": "sstp://vpn:vpn@vpn497910382.opengw.net:1213",
-   "country": "Japan",
-   "country_code": "JP",
-   "city": "Shimotsuruma",
-   "org": "KDDI",
-   "asn": "AS2516",
-   "isp": "Kddi Corporation",
-   "exit_ip": "175.129.117.170",
-   "assigned_ip": "10.211.1.106",
-   "residential": "residential",
-   "latency_ms": 6746,
-   "checked_at": "2026-11-05T09:28:00.036Z"
-  },
-  {
-   "host": "vpn610812005.opengw.net",
-   "port": 995,
-   "protocol": "sstp",
-   "link": "sstp://vpn:vpn@vpn610812005.opengw.net:995",
-   "country": "South Korea",
-   "country_code": "KR",
-   "city": "Goyang-si",
-   "org": "LG POWERCOMM",
-   "asn": "AS17858",
-   "isp": "LG POWERCOMM",
-   "exit_ip": "49.168.191.160",
-   "assigned_ip": "10.211.1.3",
-   "residential": "residential",
-   "latency_ms": 6874,
-   "checked_at": "2026-11-05T09:28:00.036Z"
-  },
-  {
-   "host": "vpn669851144.opengw.net",
-   "port": 995,
-   "protocol": "sstp",
-   "link": "sstp://vpn:vpn@vpn669851144.opengw.net:995",
-   "country": "South Korea",
-   "country_code": "KR",
-   "city": "Yangsan",
-   "org": "LG Hellovision Corp.",
-   "asn": "AS10066",
-   "isp": "LG HelloVision Corp.",
-   "exit_ip": "123.199.89.86",
-   "assigned_ip": "10.211.1.14",
-   "residential": "residential",
-   "latency_ms": 6992,
-   "checked_at": "2026-11-05T09:28:00.036Z"
-  }
- ],
- "failed": [
-  {
-   "host": "vpn344602886.opengw.net",
-   "port": 1566,
-   "error": "响应为空"
-  },
-  {
-   "host": "vpn479254153.opengw.net",
-   "port": 1841,
-   "error": "Client network socket disconnected before secure TLS connection was established"
-  },
-  {
-   "host": "vpn521065574.opengw.net",
-   "port": 995,
-   "error": "Client network socket disconnected before secure TLS connection was established"
-  },
-  {
-   "host": "vpn169225991.opengw.net",
-   "port": 995,
-   "error": "响应为空"
-  },
-  {
-   "host": "vpn270057496.opengw.net",
-   "port": 995,
-   "error": "连接已被对端关闭"
-  },
-  {
-   "host": "vpn131652721.opengw.net",
-   "port": 995,
-   "error": "响应为空"
-  },
-  {
-   "host": "vpn703603871.opengw.net",
-   "port": 1272,
-   "error": "连接已被对端关闭"
-  },
-  {
-   "host": "vpn293598259.opengw.net",
-   "port": 995,
-   "error": "Client network socket disconnected before secure TLS connection was established"
-  },
-  {
-   "host": "vpn416596627.opengw.net",
-   "port": 995,
-   "error": "Client network socket disconnected before secure TLS connection was established"
-  },
-  {
-   "host": "vpn433650989.opengw.net",
-   "port": 1903,
-   "error": "连接已被对端关闭"
-  },
-  {
-   "host": "vpn789825960.opengw.net",
-   "port": 995,
-   "error": "连接已被对端关闭"
-  },
-  {
-   "host": "vpn382365411.opengw.net",
-   "port": 1314,
-   "error": "Client network socket disconnected before secure TLS connection was established"
-  },
-  {
-   "host": "vpn964630803.opengw.net",
-   "port": 1568,
-   "error": "Client network socket disconnected before secure TLS connection was established"
-  },
-  {
-   "host": "vpn884817225.opengw.net",
-   "port": 1920,
-   "error": "Client network socket disconnected before secure TLS connection was established"
-  },
-  {
-   "host": "vpn141353891.opengw.net",
-   "port": 1632,
-   "error": "连接已被对端关闭"
-  },
-  {
-   "host": "vpn271291179.opengw.net",
-   "port": 1846,
-   "error": "Client network socket disconnected before secure TLS connection was established"
-  },
-  {
-   "host": "vpn158537294.opengw.net",
-   "port": 1803,
-   "error": "连接已被对端关闭"
-  },
-  {
-   "host": "vpn365529984.opengw.net",
-   "port": 1704,
-   "error": "Client network socket disconnected before secure TLS connection was established"
-  },
-  {
-   "host": "vpn812639404.opengw.net",
-   "port": 1715,
-   "error": "连接已被对端关闭"
-  },
-  {
-   "host": "vpn310248946.opengw.net",
-   "port": 1629,
-   "error": "Client network socket disconnected before secure TLS connection was established"
-  },
-  {
-   "host": "vpn893437202.opengw.net",
-   "port": 1292,
-   "error": "连接已被对端关闭"
-  },
-  {
-   "host": "vpn104312461.opengw.net",
-   "port": 1947,
-   "error": "Client network socket disconnected before secure TLS connection was established"
-  },
-  {
-   "host": "vpn580148051.opengw.net",
-   "port": 1921,
-   "error": "Client network socket disconnected before secure TLS connection was established"
-  },
-  {
-   "host": "vpn556573101.opengw.net",
-   "port": 995,
-   "error": "连接已被对端关闭"
-  },
-  {
-   "host": "vpn335043086.opengw.net",
-   "port": 1716,
-   "error": "连接已被对端关闭"
-  },
-  {
-   "host": "vpn945009595.opengw.net",
-   "port": 1921,
-   "error": "连接已被对端关闭"
-  },
-  {
-   "host": "vpn969458293.opengw.net",
-   "port": 1621,
-   "error": "Client network socket disconnected before secure TLS connection was established"
-  },
-  {
-   "host": "vpn889393112.opengw.net",
-   "port": 1900,
-   "error": "Client network socket disconnected before secure TLS connection was established"
-  },
-  {
-   "host": "vpn605234722.opengw.net",
-   "port": 1676,
-   "error": "连接已被对端关闭"
-  },
-  {
-   "host": "vpn551564576.opengw.net",
-   "port": 1568,
-   "error": "Client network socket disconnected before secure TLS connection was established"
-  },
-  {
-   "host": "vpn634109661.opengw.net",
-   "port": 1284,
-   "error": "Client network socket disconnected before secure TLS connection was established"
-  },
-  {
-   "host": "vpn198732322.opengw.net",
-   "port": 1312,
-   "error": "Client network socket disconnected before secure TLS connection was established"
+   "latency_ms": 2520,
+   "checked_at": "2026-11-05T09:33:49.984Z"
   },
   {
    "host": "vpn789702980.opengw.net",
    "port": 1539,
-   "error": "Client network socket disconnected before secure TLS connection was established"
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@vpn789702980.opengw.net:1539",
+   "country": "Japan",
+   "country_code": "JP",
+   "city": "Naha",
+   "org": "KDDI",
+   "asn": "AS2516",
+   "isp": "Kddi Corporation",
+   "exit_ip": "175.129.85.67",
+   "assigned_ip": "10.211.1.30",
+   "residential": "residential",
+   "latency_ms": 2523,
+   "checked_at": "2026-11-05T09:33:49.984Z"
   },
   {
-   "host": "vpn209370086.opengw.net",
-   "port": 1248,
-   "error": "Client network socket disconnected before secure TLS connection was established"
-  },
-  {
-   "host": "vpn216769734.opengw.net",
-   "port": 1446,
-   "error": "Client network socket disconnected before secure TLS connection was established"
-  },
-  {
-   "host": "vpn798018952.opengw.net",
-   "port": 995,
-   "error": "Client network socket disconnected before secure TLS connection was established"
-  },
-  {
-   "host": "vpn928364919.opengw.net",
-   "port": 1884,
-   "error": "Client network socket disconnected before secure TLS connection was established"
-  },
-  {
-   "host": "vpn915736499.opengw.net",
-   "port": 1944,
-   "error": "Client network socket disconnected before secure TLS connection was established"
-  },
-  {
-   "host": "vpn406858285.opengw.net",
-   "port": 1816,
-   "error": "Client network socket disconnected before secure TLS connection was established"
-  },
-  {
-   "host": "vpn421516490.opengw.net",
-   "port": 1850,
-   "error": "Client network socket disconnected before secure TLS connection was established"
-  },
-  {
-   "host": "vpn505088516.opengw.net",
-   "port": 995,
-   "error": "Client network socket disconnected before secure TLS connection was established"
-  },
-  {
-   "host": "vpn865171901.opengw.net",
-   "port": 1787,
-   "error": "Client network socket disconnected before secure TLS connection was established"
-  },
-  {
-   "host": "vpn229642564.opengw.net",
-   "port": 1248,
-   "error": "Client network socket disconnected before secure TLS connection was established"
-  },
-  {
-   "host": "vpn161058622.opengw.net",
-   "port": 1232,
-   "error": "Client network socket disconnected before secure TLS connection was established"
-  },
-  {
-   "host": "vpn885254990.opengw.net",
-   "port": 1613,
-   "error": "Client network socket disconnected before secure TLS connection was established"
-  },
-  {
-   "host": "vpn443102765.opengw.net",
-   "port": 1700,
-   "error": "Client network socket disconnected before secure TLS connection was established"
-  },
-  {
-   "host": "vpn990126810.opengw.net",
-   "port": 1945,
-   "error": "Client network socket disconnected before secure TLS connection was established"
-  },
-  {
-   "host": "vpn303071146.opengw.net",
-   "port": 1684,
-   "error": "连接已被对端关闭"
-  },
-  {
-   "host": "vpn299774538.opengw.net",
-   "port": 995,
-   "error": "Client network socket disconnected before secure TLS connection was established"
-  },
-  {
-   "host": "vpn456334502.opengw.net",
-   "port": 1430,
-   "error": "24530000:error:0A000102:SSL routines:ssl_choose_client_version:unsupported protocol:openssl\\ssl\\statem\\statem_lib.c:2407:\n"
+   "host": "vpn290770797.opengw.net",
+   "port": 1792,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@vpn290770797.opengw.net:1792",
+   "country": "Japan",
+   "country_code": "JP",
+   "city": "Miharadai",
+   "org": "Open Data Network",
+   "asn": "AS4725",
+   "isp": "Open Data Network",
+   "exit_ip": "218.46.238.239",
+   "assigned_ip": "10.211.1.36",
+   "residential": "residential",
+   "latency_ms": 2528,
+   "checked_at": "2026-11-05T09:33:49.984Z"
   },
   {
    "host": "public-vpn-238.opengw.net",
    "port": 443,
-   "error": "Client network socket disconnected before secure TLS connection was established"
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@public-vpn-238.opengw.net:443",
+   "country": "Japan",
+   "country_code": "JP",
+   "city": "Chiyoda City",
+   "org": "SoftEther Corporation",
+   "asn": "AS36599",
+   "isp": "SoftEther",
+   "exit_ip": "219.100.37.245",
+   "assigned_ip": "10.245.199.90",
+   "residential": "residential",
+   "latency_ms": 2531,
+   "checked_at": "2026-11-05T09:33:49.984Z"
   },
   {
-   "host": "public-vpn-132.opengw.net",
+   "host": "vpn739981111.opengw.net",
+   "port": 1811,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@vpn739981111.opengw.net:1811",
+   "country": "Japan",
+   "country_code": "JP",
+   "city": "Yokohama",
+   "org": "Yokohama Cable Vision",
+   "asn": "AS9365",
+   "isp": "its communications Inc.",
+   "exit_ip": "101.111.51.86",
+   "assigned_ip": "10.211.1.7",
+   "residential": "residential",
+   "latency_ms": 2538,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "public-vpn-187.opengw.net",
    "port": 443,
-   "error": "Client network socket disconnected before secure TLS connection was established"
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@public-vpn-187.opengw.net:443",
+   "country": "Japan",
+   "country_code": "JP",
+   "city": "Chiyoda City",
+   "org": "SoftEther Corporation",
+   "asn": "AS36599",
+   "isp": "SoftEther",
+   "exit_ip": "219.100.37.244",
+   "assigned_ip": "10.244.78.63",
+   "residential": "residential",
+   "latency_ms": 2567,
+   "checked_at": "2026-11-05T09:33:49.984Z"
   },
   {
-   "host": "public-vpn-45.opengw.net",
+   "host": "vpn623799048.opengw.net",
+   "port": 1625,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@vpn623799048.opengw.net:1625",
+   "country": "South Korea",
+   "country_code": "KR",
+   "city": "Gangseo-gu",
+   "org": "SKBroadband Co. Inc",
+   "asn": "AS9318",
+   "isp": "SK Broadband Co Ltd",
+   "exit_ip": "115.178.67.246",
+   "assigned_ip": "10.211.1.10",
+   "residential": "residential",
+   "latency_ms": 2585,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "vpn879253505.opengw.net",
+   "port": 995,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@vpn879253505.opengw.net:995",
+   "country": "South Korea",
+   "country_code": "KR",
+   "city": "Anseong",
+   "org": "SK Broadband Co Ltd",
+   "asn": "AS9318",
+   "isp": "SK Broadband Co Ltd",
+   "exit_ip": "211.178.136.73",
+   "assigned_ip": "10.211.1.11",
+   "residential": "residential",
+   "latency_ms": 2593,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "public-vpn-258.opengw.net",
+   "port": 443,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@public-vpn-258.opengw.net:443",
+   "country": "Japan",
+   "country_code": "JP",
+   "city": "Chiyoda City",
+   "org": "SoftEther Corporation",
+   "asn": "AS36599",
+   "isp": "SoftEther",
+   "exit_ip": "219.100.37.244",
+   "assigned_ip": "10.244.78.100",
+   "residential": "residential",
+   "latency_ms": 2600,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "vpn686659377.opengw.net",
+   "port": 1909,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@vpn686659377.opengw.net:1909",
+   "country": "Japan",
+   "country_code": "JP",
+   "city": "Minato",
+   "org": "Japan Nation-wide Network of Softbank BB Corp.",
+   "asn": "AS17676",
+   "isp": "SoftBank Corp.",
+   "exit_ip": "218.183.114.77",
+   "assigned_ip": "10.211.1.3",
+   "residential": "residential",
+   "latency_ms": 2606,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "vpn733186000.opengw.net",
+   "port": 995,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@vpn733186000.opengw.net:995",
+   "country": "South Korea",
+   "country_code": "KR",
+   "city": "Seo-gu",
+   "org": "Kornet",
+   "asn": "AS4766",
+   "isp": "Korea Telecom",
+   "exit_ip": "59.16.199.17",
+   "assigned_ip": "10.211.1.14",
+   "residential": "residential",
+   "latency_ms": 2627,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "vpn616200329.opengw.net",
+   "port": 995,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@vpn616200329.opengw.net:995",
+   "country": "South Korea",
+   "country_code": "KR",
+   "city": "Jongno-gu",
+   "org": "Sudogwonseobubonbu",
+   "asn": "AS4766",
+   "isp": "Korea Telecom",
+   "exit_ip": "121.140.218.217",
+   "assigned_ip": "10.211.1.12",
+   "residential": "residential",
+   "latency_ms": 2673,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "vpn741602089.opengw.net",
+   "port": 1210,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@vpn741602089.opengw.net:1210",
+   "country": "South Korea",
+   "country_code": "KR",
+   "city": "Chungju",
+   "org": "SK Broadband Co Ltd",
+   "asn": "AS9318",
+   "isp": "SK Broadband Co Ltd",
+   "exit_ip": "221.138.46.130",
+   "assigned_ip": "10.211.1.23",
+   "residential": "residential",
+   "latency_ms": 2759,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "vpn451268085.opengw.net",
+   "port": 1731,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@vpn451268085.opengw.net:1731",
+   "country": "Japan",
+   "country_code": "JP",
+   "city": "Noborito",
+   "org": "TOKAI",
+   "asn": "AS10010",
+   "isp": "TOKAI Communications Corporation",
+   "exit_ip": "120.137.194.191",
+   "assigned_ip": "10.211.1.12",
+   "residential": "residential",
+   "latency_ms": 2761,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "vpn196131915.opengw.net",
+   "port": 995,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@vpn196131915.opengw.net:995",
+   "country": "South Korea",
+   "country_code": "KR",
+   "city": "Siheung-si",
+   "org": "LG POWERCOMM",
+   "asn": "AS17858",
+   "isp": "LG POWERCOMM",
+   "exit_ip": "125.188.5.153",
+   "assigned_ip": "10.211.1.6",
+   "residential": "residential",
+   "latency_ms": 2783,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "vpn898866193.opengw.net",
+   "port": 1446,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@vpn898866193.opengw.net:1446",
+   "country": "South Korea",
+   "country_code": "KR",
+   "city": "Seoul",
+   "org": "Sudogwonseobubonbu",
+   "asn": "AS4766",
+   "isp": "Korea Telecom",
+   "exit_ip": "121.140.177.212",
+   "assigned_ip": "10.211.1.7",
+   "residential": "residential",
+   "latency_ms": 2786,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "vpn274345019.opengw.net",
+   "port": 1258,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@vpn274345019.opengw.net:1258",
+   "country": "Japan",
+   "country_code": "JP",
+   "city": "Shiki",
+   "org": "JCOM Co., Ltd",
+   "asn": "AS9824",
+   "isp": "JCOM Co., Ltd.",
+   "exit_ip": "110.132.120.239",
+   "assigned_ip": "10.211.1.11",
+   "residential": "residential",
+   "latency_ms": 2860,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "vpn398540356.opengw.net",
+   "port": 1482,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@vpn398540356.opengw.net:1482",
+   "country": "South Korea",
+   "country_code": "KR",
+   "city": "Jeonju-si",
+   "org": "Korea Telecom",
+   "asn": "AS4766",
+   "isp": "Korea Telecom",
+   "exit_ip": "121.154.66.138",
+   "assigned_ip": "10.211.1.14",
+   "residential": "residential",
+   "latency_ms": 2880,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "vpn198732322.opengw.net",
+   "port": 1312,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@vpn198732322.opengw.net:1312",
+   "country": "Japan",
+   "country_code": "JP",
+   "city": "Sapporo",
+   "org": "NTT Communications Corporation",
+   "asn": "AS4713",
+   "isp": "NTT Communications Corporation",
+   "exit_ip": "180.57.87.157",
+   "assigned_ip": "10.211.1.12",
+   "residential": "residential",
+   "latency_ms": 2939,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "vpn459624604.opengw.net",
+   "port": 995,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@vpn459624604.opengw.net:995",
+   "country": "South Korea",
+   "country_code": "KR",
+   "city": "Incheon",
+   "org": "Kornet",
+   "asn": "AS4766",
+   "isp": "Korea Telecom",
+   "exit_ip": "211.38.57.123",
+   "assigned_ip": "10.211.1.23",
+   "residential": "residential",
+   "latency_ms": 2964,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "vpn886191021.opengw.net",
+   "port": 1814,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@vpn886191021.opengw.net:1814",
+   "country": "South Korea",
+   "country_code": "KR",
+   "city": "Hongcheon-gun",
+   "org": "Korea Telecom",
+   "asn": "AS4766",
+   "isp": "Korea Telecom",
+   "exit_ip": "211.104.71.136",
+   "assigned_ip": "10.211.1.4",
+   "residential": "residential",
+   "latency_ms": 2965,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "public-vpn-241.opengw.net",
+   "port": 443,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@public-vpn-241.opengw.net:443",
+   "country": "Japan",
+   "country_code": "JP",
+   "city": "Chiyoda City",
+   "org": "SoftEther Corporation",
+   "asn": "AS36599",
+   "isp": "SoftEther",
+   "exit_ip": "219.100.37.244",
+   "assigned_ip": "10.244.78.114",
+   "residential": "residential",
+   "latency_ms": 3087,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "vpn584377130.opengw.net",
+   "port": 1822,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@vpn584377130.opengw.net:1822",
+   "country": "Japan",
+   "country_code": "JP",
+   "city": "Tama",
+   "org": "Kddi Corporation",
+   "asn": "AS131933",
+   "isp": "TTV",
+   "exit_ip": "14.14.148.93",
+   "assigned_ip": "10.211.1.34",
+   "residential": "residential",
+   "latency_ms": 3170,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "vpn165692380.opengw.net",
+   "port": 995,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@vpn165692380.opengw.net:995",
+   "country": "South Korea",
+   "country_code": "KR",
+   "city": "Sacheon-si",
+   "org": "Kornet",
+   "asn": "AS4766",
+   "isp": "Korea Telecom",
+   "exit_ip": "119.198.236.48",
+   "assigned_ip": "10.211.1.71",
+   "residential": "residential",
+   "latency_ms": 3283,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "public-vpn-215.opengw.net",
+   "port": 443,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@public-vpn-215.opengw.net:443",
+   "country": "Japan",
+   "country_code": "JP",
+   "city": "Chiyoda City",
+   "org": "SoftEther Corporation",
+   "asn": "AS36599",
+   "isp": "SoftEther",
+   "exit_ip": "219.100.37.243",
+   "assigned_ip": "10.243.39.20",
+   "residential": "residential",
+   "latency_ms": 3320,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "public-vpn-104.opengw.net",
+   "port": 443,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@public-vpn-104.opengw.net:443",
+   "country": "Japan",
+   "country_code": "JP",
+   "city": "Chiyoda City",
+   "org": "SoftEther Corporation",
+   "asn": "AS36599",
+   "isp": "SoftEther",
+   "exit_ip": "219.100.37.236",
+   "assigned_ip": "10.236.5.147",
+   "residential": "residential",
+   "latency_ms": 3434,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "vpn508965699.opengw.net",
+   "port": 995,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@vpn508965699.opengw.net:995",
+   "country": "South Korea",
+   "country_code": "KR",
+   "city": "Incheon",
+   "org": "Kornet",
+   "asn": "AS4766",
+   "isp": "Korea Telecom",
+   "exit_ip": "169.212.48.167",
+   "assigned_ip": "10.211.1.19",
+   "residential": "residential",
+   "latency_ms": 3663,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "vpn859746213.opengw.net",
+   "port": 995,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@vpn859746213.opengw.net:995",
+   "country": "South Korea",
+   "country_code": "KR",
+   "city": "Daegu",
+   "org": "Kornet",
+   "asn": "AS4766",
+   "isp": "Korea Telecom",
+   "exit_ip": "211.57.221.30",
+   "assigned_ip": "10.211.1.12",
+   "residential": "residential",
+   "latency_ms": 3801,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "vpn819358376.opengw.net",
+   "port": 1298,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@vpn819358376.opengw.net:1298",
+   "country": "South Korea",
+   "country_code": "KR",
+   "city": "Buk-gu",
+   "org": "broadNnet",
+   "asn": "AS9318",
+   "isp": "broadNnet",
+   "exit_ip": "175.122.73.80",
+   "assigned_ip": "10.211.1.2",
+   "residential": "residential",
+   "latency_ms": 3904,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "vpn842317346.opengw.net",
+   "port": 1795,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@vpn842317346.opengw.net:1795",
+   "country": "South Korea",
+   "country_code": "KR",
+   "city": "Gimhae",
+   "org": "Kornet",
+   "asn": "AS4766",
+   "isp": "Korea Telecom",
+   "exit_ip": "59.21.241.135",
+   "assigned_ip": "10.211.1.10",
+   "residential": "residential",
+   "latency_ms": 3905,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "vpn184169581.opengw.net",
+   "port": 1713,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@vpn184169581.opengw.net:1713",
+   "country": "Japan",
+   "country_code": "JP",
+   "city": "Sanda Shi",
+   "org": "J:COM WEST Co., Ltd.",
+   "asn": "AS9617",
+   "isp": "JCOM Co., Ltd.",
+   "exit_ip": "218.220.209.82",
+   "assigned_ip": "10.211.1.47",
+   "residential": "residential",
+   "latency_ms": 3965,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "vpn468282901.opengw.net",
+   "port": 1508,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@vpn468282901.opengw.net:1508",
+   "country": "South Korea",
+   "country_code": "KR",
+   "city": "Gwangsan-gu",
+   "org": "Jeonnambonbujang",
+   "asn": "AS4766",
+   "isp": "Korea Telecom",
+   "exit_ip": "59.28.8.40",
+   "assigned_ip": "10.211.1.15",
+   "residential": "residential",
+   "latency_ms": 4676,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "vpn251678351.opengw.net",
+   "port": 995,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@vpn251678351.opengw.net:995",
+   "country": "South Korea",
+   "country_code": "KR",
+   "city": "Gangseo-gu",
+   "org": "Korea Telecom",
+   "asn": "AS4766",
+   "isp": "Korea Telecom",
+   "exit_ip": "59.15.75.44",
+   "assigned_ip": "10.211.1.26",
+   "residential": "residential",
+   "latency_ms": 5141,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "public-vpn-219.opengw.net",
+   "port": 443,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@public-vpn-219.opengw.net:443",
+   "country": "Japan",
+   "country_code": "JP",
+   "city": "Chiyoda City",
+   "org": "SoftEther Corporation",
+   "asn": "AS36599",
+   "isp": "SoftEther",
+   "exit_ip": "219.100.37.245",
+   "assigned_ip": "10.245.199.26",
+   "residential": "residential",
+   "latency_ms": 5476,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "vpn311787559.opengw.net",
+   "port": 1249,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@vpn311787559.opengw.net:1249",
+   "country": "South Korea",
+   "country_code": "KR",
+   "city": "Seongnam-si",
+   "org": "Korea Telecom",
+   "asn": "AS4766",
+   "isp": "Korea Telecom",
+   "exit_ip": "211.221.198.244",
+   "assigned_ip": "10.211.1.60",
+   "residential": "residential",
+   "latency_ms": 5600,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "vpn435394266.opengw.net",
+   "port": 1495,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@vpn435394266.opengw.net:1495",
+   "country": "Japan",
+   "country_code": "JP",
+   "city": "Kyoto",
+   "org": "OPTAGE Inc.",
+   "asn": "AS17511",
+   "isp": "OPTAGE Inc.",
+   "exit_ip": "121.86.244.13",
+   "assigned_ip": "10.211.1.52",
+   "residential": "residential",
+   "latency_ms": 5884,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "vpn887613862.opengw.net",
+   "port": 1524,
+   "protocol": "sstp",
+   "link": "sstp://vpn:vpn@vpn887613862.opengw.net:1524",
+   "country": "South Korea",
+   "country_code": "KR",
+   "city": "Seo-gu",
+   "org": "Korea Telecom",
+   "asn": "AS4766",
+   "isp": "Korea Telecom",
+   "exit_ip": "211.194.138.171",
+   "assigned_ip": "10.211.1.16",
+   "residential": "residential",
+   "latency_ms": 6403,
+   "checked_at": "2026-11-05T09:33:49.984Z"
+  },
+  {
+   "host": "47.84.179.9",
+   "port": 3128,
+   "protocol": "http",
+   "user": null,
+   "pass": null,
+   "country": "Singapore",
+   "country_code": "SG",
+   "city": "Singapore",
+   "org": "Delta Centric LLC, Zenlayer Inc",
+   "asn": "AS45102",
+   "isp": "Alibaba.com LLC",
+   "exit_ip": "47.84.179.9",
+   "residential": "datacenter",
+   "latency_ms": 11695,
+   "source": "proxy-pool",
+   "link": "http://47.84.179.9:3128"
+  }
+ ],
+ "failed": [
+  {
+   "host": "vpn345560266.opengw.net",
+   "port": 1440,
+   "error": "连接 vpn345560266.opengw.net:1440 超时"
+  },
+  {
+   "host": "vpn541474874.opengw.net",
+   "port": 1929,
+   "error": "连接 vpn541474874.opengw.net:1929 超时"
+  },
+  {
+   "host": "vpn167421173.opengw.net",
+   "port": 1771,
+   "error": "连接 vpn167421173.opengw.net:1771 超时"
+  },
+  {
+   "host": "vpn855299844.opengw.net",
+   "port": 1663,
+   "error": "连接已被对端关闭"
+  },
+  {
+   "host": "vpn282026883.opengw.net",
+   "port": 1341,
+   "error": "连接 vpn282026883.opengw.net:1341 超时"
+  },
+  {
+   "host": "vpn135693001.opengw.net",
+   "port": 995,
+   "error": "连接 vpn135693001.opengw.net:995 超时"
+  },
+  {
+   "host": "vpn757481522.opengw.net",
+   "port": 1346,
+   "error": "连接 vpn757481522.opengw.net:1346 超时"
+  },
+  {
+   "host": "vpn414557377.opengw.net",
+   "port": 1578,
+   "error": "连接 vpn414557377.opengw.net:1578 超时"
+  },
+  {
+   "host": "vpn425038562.opengw.net",
+   "port": 1912,
+   "error": "C0EC0A4AAB780000:error:0A000410:SSL routines:ssl3_read_bytes:sslv3 alert handshake failure:../deps/openssl/openssl/ssl/record/rec_layer_s3.c:1601:SSL alert number 40\n"
+  },
+  {
+   "host": "vpn941986434.opengw.net",
+   "port": 995,
+   "error": "连接 vpn941986434.opengw.net:995 超时"
+  },
+  {
+   "host": "vpn830401246.opengw.net",
+   "port": 1634,
+   "error": "连接 vpn830401246.opengw.net:1634 超时"
+  },
+  {
+   "host": "public-vpn-79.opengw.net",
    "port": 443,
    "error": "连接已被对端关闭"
   },
   {
-   "host": "public-vpn-88.opengw.net",
-   "port": 443,
-   "error": "Client network socket disconnected before secure TLS connection was established"
-  },
-  {
-   "host": "public-vpn-154.opengw.net",
+   "host": "public-vpn-205.opengw.net",
    "port": 443,
    "error": "连接已被对端关闭"
   },
   {
    "host": "laud.opengw.net",
    "port": 443,
-   "error": "Client network socket disconnected before secure TLS connection was established"
+   "error": "隧道内 TCP 握手超时"
   },
   {
-   "host": "public-vpn-90.opengw.net",
-   "port": 443,
-   "error": "Client network socket disconnected before secure TLS connection was established"
+   "host": "43.156.137.7",
+   "port": 10809,
+   "error": "代理握手超时"
   },
   {
-   "host": "public-vpn-189.opengw.net",
-   "port": 443,
-   "error": "连接已被对端关闭"
+   "host": "4.144.146.21",
+   "port": 80,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "8.219.97.248",
+   "port": 80,
+   "error": "代理在握手完成前关闭连接"
+  },
+  {
+   "host": "47.245.117.43",
+   "port": 80,
+   "error": "read ECONNRESET"
+  },
+  {
+   "host": "47.245.117.43",
+   "port": 80,
+   "error": "read ECONNRESET"
   },
   {
    "host": "8.219.122.8",
@@ -1149,14 +2420,54 @@
    "error": "代理握手超时"
   },
   {
-   "host": "134.185.85.16",
-   "port": 3128,
-   "error": "连接 134.185.85.16:3128 超时"
+   "host": "43.156.137.7",
+   "port": 10808,
+   "error": "CONNECT 响应异常: "
   },
   {
-   "host": "134.185.85.16",
+   "host": "43.156.137.7",
+   "port": 10808,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "138.2.64.185",
+   "port": 8118,
+   "error": "CONNECT 被拒绝: HTTP 503"
+  },
+  {
+   "host": "138.2.64.185",
+   "port": 8118,
+   "error": "不是 SOCKS5 代理"
+  },
+  {
+   "host": "43.160.245.155",
+   "port": 8080,
+   "error": "CONNECT 响应超时"
+  },
+  {
+   "host": "43.160.245.155",
+   "port": 8080,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "15.235.240.177",
    "port": 3128,
-   "error": "连接 134.185.85.16:3128 超时"
+   "error": "连接 15.235.240.177:3128 超时"
+  },
+  {
+   "host": "15.235.240.177",
+   "port": 3128,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "128.199.202.122",
+   "port": 1080,
+   "error": "read ECONNRESET"
+  },
+  {
+   "host": "128.199.202.122",
+   "port": 1080,
+   "error": "代理在握手完成前关闭连接"
   },
   {
    "host": "8.219.94.23",
@@ -1169,154 +2480,929 @@
    "error": "代理握手超时"
   },
   {
-   "host": "43.156.137.7",
-   "port": 10808,
-   "error": "CONNECT 响应异常: "
+   "host": "47.237.2.245",
+   "port": 1081,
+   "error": "代理在握手完成前关闭连接"
   },
   {
-   "host": "43.156.137.7",
-   "port": 10808,
+   "host": "8.219.229.53",
+   "port": 84,
+   "error": "代理在握手完成前关闭连接"
+  },
+  {
+   "host": "8.219.229.53",
+   "port": 8081,
+   "error": "代理在握手完成前关闭连接"
+  },
+  {
+   "host": "8.219.229.53",
+   "port": 8888,
+   "error": "代理在握手完成前关闭连接"
+  },
+  {
+   "host": "47.237.107.41",
+   "port": 6379,
+   "error": "代理在握手完成前关闭连接"
+  },
+  {
+   "host": "5.253.36.60",
+   "port": 20001,
+   "error": "connect ECONNREFUSED 5.253.36.60:20001"
+  },
+  {
+   "host": "5.253.36.60",
+   "port": 20001,
+   "error": "connect ECONNREFUSED 5.253.36.60:20001"
+  },
+  {
+   "host": "43.156.122.96",
+   "port": 10800,
+   "error": "connect ECONNREFUSED 43.156.122.96:10800"
+  },
+  {
+   "host": "43.156.122.96",
+   "port": 10800,
+   "error": "connect ECONNREFUSED 43.156.122.96:10800"
+  },
+  {
+   "host": "129.150.57.5",
+   "port": 55555,
+   "error": "连接 129.150.57.5:55555 超时"
+  },
+  {
+   "host": "129.150.57.5",
+   "port": 55555,
+   "error": "连接 129.150.57.5:55555 超时"
+  },
+  {
+   "host": "84.247.148.99",
+   "port": 8382,
+   "error": "连接 84.247.148.99:8382 超时"
+  },
+  {
+   "host": "84.247.148.99",
+   "port": 8382,
+   "error": "连接 84.247.148.99:8382 超时"
+  },
+  {
+   "host": "151.242.116.106",
+   "port": 1080,
+   "error": "connect ECONNREFUSED 151.242.116.106:1080"
+  },
+  {
+   "host": "151.242.116.106",
+   "port": 1080,
+   "error": "connect ECONNREFUSED 151.242.116.106:1080"
+  },
+  {
+   "host": "217.216.37.99",
+   "port": 3128,
+   "error": "CONNECT 响应超时"
+  },
+  {
+   "host": "217.216.37.99",
+   "port": 3128,
+   "error": "连接 217.216.37.99:3128 超时"
+  },
+  {
+   "host": "143.198.85.218",
+   "port": 3128,
+   "error": "连接 143.198.85.218:3128 超时"
+  },
+  {
+   "host": "143.198.85.218",
+   "port": 3128,
+   "error": "连接 143.198.85.218:3128 超时"
+  },
+  {
+   "host": "151.242.116.132",
+   "port": 8080,
+   "error": "connect ECONNREFUSED 151.242.116.132:8080"
+  },
+  {
+   "host": "151.242.116.132",
+   "port": 8080,
+   "error": "connect ECONNREFUSED 151.242.116.132:8080"
+  },
+  {
+   "host": "128.199.192.160",
+   "port": 9876,
+   "error": "CONNECT 响应超时"
+  },
+  {
+   "host": "128.199.192.160",
+   "port": 9876,
    "error": "代理握手超时"
   },
   {
-   "host": "43.160.245.155",
+   "host": "202.95.15.6",
+   "port": 1080,
+   "error": "连接 202.95.15.6:1080 超时"
+  },
+  {
+   "host": "202.95.15.6",
+   "port": 1080,
+   "error": "连接 202.95.15.6:1080 超时"
+  },
+  {
+   "host": "43.163.119.228",
+   "port": 8080,
+   "error": "connect ECONNREFUSED 43.163.119.228:8080"
+  },
+  {
+   "host": "43.163.119.228",
+   "port": 8080,
+   "error": "connect ECONNREFUSED 43.163.119.228:8080"
+  },
+  {
+   "host": "124.243.150.41",
+   "port": 3128,
+   "error": "CONNECT 响应超时"
+  },
+  {
+   "host": "124.243.150.41",
+   "port": 3128,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "128.199.247.154",
+   "port": 3128,
+   "error": "CONNECT 响应超时"
+  },
+  {
+   "host": "128.199.247.154",
+   "port": 3128,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "52.77.211.166",
+   "port": 8080,
+   "error": "连接 52.77.211.166:8080 超时"
+  },
+  {
+   "host": "52.77.211.166",
+   "port": 8080,
+   "error": "连接 52.77.211.166:8080 超时"
+  },
+  {
+   "host": "139.180.184.55",
+   "port": 9100,
+   "error": "连接 139.180.184.55:9100 超时"
+  },
+  {
+   "host": "139.180.184.55",
+   "port": 9100,
+   "error": "连接 139.180.184.55:9100 超时"
+  },
+  {
+   "host": "167.71.204.247",
+   "port": 9050,
+   "error": "连接 167.71.204.247:9050 超时"
+  },
+  {
+   "host": "167.71.204.247",
+   "port": 9050,
+   "error": "连接 167.71.204.247:9050 超时"
+  },
+  {
+   "host": "43.160.228.78",
+   "port": 8081,
+   "error": "连接 43.160.228.78:8081 超时"
+  },
+  {
+   "host": "43.160.228.78",
+   "port": 8081,
+   "error": "连接 43.160.228.78:8081 超时"
+  },
+  {
+   "host": "43.159.56.43",
+   "port": 1080,
+   "error": "connect ECONNREFUSED 43.159.56.43:1080"
+  },
+  {
+   "host": "43.159.56.43",
+   "port": 1080,
+   "error": "connect ECONNREFUSED 43.159.56.43:1080"
+  },
+  {
+   "host": "129.226.93.12",
+   "port": 7788,
+   "error": "connect ECONNREFUSED 129.226.93.12:7788"
+  },
+  {
+   "host": "129.226.93.12",
+   "port": 7788,
+   "error": "connect ECONNREFUSED 129.226.93.12:7788"
+  },
+  {
+   "host": "47.84.179.9",
+   "port": 3128,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "38.22.92.75",
+   "port": 808,
+   "error": "Client network socket disconnected before secure TLS connection was established"
+  },
+  {
+   "host": "38.22.92.75",
+   "port": 808,
+   "error": "不是 SOCKS5 代理"
+  },
+  {
+   "host": "47.237.67.253",
+   "port": 1011,
+   "error": "connect ECONNREFUSED 47.237.67.253:1011"
+  },
+  {
+   "host": "47.237.67.253",
+   "port": 1011,
+   "error": "connect ECONNREFUSED 47.237.67.253:1011"
+  },
+  {
+   "host": "138.2.88.91",
+   "port": 3128,
+   "error": "connect ECONNREFUSED 138.2.88.91:3128"
+  },
+  {
+   "host": "138.2.88.91",
+   "port": 3128,
+   "error": "connect ECONNREFUSED 138.2.88.91:3128"
+  },
+  {
+   "host": "165.225.113.214",
+   "port": 11589,
+   "error": "连接 165.225.113.214:11589 超时"
+  },
+  {
+   "host": "165.225.113.214",
+   "port": 11589,
+   "error": "连接 165.225.113.214:11589 超时"
+  },
+  {
+   "host": "188.166.198.82",
+   "port": 3128,
+   "error": "connect ECONNREFUSED 188.166.198.82:3128"
+  },
+  {
+   "host": "188.166.198.82",
+   "port": 3128,
+   "error": "connect ECONNREFUSED 188.166.198.82:3128"
+  },
+  {
+   "host": "139.162.60.92",
+   "port": 3128,
+   "error": "CONNECT 响应超时"
+  },
+  {
+   "host": "139.162.60.92",
+   "port": 3128,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "43.160.240.149",
+   "port": 80,
+   "error": "连接 43.160.240.149:80 超时"
+  },
+  {
+   "host": "43.160.240.149",
+   "port": 80,
+   "error": "连接 43.160.240.149:80 超时"
+  },
+  {
+   "host": "8.219.117.134",
+   "port": 1080,
+   "error": "connect ECONNREFUSED 8.219.117.134:1080"
+  },
+  {
+   "host": "8.219.117.134",
+   "port": 1080,
+   "error": "connect ECONNREFUSED 8.219.117.134:1080"
+  },
+  {
+   "host": "8.222.175.80",
+   "port": 6128,
+   "error": "连接 8.222.175.80:6128 超时"
+  },
+  {
+   "host": "8.222.175.80",
+   "port": 6128,
+   "error": "连接 8.222.175.80:6128 超时"
+  },
+  {
+   "host": "43.160.230.218",
+   "port": 3128,
+   "error": "连接 43.160.230.218:3128 超时"
+  },
+  {
+   "host": "43.160.230.218",
+   "port": 3128,
+   "error": "连接 43.160.230.218:3128 超时"
+  },
+  {
+   "host": "50.7.252.2",
+   "port": 8088,
+   "error": "connect ECONNREFUSED 50.7.252.2:8088"
+  },
+  {
+   "host": "50.7.252.2",
+   "port": 8088,
+   "error": "connect ECONNREFUSED 50.7.252.2:8088"
+  },
+  {
+   "host": "188.166.197.213",
+   "port": 3128,
+   "error": "connect ECONNREFUSED 188.166.197.213:3128"
+  },
+  {
+   "host": "188.166.197.213",
+   "port": 3128,
+   "error": "connect ECONNREFUSED 188.166.197.213:3128"
+  },
+  {
+   "host": "159.223.76.52",
+   "port": 1080,
+   "error": "连接 159.223.76.52:1080 超时"
+  },
+  {
+   "host": "159.223.76.52",
+   "port": 1080,
+   "error": "连接 159.223.76.52:1080 超时"
+  },
+  {
+   "host": "5.223.75.150",
+   "port": 1080,
+   "error": "connect ECONNREFUSED 5.223.75.150:1080"
+  },
+  {
+   "host": "5.223.75.150",
+   "port": 1080,
+   "error": "connect ECONNREFUSED 5.223.75.150:1080"
+  },
+  {
+   "host": "47.236.104.43",
+   "port": 8118,
+   "error": "connect ECONNREFUSED 47.236.104.43:8118"
+  },
+  {
+   "host": "47.236.104.43",
+   "port": 8118,
+   "error": "connect ECONNREFUSED 47.236.104.43:8118"
+  },
+  {
+   "host": "165.154.236.164",
+   "port": 3128,
+   "error": "connect ECONNREFUSED 165.154.236.164:3128"
+  },
+  {
+   "host": "165.154.236.164",
+   "port": 3128,
+   "error": "connect ECONNREFUSED 165.154.236.164:3128"
+  },
+  {
+   "host": "82.41.42.243",
+   "port": 8080,
+   "error": "连接 82.41.42.243:8080 超时"
+  },
+  {
+   "host": "82.41.42.243",
+   "port": 8080,
+   "error": "连接 82.41.42.243:8080 超时"
+  },
+  {
+   "host": "47.237.110.50",
+   "port": 1080,
+   "error": "连接 47.237.110.50:1080 超时"
+  },
+  {
+   "host": "47.237.110.50",
+   "port": 1080,
+   "error": "连接 47.237.110.50:1080 超时"
+  },
+  {
+   "host": "8.216.132.206",
+   "port": 20002,
+   "error": "connect ECONNREFUSED 8.216.132.206:20002"
+  },
+  {
+   "host": "8.216.132.206",
+   "port": 20002,
+   "error": "connect ECONNREFUSED 8.216.132.206:20002"
+  },
+  {
+   "host": "8.219.245.123",
+   "port": 1080,
+   "error": "连接 8.219.245.123:1080 超时"
+  },
+  {
+   "host": "8.219.245.123",
+   "port": 1080,
+   "error": "连接 8.219.245.123:1080 超时"
+  },
+  {
+   "host": "118.200.237.152",
+   "port": 8118,
+   "error": "连接 118.200.237.152:8118 超时"
+  },
+  {
+   "host": "118.200.237.152",
+   "port": 8118,
+   "error": "连接 118.200.237.152:8118 超时"
+  },
+  {
+   "host": "157.230.38.173",
+   "port": 3128,
+   "error": "connect ECONNREFUSED 157.230.38.173:3128"
+  },
+  {
+   "host": "157.230.38.173",
+   "port": 3128,
+   "error": "connect ECONNREFUSED 157.230.38.173:3128"
+  },
+  {
+   "host": "139.162.11.41",
+   "port": 3128,
+   "error": "连接 139.162.11.41:3128 超时"
+  },
+  {
+   "host": "139.162.11.41",
+   "port": 3128,
+   "error": "连接 139.162.11.41:3128 超时"
+  },
+  {
+   "host": "43.134.53.69",
+   "port": 1080,
+   "error": "连接 43.134.53.69:1080 超时"
+  },
+  {
+   "host": "43.134.53.69",
+   "port": 1080,
+   "error": "连接 43.134.53.69:1080 超时"
+  },
+  {
+   "host": "43.106.31.95",
+   "port": 1080,
+   "error": "read ECONNRESET"
+  },
+  {
+   "host": "43.106.31.95",
+   "port": 1080,
+   "error": "连接 43.106.31.95:1080 超时"
+  },
+  {
+   "host": "129.226.149.231",
+   "port": 3128,
+   "error": "connect ECONNREFUSED 129.226.149.231:3128"
+  },
+  {
+   "host": "129.226.149.231",
+   "port": 3128,
+   "error": "connect ECONNREFUSED 129.226.149.231:3128"
+  },
+  {
+   "host": "167.71.217.74",
+   "port": 3129,
+   "error": "connect ECONNREFUSED 167.71.217.74:3129"
+  },
+  {
+   "host": "167.71.217.74",
+   "port": 3129,
+   "error": "connect ECONNREFUSED 167.71.217.74:3129"
+  },
+  {
+   "host": "139.162.38.61",
+   "port": 3128,
+   "error": "连接 139.162.38.61:3128 超时"
+  },
+  {
+   "host": "139.162.38.61",
+   "port": 3128,
+   "error": "连接 139.162.38.61:3128 超时"
+  },
+  {
+   "host": "188.239.20.23",
+   "port": 7777,
+   "error": "connect ECONNREFUSED 188.239.20.23:7777"
+  },
+  {
+   "host": "188.239.20.23",
+   "port": 7777,
+   "error": "connect ECONNREFUSED 188.239.20.23:7777"
+  },
+  {
+   "host": "47.245.104.45",
+   "port": 1011,
+   "error": "connect ECONNREFUSED 47.245.104.45:1011"
+  },
+  {
+   "host": "47.245.104.45",
+   "port": 1011,
+   "error": "connect ECONNREFUSED 47.245.104.45:1011"
+  },
+  {
+   "host": "43.159.54.117",
+   "port": 7890,
+   "error": "connect ECONNREFUSED 43.159.54.117:7890"
+  },
+  {
+   "host": "43.159.54.117",
+   "port": 7890,
+   "error": "connect ECONNREFUSED 43.159.54.117:7890"
+  },
+  {
+   "host": "47.79.123.102",
+   "port": 8888,
+   "error": "connect ECONNREFUSED 47.79.123.102:8888"
+  },
+  {
+   "host": "47.79.123.102",
+   "port": 8888,
+   "error": "connect ECONNREFUSED 47.79.123.102:8888"
+  },
+  {
+   "host": "31.57.178.211",
    "port": 8080,
    "error": "read ECONNRESET"
   },
   {
-   "host": "43.160.245.155",
+   "host": "31.57.178.211",
    "port": 8080,
-   "error": "SOCKS5 CONNECT 失败: 服务器故障"
+   "error": "连接 31.57.178.211:8080 超时"
   },
   {
-   "host": "4.144.146.21",
+   "host": "62.146.233.116",
+   "port": 8881,
+   "error": "connect ECONNREFUSED 62.146.233.116:8881"
+  },
+  {
+   "host": "62.146.233.116",
+   "port": 8881,
+   "error": "connect ECONNREFUSED 62.146.233.116:8881"
+  },
+  {
+   "host": "129.150.39.242",
+   "port": 8118,
+   "error": "CONNECT 响应超时"
+  },
+  {
+   "host": "129.150.39.242",
+   "port": 8118,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "15.235.193.159",
+   "port": 10290,
+   "error": "connect ECONNREFUSED 15.235.193.159:10290"
+  },
+  {
+   "host": "15.235.193.159",
+   "port": 10290,
+   "error": "connect ECONNREFUSED 15.235.193.159:10290"
+  },
+  {
+   "host": "101.32.242.173",
+   "port": 3128,
+   "error": "连接 101.32.242.173:3128 超时"
+  },
+  {
+   "host": "101.32.242.173",
+   "port": 3128,
+   "error": "连接 101.32.242.173:3128 超时"
+  },
+  {
+   "host": "45.76.158.221",
+   "port": 1080,
+   "error": "连接 45.76.158.221:1080 超时"
+  },
+  {
+   "host": "45.76.158.221",
+   "port": 1080,
+   "error": "连接 45.76.158.221:1080 超时"
+  },
+  {
+   "host": "43.128.114.142",
+   "port": 7890,
+   "error": "连接 43.128.114.142:7890 超时"
+  },
+  {
+   "host": "43.128.114.142",
+   "port": 7890,
+   "error": "连接 43.128.114.142:7890 超时"
+  },
+  {
+   "host": "45.77.245.8",
+   "port": 1082,
+   "error": "read ECONNRESET"
+  },
+  {
+   "host": "45.77.245.8",
+   "port": 1082,
+   "error": "连接 45.77.245.8:1082 超时"
+  },
+  {
+   "host": "47.237.64.190",
+   "port": 1011,
+   "error": "连接 47.237.64.190:1011 超时"
+  },
+  {
+   "host": "47.237.64.190",
+   "port": 1011,
+   "error": "连接 47.237.64.190:1011 超时"
+  },
+  {
+   "host": "151.242.116.35",
+   "port": 8080,
+   "error": "连接 151.242.116.35:8080 超时"
+  },
+  {
+   "host": "151.242.116.35",
+   "port": 8080,
+   "error": "连接 151.242.116.35:8080 超时"
+  },
+  {
+   "host": "43.163.81.35",
+   "port": 1080,
+   "error": "connect ECONNREFUSED 43.163.81.35:1080"
+  },
+  {
+   "host": "43.163.81.35",
+   "port": 1080,
+   "error": "connect ECONNREFUSED 43.163.81.35:1080"
+  },
+  {
+   "host": "51.79.157.205",
+   "port": 5080,
+   "error": "connect ECONNREFUSED 51.79.157.205:5080"
+  },
+  {
+   "host": "51.79.157.205",
+   "port": 5080,
+   "error": "connect ECONNREFUSED 51.79.157.205:5080"
+  },
+  {
+   "host": "47.237.16.167",
+   "port": 1011,
+   "error": "connect ECONNREFUSED 47.237.16.167:1011"
+  },
+  {
+   "host": "47.237.16.167",
+   "port": 1011,
+   "error": "connect ECONNREFUSED 47.237.16.167:1011"
+  },
+  {
+   "host": "167.99.70.72",
+   "port": 1080,
+   "error": "连接 167.99.70.72:1080 超时"
+  },
+  {
+   "host": "167.99.70.72",
+   "port": 1080,
+   "error": "连接 167.99.70.72:1080 超时"
+  },
+  {
+   "host": "139.99.121.31",
+   "port": 18080,
+   "error": "connect ECONNREFUSED 139.99.121.31:18080"
+  },
+  {
+   "host": "139.99.121.31",
+   "port": 18080,
+   "error": "connect ECONNREFUSED 139.99.121.31:18080"
+  },
+  {
+   "host": "8.222.189.165",
+   "port": 1100,
+   "error": "connect ECONNREFUSED 8.222.189.165:1100"
+  },
+  {
+   "host": "8.222.189.165",
+   "port": 1100,
+   "error": "connect ECONNREFUSED 8.222.189.165:1100"
+  },
+  {
+   "host": "66.179.31.117",
+   "port": 18080,
+   "error": "连接 66.179.31.117:18080 超时"
+  },
+  {
+   "host": "66.179.31.117",
+   "port": 18080,
+   "error": "连接 66.179.31.117:18080 超时"
+  },
+  {
+   "host": "194.233.79.120",
+   "port": 1080,
+   "error": "CONNECT 响应异常: "
+  },
+  {
+   "host": "194.233.79.120",
+   "port": 1080,
+   "error": "SOCKS5 不支持的认证方式 255"
+  },
+  {
+   "host": "157.230.241.91",
+   "port": 3128,
+   "error": "connect ECONNREFUSED 157.230.241.91:3128"
+  },
+  {
+   "host": "157.230.241.91",
+   "port": 3128,
+   "error": "connect ECONNREFUSED 157.230.241.91:3128"
+  },
+  {
+   "host": "62.146.235.9",
+   "port": 8080,
+   "error": "CONNECT 响应超时"
+  },
+  {
+   "host": "62.146.235.9",
+   "port": 8080,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "104.248.149.186",
+   "port": 3128,
+   "error": "connect ECONNREFUSED 104.248.149.186:3128"
+  },
+  {
+   "host": "104.248.149.186",
+   "port": 3128,
+   "error": "connect ECONNREFUSED 104.248.149.186:3128"
+  },
+  {
+   "host": "43.160.246.46",
+   "port": 3128,
+   "error": "连接 43.160.246.46:3128 超时"
+  },
+  {
+   "host": "43.160.246.46",
+   "port": 3128,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "8.222.249.220",
+   "port": 1080,
+   "error": "read ECONNRESET"
+  },
+  {
+   "host": "8.222.249.220",
+   "port": 1080,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "47.245.99.1",
+   "port": 1080,
+   "error": "read ECONNRESET"
+  },
+  {
+   "host": "47.245.99.1",
+   "port": 1080,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "43.153.199.126",
+   "port": 8888,
+   "error": "连接 43.153.199.126:8888 超时"
+  },
+  {
+   "host": "43.153.199.126",
+   "port": 8888,
+   "error": "连接 43.153.199.126:8888 超时"
+  },
+  {
+   "host": "47.237.100.95",
+   "port": 1011,
+   "error": "connect ECONNREFUSED 47.237.100.95:1011"
+  },
+  {
+   "host": "47.237.100.95",
+   "port": 1011,
+   "error": "connect ECONNREFUSED 47.237.100.95:1011"
+  },
+  {
+   "host": "149.71.241.164",
+   "port": 8080,
+   "error": "connect ECONNREFUSED 149.71.241.164:8080"
+  },
+  {
+   "host": "149.71.241.164",
+   "port": 8080,
+   "error": "connect ECONNREFUSED 149.71.241.164:8080"
+  },
+  {
+   "host": "47.237.132.36",
+   "port": 1011,
+   "error": "connect ECONNREFUSED 47.237.132.36:1011"
+  },
+  {
+   "host": "47.237.132.36",
+   "port": 1011,
+   "error": "connect ECONNREFUSED 47.237.132.36:1011"
+  },
+  {
+   "host": "129.226.93.232",
+   "port": 80,
+   "error": "CONNECT 被拒绝: HTTP 404"
+  },
+  {
+   "host": "129.226.93.232",
    "port": 80,
    "error": "代理握手超时"
   },
   {
-   "host": "8.219.229.53",
-   "port": 1026,
-   "error": "连接 8.219.229.53:1026 超时"
+   "host": "104.248.151.220",
+   "port": 57554,
+   "error": "CONNECT 响应超时"
   },
   {
-   "host": "8.219.229.53",
-   "port": 1026,
-   "error": "连接 8.219.229.53:1026 超时"
+   "host": "104.248.151.220",
+   "port": 57554,
+   "error": "连接 104.248.151.220:57554 超时"
   },
   {
-   "host": "213.35.111.243",
-   "port": 8899,
-   "error": "连接 213.35.111.243:8899 超时"
-  },
-  {
-   "host": "213.35.111.243",
-   "port": 8899,
-   "error": "连接 213.35.111.243:8899 超时"
-  },
-  {
-   "host": "8.219.229.53",
-   "port": 118,
-   "error": "连接 8.219.229.53:118 超时"
-  },
-  {
-   "host": "8.219.229.53",
-   "port": 118,
-   "error": "连接 8.219.229.53:118 超时"
-  },
-  {
-   "host": "128.199.202.122",
+   "host": "178.128.106.142",
    "port": 1080,
+   "error": "连接 178.128.106.142:1080 超时"
+  },
+  {
+   "host": "178.128.106.142",
+   "port": 1080,
+   "error": "连接 178.128.106.142:1080 超时"
+  },
+  {
+   "host": "149.104.24.86",
+   "port": 40001,
    "error": "read ECONNRESET"
   },
   {
-   "host": "128.199.202.122",
+   "host": "149.104.24.86",
+   "port": 40001,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "45.139.226.199",
+   "port": 10805,
+   "error": "connect ECONNREFUSED 45.139.226.199:10805"
+  },
+  {
+   "host": "45.139.226.199",
+   "port": 10805,
+   "error": "connect ECONNREFUSED 45.139.226.199:10805"
+  },
+  {
+   "host": "43.98.172.166",
+   "port": 3128,
+   "error": "connect ECONNREFUSED 43.98.172.166:3128"
+  },
+  {
+   "host": "43.98.172.166",
+   "port": 3128,
+   "error": "connect ECONNREFUSED 43.98.172.166:3128"
+  },
+  {
+   "host": "139.59.232.241",
+   "port": 9200,
+   "error": "connect ECONNREFUSED 139.59.232.241:9200"
+  },
+  {
+   "host": "139.59.232.241",
+   "port": 9200,
+   "error": "connect ECONNREFUSED 139.59.232.241:9200"
+  },
+  {
+   "host": "178.128.53.12",
    "port": 1080,
-   "error": "代理在握手完成前关闭连接"
+   "error": "connect ECONNREFUSED 178.128.53.12:1080"
+  },
+  {
+   "host": "178.128.53.12",
+   "port": 1080,
+   "error": "connect ECONNREFUSED 178.128.53.12:1080"
+  },
+  {
+   "host": "47.237.2.245",
+   "port": 1081,
+   "error": "出口国家不符（?）"
+  },
+  {
+   "host": "8.219.229.53",
+   "port": 84,
+   "error": "出口国家不符（?）"
+  },
+  {
+   "host": "8.219.229.53",
+   "port": 8081,
+   "error": "出口国家不符（?）"
+  },
+  {
+   "host": "8.219.229.53",
+   "port": 8888,
+   "error": "出口国家不符（?）"
   },
   {
    "host": "47.237.107.41",
    "port": 6379,
-   "error": "连接 47.237.107.41:6379 超时"
-  },
-  {
-   "host": "47.237.107.41",
-   "port": 6379,
-   "error": "连接 47.237.107.41:6379 超时"
-  },
-  {
-   "host": "43.156.137.7",
-   "port": 10809,
-   "error": "代理握手超时"
-  },
-  {
-   "host": "168.107.66.134",
-   "port": 3128,
-   "error": "CONNECT 响应超时"
-  },
-  {
-   "host": "168.107.66.134",
-   "port": 3128,
-   "error": "连接 168.107.66.134:3128 超时"
-  },
-  {
-   "host": "62.146.235.24",
-   "port": 8080,
-   "error": "CONNECT 响应超时"
-  },
-  {
-   "host": "62.146.235.24",
-   "port": 8080,
-   "error": "连接 62.146.235.24:8080 超时"
-  },
-  {
-   "host": "47.237.92.86",
-   "port": 10250,
-   "error": "Client network socket disconnected before secure TLS connection was established"
-  },
-  {
-   "host": "47.237.92.86",
-   "port": 10250,
-   "error": "代理在握手完成前关闭连接"
-  },
-  {
-   "host": "47.237.92.86",
-   "port": 3128,
-   "error": "Client network socket disconnected before secure TLS connection was established"
-  },
-  {
-   "host": "47.237.92.86",
-   "port": 3128,
-   "error": "read ECONNRESET"
-  },
-  {
-   "host": "43.106.60.21",
-   "port": 1080,
-   "error": "CONNECT 响应异常: "
-  },
-  {
-   "host": "43.106.60.21",
-   "port": 1080,
-   "error": "SOCKS5 CONNECT 失败: 主机不可达"
-  },
-  {
-   "host": "45.38.210.105",
-   "port": 9050,
-   "error": "CONNECT 被拒绝: HTTP 501"
-  },
-  {
-   "host": "45.38.210.105",
-   "port": 9050,
-   "error": "代理握手超时"
-  },
-  {
-   "host": "45.77.245.8",
-   "port": 1082,
-   "error": "read ECONNRESET"
-  },
-  {
-   "host": "45.77.245.8",
-   "port": 1082,
-   "error": "代理握手超时"
+   "error": "出口国家不符（?）"
   }
  ],
  "subscription": {
@@ -1332,300 +3418,859 @@
    "name": "日本-住宅-01",
    "kind": "住宅",
    "entry": "104.26.10.209:443",
-   "real": "vpn300897894.opengw.net:1429",
-   "exit_ip": "221.118.138.87",
-   "org": "AITAI-NET(Himawari Network Inc.)",
-   "latency_ms": 4706,
+   "real": "vpn349489107.opengw.net:1826",
+   "exit_ip": "126.71.98.195",
+   "org": "SOFTBANK Corp",
+   "latency_ms": 1900,
    "residential": true,
-   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@104.26.10.209:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwdRVAxaVl0OBhdfQAYIURYDDFJEGgEWQ1pKWRpeAgwfCEU%3D&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-01",
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@104.26.10.209:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwdVXQBbWFQHBRdfQAYIURYDDFJEGgEWQ1pKWRpeAgAfB0U%3D&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-01",
    "protocol": "sstp",
-   "sstp": "sstp://vpn:vpn@vpn300897894.opengw.net:1429"
+   "sstp": "sstp://vpn:vpn@vpn349489107.opengw.net:1826"
   },
   {
    "name": "日本-住宅-02",
    "kind": "住宅",
    "entry": "162.159.140.98:443",
-   "real": "public-vpn-241.opengw.net:443",
-   "exit_ip": "219.100.37.244",
-   "org": "SoftEther Corporation",
-   "latency_ms": 4722,
+   "real": "vpn324264097.opengw.net:1937",
+   "exit_ip": "116.94.12.234",
+   "org": "QTnet, Inc.",
+   "latency_ms": 2026,
    "residential": true,
-   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@162.159.140.98:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE0hMA1gIBxkVEQsaAA0BHgwWUw9KFRleXVkWHxdIQkoQEQIZBQtE&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-02",
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@162.159.140.98:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwdTUAZVVVUOBRdfQAYIURYDDFJEGgEWQ1pKWRpeAgEeBkU%3D&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-02",
    "protocol": "sstp",
-   "sstp": "sstp://vpn:vpn@public-vpn-241.opengw.net:443"
+   "sstp": "sstp://vpn:vpn@vpn324264097.opengw.net:1937"
   },
   {
    "name": "日本-住宅-03",
    "kind": "住宅",
    "entry": "172.67.74.209:443",
-   "real": "vpn601908098.opengw.net:1281",
-   "exit_ip": "220.146.157.52",
-   "org": "ASAHI",
-   "latency_ms": 4764,
+   "real": "public-vpn-139.opengw.net:443",
+   "exit_ip": "219.100.37.239",
+   "org": "SoftEther Corporation",
+   "latency_ms": 2046,
    "residential": true,
-   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@172.67.74.209:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwJRVQ1TWVUOChdfQAYIURYDDFJEGgEWQ1pKWRpeAgoVAEU%3D&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-03",
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@172.67.74.209:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE0hMA1gIBxkVEQsaAwoJHgwWUw9KFRleXVkWHxdIQkoQEQIZBQtE&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-03",
    "protocol": "sstp",
-   "sstp": "sstp://vpn:vpn@vpn601908098.opengw.net:1281"
+   "sstp": "sstp://vpn:vpn@public-vpn-139.opengw.net:443"
   },
   {
    "name": "日本-住宅-04",
    "kind": "住宅",
    "entry": "172.64.152.5:443",
-   "real": "vpn395180292.opengw.net:1483",
-   "exit_ip": "110.54.126.138",
-   "org": "QTnet, Inc.",
-   "latency_ms": 4834,
+   "real": "public-vpn-155.opengw.net:443",
+   "exit_ip": "219.100.37.239",
+   "org": "SoftEther Corporation",
+   "latency_ms": 2065,
    "residential": true,
-   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@172.64.152.5:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwdYUQVbUVcOABdfQAYIURYDDFJEGgEWQ1pKWRpeAgwVAkU%3D&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-04",
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@172.64.152.5:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE0hMA1gIBxkVEQsaAwwFHgwWUw9KFRleXVkWHxdIQkoQEQIZBQtE&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-04",
    "protocol": "sstp",
-   "sstp": "sstp://vpn:vpn@vpn395180292.opengw.net:1483"
+   "sstp": "sstp://vpn:vpn@public-vpn-155.opengw.net:443"
   },
   {
    "name": "日本-住宅-05",
    "kind": "住宅",
    "entry": "172.64.156.171:443",
-   "real": "public-vpn-229.opengw.net:443",
-   "exit_ip": "219.100.37.246",
+   "real": "public-vpn-55.opengw.net:443",
+   "exit_ip": "219.100.37.234",
    "org": "SoftEther Corporation",
-   "latency_ms": 4996,
+   "latency_ms": 2188,
    "residential": true,
-   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@172.64.156.171:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE0hMA1gIBxkVEQsaAAsJHgwWUw9KFRleXVkWHxdIQkoQEQIZBQtE&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-05",
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@172.64.156.171:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE0hMA1gIBxkVEQsaBwweXxMDWAZaTFlVTA8YEUVXX0xGCQwZAkU%3D&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-05",
    "protocol": "sstp",
-   "sstp": "sstp://vpn:vpn@public-vpn-229.opengw.net:443"
+   "sstp": "sstp://vpn:vpn@public-vpn-55.opengw.net:443"
   },
   {
    "name": "日本-住宅-06",
    "kind": "住宅",
    "entry": "104.21.0.1:443",
-   "real": "public-vpn-194.opengw.net:443",
-   "exit_ip": "219.100.37.246",
+   "real": "public-vpn-163.opengw.net:443",
+   "exit_ip": "219.100.37.240",
    "org": "SoftEther Corporation",
-   "latency_ms": 5006,
+   "latency_ms": 2246,
    "residential": true,
-   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@104.21.0.1:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE0hMA1gIBxkVEQsaAwAEHgwWUw9KFRleXVkWHxdIQkoQEQIZBQtE&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-06",
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@104.21.0.1:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE0hMA1gIBxkVEQsaAw8DHgwWUw9KFRleXVkWHxdIQkoQEQIZBQtE&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-06",
    "protocol": "sstp",
-   "sstp": "sstp://vpn:vpn@public-vpn-194.opengw.net:443"
+   "sstp": "sstp://vpn:vpn@public-vpn-163.opengw.net:443"
   },
   {
    "name": "日本-住宅-07",
    "kind": "住宅",
    "entry": "172.66.0.96:443",
-   "real": "public-vpn-221.opengw.net:443",
-   "exit_ip": "219.100.37.244",
+   "real": "public-vpn-145.opengw.net:443",
+   "exit_ip": "219.100.37.240",
    "org": "SoftEther Corporation",
-   "latency_ms": 5029,
+   "latency_ms": 2280,
    "residential": true,
-   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@172.66.0.96:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE0hMA1gIBxkVEQsaAAsBHgwWUw9KFRleXVkWHxdIQkoQEQIZBQtE&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-07",
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@172.66.0.96:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE0hMA1gIBxkVEQsaAw0FHgwWUw9KFRleXVkWHxdIQkoQEQIZBQtE&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-07",
    "protocol": "sstp",
-   "sstp": "sstp://vpn:vpn@public-vpn-221.opengw.net:443"
+   "sstp": "sstp://vpn:vpn@public-vpn-145.opengw.net:443"
   },
   {
    "name": "日本-住宅-08",
    "kind": "住宅",
    "entry": "172.66.44.226:443",
-   "real": "public-vpn-210.opengw.net:443",
-   "exit_ip": "219.100.37.245",
+   "real": "public-vpn-161.opengw.net:443",
+   "exit_ip": "219.100.37.240",
    "org": "SoftEther Corporation",
-   "latency_ms": 5047,
+   "latency_ms": 2294,
    "residential": true,
-   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@172.66.44.226:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE0hMA1gIBxkVEQsaAAgAHgwWUw9KFRleXVkWHxdIQkoQEQIZBQtE&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-08",
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@172.66.44.226:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE0hMA1gIBxkVEQsaAw8BHgwWUw9KFRleXVkWHxdIQkoQEQIZBQtE&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-08",
    "protocol": "sstp",
-   "sstp": "sstp://vpn:vpn@public-vpn-210.opengw.net:443"
+   "sstp": "sstp://vpn:vpn@public-vpn-161.opengw.net:443"
   },
   {
    "name": "日本-住宅-09",
    "kind": "住宅",
    "entry": "p.etime.vip:443",
-   "real": "public-vpn-121.opengw.net:443",
-   "exit_ip": "219.100.37.238",
+   "real": "public-vpn-90.opengw.net:443",
+   "exit_ip": "219.100.37.236",
    "org": "SoftEther Corporation",
-   "latency_ms": 5149,
+   "latency_ms": 2316,
    "residential": true,
-   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@p.etime.vip:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE0hMA1gIBxkVEQsaAwsBHgwWUw9KFRleXVkWHxdIQkoQEQIZBQtE&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-09",
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@p.etime.vip:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE0hMA1gIBxkVEQsaCwkeXxMDWAZaTFlVTA8YEUVXX0xGCQwZAkU%3D&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-09",
    "protocol": "sstp",
-   "sstp": "sstp://vpn:vpn@public-vpn-121.opengw.net:443"
+   "sstp": "sstp://vpn:vpn@public-vpn-90.opengw.net:443"
   },
   {
    "name": "日本-住宅-10",
    "kind": "住宅",
    "entry": "www.sloomb.com:443",
-   "real": "vpn479658800.opengw.net:1722",
-   "exit_ip": "153.202.235.235",
-   "org": "Open Computer Network",
-   "latency_ms": 5184,
+   "real": "public-vpn-131.opengw.net:443",
+   "exit_ip": "219.100.37.236",
+   "org": "SoftEther Corporation",
+   "latency_ms": 2317,
    "residential": true,
-   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@www.sloomb.com:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwBWXQJWWV0HAhdfQAYIURYDDFJEGgEWQ1pKWRpeAg8fA0U%3D&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-10",
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@www.sloomb.com:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE0hMA1gIBxkVEQsaAwoBHgwWUw9KFRleXVkWHxdIQkoQEQIZBQtE&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-10",
    "protocol": "sstp",
-   "sstp": "sstp://vpn:vpn@vpn479658800.opengw.net:1722"
+   "sstp": "sstp://vpn:vpn@public-vpn-131.opengw.net:443"
   },
   {
    "name": "日本-住宅-11",
    "kind": "住宅",
    "entry": "www.shopify.com:443",
-   "real": "vpn475849261.opengw.net:1270",
-   "exit_ip": "207.65.181.159",
-   "org": "Sony Network Communications Inc.",
-   "latency_ms": 5599,
+   "real": "vpn133692637.opengw.net:1451",
+   "exit_ip": "219.104.35.195",
+   "org": "Japan Network Information Center",
+   "latency_ms": 2318,
    "residential": true,
-   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@www.shopify.com:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwBWUQxXWFcBAxdfQAYIURYDDFJEGgEWQ1pKWRpeAgoaAUU%3D&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-11",
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@www.shopify.com:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwVSVwJaU1MEBRdfQAYIURYDDFJEGgEWQ1pKWRpeAgwYAEU%3D&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-11",
    "protocol": "sstp",
-   "sstp": "sstp://vpn:vpn@vpn475849261.opengw.net:1270"
+   "sstp": "sstp://vpn:vpn@vpn133692637.opengw.net:1451"
   },
   {
    "name": "日本-住宅-12",
    "kind": "住宅",
    "entry": "cf.nyanya.moe:443",
-   "real": "public-vpn-46.opengw.net:443",
-   "exit_ip": "219.100.37.233",
+   "real": "public-vpn-146.opengw.net:443",
+   "exit_ip": "219.100.37.238",
    "org": "SoftEther Corporation",
-   "latency_ms": 5883,
+   "latency_ms": 2326,
    "residential": true,
-   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@cf.nyanya.moe:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE0hMA1gIBxkVEQsaBg8eXxMDWAZaTFlVTA8YEUVXX0xGCQwZAkU%3D&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-12",
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@cf.nyanya.moe:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE0hMA1gIBxkVEQsaAw0GHgwWUw9KFRleXVkWHxdIQkoQEQIZBQtE&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-12",
    "protocol": "sstp",
-   "sstp": "sstp://vpn:vpn@public-vpn-46.opengw.net:443"
+   "sstp": "sstp://vpn:vpn@public-vpn-146.opengw.net:443"
   },
   {
    "name": "日本-住宅-13",
    "kind": "住宅",
    "entry": "spring.io:443",
-   "real": "vpn497910382.opengw.net:1213",
-   "exit_ip": "175.129.117.170",
+   "real": "vpn949832711.opengw.net:1631",
+   "exit_ip": "106.179.46.146",
    "org": "KDDI",
-   "latency_ms": 6746,
+   "latency_ms": 2327,
    "residential": true,
-   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@spring.io:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwBYUw1SUVYPABdfQAYIURYDDFJEGgEWQ1pKWRpeAgocAkU%3D&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-13",
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@spring.io:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDw1VXQxQU1IGAxdfQAYIURYDDFJEGgEWQ1pKWRpeAg4eAEU%3D&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-13",
    "protocol": "sstp",
-   "sstp": "sstp://vpn:vpn@vpn497910382.opengw.net:1213"
+   "sstp": "sstp://vpn:vpn@vpn949832711.opengw.net:1631"
+  },
+  {
+   "name": "日本-住宅-14",
+   "kind": "住宅",
+   "entry": "cdn.ctn32.us.kg:443",
+   "real": "vpn329987705.opengw.net:1483",
+   "exit_ip": "120.74.54.109",
+   "org": "Sony Network Communications Inc.",
+   "latency_ms": 2334,
+   "residential": true,
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@cdn.ctn32.us.kg:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwdTXQ1bVlIHBxdfQAYIURYDDFJEGgEWQ1pKWRpeAgwVAkU%3D&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-14",
+   "protocol": "sstp",
+   "sstp": "sstp://vpn:vpn@vpn329987705.opengw.net:1483"
+  },
+  {
+   "name": "日本-住宅-15",
+   "kind": "住宅",
+   "entry": "www.vmware.com:443",
+   "real": "vpn182621256.opengw.net:1517",
+   "exit_ip": "210.174.52.249",
+   "org": "SO-Net Service",
+   "latency_ms": 2346,
+   "residential": true,
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@www.vmware.com:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwVZVgJRUFcCBBdfQAYIURYDDFJEGgEWQ1pKWRpeAg0cBkU%3D&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-15",
+   "protocol": "sstp",
+   "sstp": "sstp://vpn:vpn@vpn182621256.opengw.net:1517"
+  },
+  {
+   "name": "日本-住宅-16",
+   "kind": "住宅",
+   "entry": "cdn.204910.best:443",
+   "real": "vpn273687459.opengw.net:1510",
+   "exit_ip": "42.127.190.184",
+   "org": "TOKAI",
+   "latency_ms": 2356,
+   "residential": true,
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@cdn.204910.best:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwZWVwJbVlECCxdfQAYIURYDDFJEGgEWQ1pKWRpeAg0cAUU%3D&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-16",
+   "protocol": "sstp",
+   "sstp": "sstp://vpn:vpn@vpn273687459.opengw.net:1510"
+  },
+  {
+   "name": "日本-住宅-17",
+   "kind": "住宅",
+   "entry": "cf.877774.xyz:443",
+   "real": "public-vpn-72.opengw.net:443",
+   "exit_ip": "219.100.37.234",
+   "org": "SoftEther Corporation",
+   "latency_ms": 2435,
+   "residential": true,
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@cf.877774.xyz:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE0hMA1gIBxkVEQsaBQseXxMDWAZaTFlVTA8YEUVXX0xGCQwZAkU%3D&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-17",
+   "protocol": "sstp",
+   "sstp": "sstp://vpn:vpn@public-vpn-72.opengw.net:443"
+  },
+  {
+   "name": "日本-住宅-18",
+   "kind": "住宅",
+   "entry": "www.leics.police.uk:443",
+   "real": "vpn645484140.opengw.net:1229",
+   "exit_ip": "111.89.220.76",
+   "org": "InfoSphere",
+   "latency_ms": 2437,
+   "residential": true,
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@www.leics.police.uk:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwJVUQBbVVQDAhdfQAYIURYDDFJEGgEWQ1pKWRpeAgofCEU%3D&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-18",
+   "protocol": "sstp",
+   "sstp": "sstp://vpn:vpn@vpn645484140.opengw.net:1229"
+  },
+  {
+   "name": "日本-住宅-19",
+   "kind": "住宅",
+   "entry": "www.carousell.sg:443",
+   "real": "public-vpn-78.opengw.net:443",
+   "exit_ip": "219.100.37.236",
+   "org": "SoftEther Corporation",
+   "latency_ms": 2456,
+   "residential": true,
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@www.carousell.sg:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE0hMA1gIBxkVEQsaBQEeXxMDWAZaTFlVTA8YEUVXX0xGCQwZAkU%3D&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-19",
+   "protocol": "sstp",
+   "sstp": "sstp://vpn:vpn@public-vpn-78.opengw.net:443"
+  },
+  {
+   "name": "日本-住宅-20",
+   "kind": "住宅",
+   "entry": "op.chinwa.eu.cc:443",
+   "real": "vpn634109661.opengw.net:1284",
+   "exit_ip": "126.218.26.174",
+   "org": "SOFTBANK Corp",
+   "latency_ms": 2464,
+   "residential": true,
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@op.chinwa.eu.cc:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwJSUAVTWFMBAxdfQAYIURYDDFJEGgEWQ1pKWRpeAgoVBUU%3D&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-20",
+   "protocol": "sstp",
+   "sstp": "sstp://vpn:vpn@vpn634109661.opengw.net:1284"
+  },
+  {
+   "name": "日本-住宅-21",
+   "kind": "住宅",
+   "entry": "www.dbs.com.sg:443",
+   "real": "vpn332082897.opengw.net:1726",
+   "exit_ip": "221.44.201.239",
+   "org": "SOFTBANK Corp",
+   "latency_ms": 2489,
+   "residential": true,
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@www.dbs.com.sg:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwdSVgRbU10OBRdfQAYIURYDDFJEGgEWQ1pKWRpeAg8fB0U%3D&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-21",
+   "protocol": "sstp",
+   "sstp": "sstp://vpn:vpn@vpn332082897.opengw.net:1726"
+  },
+  {
+   "name": "日本-住宅-22",
+   "kind": "住宅",
+   "entry": "www.mfyx.cn:443",
+   "real": "vpn686472682.opengw.net:1490",
+   "exit_ip": "110.132.228.211",
+   "org": "JCOM Co., Ltd",
+   "latency_ms": 2496,
+   "residential": true,
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@www.mfyx.cn:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwJZUgBUU1MPABdfQAYIURYDDFJEGgEWQ1pKWRpeAgwUAUU%3D&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-22",
+   "protocol": "sstp",
+   "sstp": "sstp://vpn:vpn@vpn686472682.opengw.net:1490"
+  },
+  {
+   "name": "日本-住宅-23",
+   "kind": "住宅",
+   "entry": "104.26.10.209:443",
+   "real": "vpn706828378.opengw.net:1468",
+   "exit_ip": "106.161.41.4",
+   "org": "KDDI",
+   "latency_ms": 2500,
+   "residential": true,
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@104.26.10.209:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwNRUgxRWVYAChdfQAYIURYDDFJEGgEWQ1pKWRpeAgwbCUU%3D&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-23",
+   "protocol": "sstp",
+   "sstp": "sstp://vpn:vpn@vpn706828378.opengw.net:1468"
+  },
+  {
+   "name": "日本-住宅-24",
+   "kind": "住宅",
+   "entry": "162.159.140.98:443",
+   "real": "public-vpn-40.opengw.net:443",
+   "exit_ip": "219.100.37.233",
+   "org": "SoftEther Corporation",
+   "latency_ms": 2520,
+   "residential": true,
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@162.159.140.98:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE0hMA1gIBxkVEQsaBgkeXxMDWAZaTFlVTA8YEUVXX0xGCQwZAkU%3D&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-24",
+   "protocol": "sstp",
+   "sstp": "sstp://vpn:vpn@public-vpn-40.opengw.net:443"
+  },
+  {
+   "name": "日本-住宅-25",
+   "kind": "住宅",
+   "entry": "172.67.74.209:443",
+   "real": "vpn789702980.opengw.net:1539",
+   "exit_ip": "175.129.85.67",
+   "org": "KDDI",
+   "latency_ms": 2523,
+   "residential": true,
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@172.67.74.209:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwNZXQNTU1wPAhdfQAYIURYDDFJEGgEWQ1pKWRpeAg0eCEU%3D&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-25",
+   "protocol": "sstp",
+   "sstp": "sstp://vpn:vpn@vpn789702980.opengw.net:1539"
+  },
+  {
+   "name": "日本-住宅-26",
+   "kind": "住宅",
+   "entry": "172.64.152.5:443",
+   "real": "vpn290770797.opengw.net:1792",
+   "exit_ip": "218.46.238.239",
+   "org": "Open Data Network",
+   "latency_ms": 2528,
+   "residential": true,
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@172.64.152.5:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwZYVANUUVIOBRdfQAYIURYDDFJEGgEWQ1pKWRpeAg8UA0U%3D&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-26",
+   "protocol": "sstp",
+   "sstp": "sstp://vpn:vpn@vpn290770797.opengw.net:1792"
+  },
+  {
+   "name": "日本-住宅-27",
+   "kind": "住宅",
+   "entry": "172.64.156.171:443",
+   "real": "public-vpn-238.opengw.net:443",
+   "exit_ip": "219.100.37.245",
+   "org": "SoftEther Corporation",
+   "latency_ms": 2531,
+   "residential": true,
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@172.64.156.171:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE0hMA1gIBxkVEQsaAAoIHgwWUw9KFRleXVkWHxdIQkoQEQIZBQtE&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-27",
+   "protocol": "sstp",
+   "sstp": "sstp://vpn:vpn@public-vpn-238.opengw.net:443"
+  },
+  {
+   "name": "日本-住宅-28",
+   "kind": "住宅",
+   "entry": "104.21.0.1:443",
+   "real": "vpn739981111.opengw.net:1811",
+   "exit_ip": "101.111.51.86",
+   "org": "Yokohama Cable Vision",
+   "latency_ms": 2538,
+   "residential": true,
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@104.21.0.1:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwNSXQ1bUFQGAxdfQAYIURYDDFJEGgEWQ1pKWRpeAgAcAEU%3D&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-28",
+   "protocol": "sstp",
+   "sstp": "sstp://vpn:vpn@vpn739981111.opengw.net:1811"
+  },
+  {
+   "name": "日本-住宅-29",
+   "kind": "住宅",
+   "entry": "172.66.0.96:443",
+   "real": "public-vpn-187.opengw.net:443",
+   "exit_ip": "219.100.37.244",
+   "org": "SoftEther Corporation",
+   "latency_ms": 2567,
+   "residential": true,
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@172.66.0.96:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE0hMA1gIBxkVEQsaAwEHHgwWUw9KFRleXVkWHxdIQkoQEQIZBQtE&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-29",
+   "protocol": "sstp",
+   "sstp": "sstp://vpn:vpn@public-vpn-187.opengw.net:443"
+  },
+  {
+   "name": "日本-住宅-30",
+   "kind": "住宅",
+   "entry": "172.66.44.226:443",
+   "real": "public-vpn-258.opengw.net:443",
+   "exit_ip": "219.100.37.244",
+   "org": "SoftEther Corporation",
+   "latency_ms": 2600,
+   "residential": true,
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@172.66.44.226:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE0hMA1gIBxkVEQsaAAwIHgwWUw9KFRleXVkWHxdIQkoQEQIZBQtE&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-30",
+   "protocol": "sstp",
+   "sstp": "sstp://vpn:vpn@public-vpn-258.opengw.net:443"
+  },
+  {
+   "name": "日本-住宅-31",
+   "kind": "住宅",
+   "entry": "p.etime.vip:443",
+   "real": "vpn686659377.opengw.net:1909",
+   "exit_ip": "218.183.114.77",
+   "org": "Japan Nation-wide Network of Softbank BB Corp.",
+   "latency_ms": 2606,
+   "residential": true,
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@p.etime.vip:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwJZUgJWWFYABRdfQAYIURYDDFJEGgEWQ1pKWRpeAgEdCEU%3D&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-31",
+   "protocol": "sstp",
+   "sstp": "sstp://vpn:vpn@vpn686659377.opengw.net:1909"
+  },
+  {
+   "name": "日本-住宅-32",
+   "kind": "住宅",
+   "entry": "www.sloomb.com:443",
+   "real": "vpn451268085.opengw.net:1731",
+   "exit_ip": "120.137.194.191",
+   "org": "TOKAI",
+   "latency_ms": 2761,
+   "residential": true,
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@www.sloomb.com:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwBUVQZVWVUPBxdfQAYIURYDDFJEGgEWQ1pKWRpeAg8eAEU%3D&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-32",
+   "protocol": "sstp",
+   "sstp": "sstp://vpn:vpn@vpn451268085.opengw.net:1731"
+  },
+  {
+   "name": "日本-住宅-33",
+   "kind": "住宅",
+   "entry": "www.shopify.com:443",
+   "real": "vpn274345019.opengw.net:1258",
+   "exit_ip": "110.132.120.239",
+   "org": "JCOM Co., Ltd",
+   "latency_ms": 2860,
+   "residential": true,
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@www.shopify.com:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwZWUAdXVFUGCxdfQAYIURYDDFJEGgEWQ1pKWRpeAgoYCUU%3D&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-33",
+   "protocol": "sstp",
+   "sstp": "sstp://vpn:vpn@vpn274345019.opengw.net:1258"
+  },
+  {
+   "name": "日本-住宅-34",
+   "kind": "住宅",
+   "entry": "cf.nyanya.moe:443",
+   "real": "vpn198732322.opengw.net:1312",
+   "exit_ip": "180.57.87.157",
+   "org": "NTT Communications Corporation",
+   "latency_ms": 2939,
+   "residential": true,
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@cf.nyanya.moe:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwVYXANQU1YFABdfQAYIURYDDFJEGgEWQ1pKWRpeAgscA0U%3D&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-34",
+   "protocol": "sstp",
+   "sstp": "sstp://vpn:vpn@vpn198732322.opengw.net:1312"
+  },
+  {
+   "name": "日本-住宅-35",
+   "kind": "住宅",
+   "entry": "spring.io:443",
+   "real": "public-vpn-241.opengw.net:443",
+   "exit_ip": "219.100.37.244",
+   "org": "SoftEther Corporation",
+   "latency_ms": 3087,
+   "residential": true,
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@spring.io:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE0hMA1gIBxkVEQsaAA0BHgwWUw9KFRleXVkWHxdIQkoQEQIZBQtE&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-35",
+   "protocol": "sstp",
+   "sstp": "sstp://vpn:vpn@public-vpn-241.opengw.net:443"
+  },
+  {
+   "name": "日本-住宅-36",
+   "kind": "住宅",
+   "entry": "cdn.ctn32.us.kg:443",
+   "real": "vpn584377130.opengw.net:1822",
+   "exit_ip": "14.14.148.93",
+   "org": "Kddi Corporation",
+   "latency_ms": 3170,
+   "residential": true,
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@cdn.ctn32.us.kg:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwFZUAdUVlQEAhdfQAYIURYDDFJEGgEWQ1pKWRpeAgAfA0U%3D&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-36",
+   "protocol": "sstp",
+   "sstp": "sstp://vpn:vpn@vpn584377130.opengw.net:1822"
+  },
+  {
+   "name": "日本-住宅-37",
+   "kind": "住宅",
+   "entry": "www.vmware.com:443",
+   "real": "public-vpn-215.opengw.net:443",
+   "exit_ip": "219.100.37.243",
+   "org": "SoftEther Corporation",
+   "latency_ms": 3320,
+   "residential": true,
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@www.vmware.com:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE0hMA1gIBxkVEQsaAAgFHgwWUw9KFRleXVkWHxdIQkoQEQIZBQtE&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-37",
+   "protocol": "sstp",
+   "sstp": "sstp://vpn:vpn@public-vpn-215.opengw.net:443"
+  },
+  {
+   "name": "日本-住宅-38",
+   "kind": "住宅",
+   "entry": "cdn.204910.best:443",
+   "real": "public-vpn-104.opengw.net:443",
+   "exit_ip": "219.100.37.236",
+   "org": "SoftEther Corporation",
+   "latency_ms": 3434,
+   "residential": true,
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@cdn.204910.best:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE0hMA1gIBxkVEQsaAwkEHgwWUw9KFRleXVkWHxdIQkoQEQIZBQtE&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-38",
+   "protocol": "sstp",
+   "sstp": "sstp://vpn:vpn@public-vpn-104.opengw.net:443"
+  },
+  {
+   "name": "日本-住宅-39",
+   "kind": "住宅",
+   "entry": "cf.877774.xyz:443",
+   "real": "vpn184169581.opengw.net:1713",
+   "exit_ip": "218.220.209.82",
+   "org": "J:COM WEST Co., Ltd.",
+   "latency_ms": 3965,
+   "residential": true,
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@cf.877774.xyz:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwVZUAVVWFAPAxdfQAYIURYDDFJEGgEWQ1pKWRpeAg8cAkU%3D&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-39",
+   "protocol": "sstp",
+   "sstp": "sstp://vpn:vpn@vpn184169581.opengw.net:1713"
+  },
+  {
+   "name": "日本-住宅-40",
+   "kind": "住宅",
+   "entry": "www.leics.police.uk:443",
+   "real": "public-vpn-219.opengw.net:443",
+   "exit_ip": "219.100.37.245",
+   "org": "SoftEther Corporation",
+   "latency_ms": 5476,
+   "residential": true,
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@www.leics.police.uk:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE0hMA1gIBxkVEQsaAAgJHgwWUw9KFRleXVkWHxdIQkoQEQIZBQtE&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-40",
+   "protocol": "sstp",
+   "sstp": "sstp://vpn:vpn@public-vpn-219.opengw.net:443"
+  },
+  {
+   "name": "日本-住宅-41",
+   "kind": "住宅",
+   "entry": "www.carousell.sg:443",
+   "real": "vpn435394266.opengw.net:1495",
+   "exit_ip": "121.86.244.13",
+   "org": "OPTAGE Inc.",
+   "latency_ms": 5884,
+   "residential": true,
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@www.carousell.sg:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwBSUQdaVVcBBBdfQAYIURYDDFJEGgEWQ1pKWRpeAgwUBEU%3D&encryption=none&alpn=#%E6%97%A5%E6%9C%AC-%E4%BD%8F%E5%AE%85-41",
+   "protocol": "sstp",
+   "sstp": "sstp://vpn:vpn@vpn435394266.opengw.net:1495"
   },
   {
    "name": "韩国-住宅-01",
    "kind": "住宅",
-   "entry": "cdn.ctn32.us.kg:443",
-   "real": "vpn496296722.opengw.net:995",
-   "exit_ip": "222.236.151.149",
-   "org": "SK Broadband Co Ltd",
-   "latency_ms": 4344,
+   "entry": "op.chinwa.eu.cc:443",
+   "real": "vpn831866080.opengw.net:995",
+   "exit_ip": "121.162.237.104",
+   "org": "Kornet",
+   "latency_ms": 2129,
    "residential": true,
-   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@cdn.ctn32.us.kg:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwBYUgZaV1IFABdfQAYIURYDDFJEGgEWQ1pKWRpeCgEYTA%3D%3D&encryption=none&alpn=#%E9%9F%A9%E5%9B%BD-%E4%BD%8F%E5%AE%85-01",
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@op.chinwa.eu.cc:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwxSVQxVV1UPAhdfQAYIURYDDFJEGgEWQ1pKWRpeCgEYTA%3D%3D&encryption=none&alpn=#%E9%9F%A9%E5%9B%BD-%E4%BD%8F%E5%AE%85-01",
    "protocol": "sstp",
-   "sstp": "sstp://vpn:vpn@vpn496296722.opengw.net:995"
+   "sstp": "sstp://vpn:vpn@vpn831866080.opengw.net:995"
   },
   {
    "name": "韩国-住宅-02",
    "kind": "住宅",
-   "entry": "www.vmware.com:443",
-   "real": "vpn273241885.opengw.net:995",
-   "exit_ip": "218.153.172.214",
+   "entry": "www.dbs.com.sg:443",
+   "real": "vpn739046807.opengw.net:1977",
+   "exit_ip": "59.1.223.120",
    "org": "Kornet",
-   "latency_ms": 4553,
+   "latency_ms": 2206,
    "residential": true,
-   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@www.vmware.com:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwZWVwZXUF0PBxdfQAYIURYDDFJEGgEWQ1pKWRpeCgEYTA%3D%3D&encryption=none&alpn=#%E9%9F%A9%E5%9B%BD-%E4%BD%8F%E5%AE%85-02",
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@www.dbs.com.sg:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwNSXQRXV10HBRdfQAYIURYDDFJEGgEWQ1pKWRpeAgEaBkU%3D&encryption=none&alpn=#%E9%9F%A9%E5%9B%BD-%E4%BD%8F%E5%AE%85-02",
    "protocol": "sstp",
-   "sstp": "sstp://vpn:vpn@vpn273241885.opengw.net:995"
+   "sstp": "sstp://vpn:vpn@vpn739046807.opengw.net:1977"
   },
   {
    "name": "韩国-住宅-03",
    "kind": "住宅",
-   "entry": "cdn.204910.best:443",
-   "real": "vpn562698180.opengw.net:1402",
-   "exit_ip": "1.240.213.38",
-   "org": "broadNnet",
-   "latency_ms": 4602,
+   "entry": "www.mfyx.cn:443",
+   "real": "vpn623799048.opengw.net:1625",
+   "exit_ip": "115.178.67.246",
+   "org": "SKBroadband Co. Inc",
+   "latency_ms": 2585,
    "residential": true,
-   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@cdn.204910.best:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwFXVgJaWVQPAhdfQAYIURYDDFJEGgEWQ1pKWRpeAgwdA0U%3D&encryption=none&alpn=#%E9%9F%A9%E5%9B%BD-%E4%BD%8F%E5%AE%85-03",
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@www.mfyx.cn:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwJTVwNaWFUDChdfQAYIURYDDFJEGgEWQ1pKWRpeAg4fBEU%3D&encryption=none&alpn=#%E9%9F%A9%E5%9B%BD-%E4%BD%8F%E5%AE%85-03",
    "protocol": "sstp",
-   "sstp": "sstp://vpn:vpn@vpn562698180.opengw.net:1402"
+   "sstp": "sstp://vpn:vpn@vpn623799048.opengw.net:1625"
   },
   {
    "name": "韩国-住宅-04",
    "kind": "住宅",
-   "entry": "cf.877774.xyz:443",
-   "real": "vpn842523171.opengw.net:995",
-   "exit_ip": "112.172.238.220",
-   "org": "Korea Telecom",
-   "latency_ms": 4696,
+   "entry": "104.26.10.209:443",
+   "real": "vpn879253505.opengw.net:995",
+   "exit_ip": "211.178.136.73",
+   "org": "SK Broadband Co Ltd",
+   "latency_ms": 2593,
    "residential": true,
-   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@cf.877774.xyz:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwxVVgFRUlQAAxdfQAYIURYDDFJEGgEWQ1pKWRpeCgEYTA%3D%3D&encryption=none&alpn=#%E9%9F%A9%E5%9B%BD-%E4%BD%8F%E5%AE%85-04",
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@104.26.10.209:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwxWXQZWUlAHBxdfQAYIURYDDFJEGgEWQ1pKWRpeCgEYTA%3D%3D&encryption=none&alpn=#%E9%9F%A9%E5%9B%BD-%E4%BD%8F%E5%AE%85-04",
    "protocol": "sstp",
-   "sstp": "sstp://vpn:vpn@vpn842523171.opengw.net:995"
+   "sstp": "sstp://vpn:vpn@vpn879253505.opengw.net:995"
   },
   {
    "name": "韩国-住宅-05",
    "kind": "住宅",
-   "entry": "www.leics.police.uk:443",
-   "real": "vpn505854977.opengw.net:1908",
-   "exit_ip": "211.51.178.239",
-   "org": "KORNET",
-   "latency_ms": 4759,
+   "entry": "162.159.140.98:443",
+   "real": "vpn733186000.opengw.net:995",
+   "exit_ip": "59.16.199.17",
+   "org": "Kornet",
+   "latency_ms": 2627,
    "residential": true,
-   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@www.leics.police.uk:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwFRUQxWVVwABRdfQAYIURYDDFJEGgEWQ1pKWRpeAgEdCUU%3D&encryption=none&alpn=#%E9%9F%A9%E5%9B%BD-%E4%BD%8F%E5%AE%85-05",
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@162.159.140.98:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwNSVwVbV1UHAhdfQAYIURYDDFJEGgEWQ1pKWRpeCgEYTA%3D%3D&encryption=none&alpn=#%E9%9F%A9%E5%9B%BD-%E4%BD%8F%E5%AE%85-05",
    "protocol": "sstp",
-   "sstp": "sstp://vpn:vpn@vpn505854977.opengw.net:1908"
+   "sstp": "sstp://vpn:vpn@vpn733186000.opengw.net:995"
   },
   {
    "name": "韩国-住宅-06",
    "kind": "住宅",
-   "entry": "www.carousell.sg:443",
-   "real": "vpn333824249.opengw.net:995",
-   "exit_ip": "106.250.211.111",
-   "org": "Boranet",
-   "latency_ms": 4998,
+   "entry": "172.67.74.209:443",
+   "real": "vpn616200329.opengw.net:995",
+   "exit_ip": "121.140.218.217",
+   "org": "Sudogwonseobubonbu",
+   "latency_ms": 2673,
    "residential": true,
-   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@www.carousell.sg:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwdSVwxRVVcDCxdfQAYIURYDDFJEGgEWQ1pKWRpeCgEYTA%3D%3D&encryption=none&alpn=#%E9%9F%A9%E5%9B%BD-%E4%BD%8F%E5%AE%85-06",
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@172.67.74.209:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwJQUgZTUVYFCxdfQAYIURYDDFJEGgEWQ1pKWRpeCgEYTA%3D%3D&encryption=none&alpn=#%E9%9F%A9%E5%9B%BD-%E4%BD%8F%E5%AE%85-06",
    "protocol": "sstp",
-   "sstp": "sstp://vpn:vpn@vpn333824249.opengw.net:995"
+   "sstp": "sstp://vpn:vpn@vpn616200329.opengw.net:995"
   },
   {
    "name": "韩国-住宅-07",
    "kind": "住宅",
-   "entry": "op.chinwa.eu.cc:443",
-   "real": "vpn610812005.opengw.net:995",
-   "exit_ip": "49.168.191.160",
-   "org": "LG POWERCOMM",
-   "latency_ms": 6874,
+   "entry": "172.64.152.5:443",
+   "real": "vpn741602089.opengw.net:1210",
+   "exit_ip": "221.138.46.130",
+   "org": "SK Broadband Co Ltd",
+   "latency_ms": 2759,
    "residential": true,
-   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@op.chinwa.eu.cc:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwJQVAxSU1UHBxdfQAYIURYDDFJEGgEWQ1pKWRpeCgEYTA%3D%3D&encryption=none&alpn=#%E9%9F%A9%E5%9B%BD-%E4%BD%8F%E5%AE%85-07",
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@172.64.152.5:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwNVVQJTU1UPCxdfQAYIURYDDFJEGgEWQ1pKWRpeAgocAUU%3D&encryption=none&alpn=#%E9%9F%A9%E5%9B%BD-%E4%BD%8F%E5%AE%85-07",
    "protocol": "sstp",
-   "sstp": "sstp://vpn:vpn@vpn610812005.opengw.net:995"
+   "sstp": "sstp://vpn:vpn@vpn741602089.opengw.net:1210"
   },
   {
    "name": "韩国-住宅-08",
    "kind": "住宅",
-   "entry": "www.dbs.com.sg:443",
-   "real": "vpn669851144.opengw.net:995",
-   "exit_ip": "123.199.89.86",
-   "org": "LG Hellovision Corp.",
-   "latency_ms": 6992,
+   "entry": "172.64.156.171:443",
+   "real": "vpn196131915.opengw.net:995",
+   "exit_ip": "125.188.5.153",
+   "org": "LG POWERCOMM",
+   "latency_ms": 2783,
    "residential": true,
-   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@www.dbs.com.sg:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwJXXQxWUFQDBhdfQAYIURYDDFJEGgEWQ1pKWRpeCgEYTA%3D%3D&encryption=none&alpn=#%E9%9F%A9%E5%9B%BD-%E4%BD%8F%E5%AE%85-08",
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@172.64.156.171:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwVYUgVQUFwGBxdfQAYIURYDDFJEGgEWQ1pKWRpeCgEYTA%3D%3D&encryption=none&alpn=#%E9%9F%A9%E5%9B%BD-%E4%BD%8F%E5%AE%85-08",
    "protocol": "sstp",
-   "sstp": "sstp://vpn:vpn@vpn669851144.opengw.net:995"
+   "sstp": "sstp://vpn:vpn@vpn196131915.opengw.net:995"
+  },
+  {
+   "name": "韩国-住宅-09",
+   "kind": "住宅",
+   "entry": "104.21.0.1:443",
+   "real": "vpn898866193.opengw.net:1446",
+   "exit_ip": "121.140.177.212",
+   "org": "Sudogwonseobubonbu",
+   "latency_ms": 2786,
+   "residential": true,
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@104.21.0.1:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwxYXAxVV1QOARdfQAYIURYDDFJEGgEWQ1pKWRpeAgwZB0U%3D&encryption=none&alpn=#%E9%9F%A9%E5%9B%BD-%E4%BD%8F%E5%AE%85-09",
+   "protocol": "sstp",
+   "sstp": "sstp://vpn:vpn@vpn898866193.opengw.net:1446"
+  },
+  {
+   "name": "韩国-住宅-10",
+   "kind": "住宅",
+   "entry": "172.66.0.96:443",
+   "real": "vpn398540356.opengw.net:1482",
+   "exit_ip": "121.154.66.138",
+   "org": "Korea Telecom",
+   "latency_ms": 2880,
+   "residential": true,
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@172.66.0.96:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwdYXAFXUVYCBBdfQAYIURYDDFJEGgEWQ1pKWRpeAgwVA0U%3D&encryption=none&alpn=#%E9%9F%A9%E5%9B%BD-%E4%BD%8F%E5%AE%85-10",
+   "protocol": "sstp",
+   "sstp": "sstp://vpn:vpn@vpn398540356.opengw.net:1482"
+  },
+  {
+   "name": "韩国-住宅-11",
+   "kind": "住宅",
+   "entry": "172.66.44.226:443",
+   "real": "vpn459624604.opengw.net:995",
+   "exit_ip": "211.38.57.123",
+   "org": "Kornet",
+   "latency_ms": 2964,
+   "residential": true,
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@172.66.44.226:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwBUXQJRVVMHBhdfQAYIURYDDFJEGgEWQ1pKWRpeCgEYTA%3D%3D&encryption=none&alpn=#%E9%9F%A9%E5%9B%BD-%E4%BD%8F%E5%AE%85-11",
+   "protocol": "sstp",
+   "sstp": "sstp://vpn:vpn@vpn459624604.opengw.net:995"
+  },
+  {
+   "name": "韩国-住宅-12",
+   "kind": "住宅",
+   "entry": "p.etime.vip:443",
+   "real": "vpn886191021.opengw.net:1814",
+   "exit_ip": "211.104.71.136",
+   "org": "Korea Telecom",
+   "latency_ms": 2965,
+   "residential": true,
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@p.etime.vip:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwxZUgVaUFUFAxdfQAYIURYDDFJEGgEWQ1pKWRpeAgAcBUU%3D&encryption=none&alpn=#%E9%9F%A9%E5%9B%BD-%E4%BD%8F%E5%AE%85-12",
+   "protocol": "sstp",
+   "sstp": "sstp://vpn:vpn@vpn886191021.opengw.net:1814"
+  },
+  {
+   "name": "韩国-住宅-13",
+   "kind": "住宅",
+   "entry": "www.sloomb.com:443",
+   "real": "vpn165692380.opengw.net:995",
+   "exit_ip": "119.198.236.48",
+   "org": "Kornet",
+   "latency_ms": 3283,
+   "residential": true,
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@www.sloomb.com:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwVXUQJaU1YPAhdfQAYIURYDDFJEGgEWQ1pKWRpeCgEYTA%3D%3D&encryption=none&alpn=#%E9%9F%A9%E5%9B%BD-%E4%BD%8F%E5%AE%85-13",
+   "protocol": "sstp",
+   "sstp": "sstp://vpn:vpn@vpn165692380.opengw.net:995"
+  },
+  {
+   "name": "韩国-住宅-14",
+   "kind": "住宅",
+   "entry": "www.shopify.com:443",
+   "real": "vpn508965699.opengw.net:995",
+   "exit_ip": "169.212.48.167",
+   "org": "Kornet",
+   "latency_ms": 3663,
+   "residential": true,
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@www.shopify.com:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwFRXA1VVFMOCxdfQAYIURYDDFJEGgEWQ1pKWRpeCgEYTA%3D%3D&encryption=none&alpn=#%E9%9F%A9%E5%9B%BD-%E4%BD%8F%E5%AE%85-14",
+   "protocol": "sstp",
+   "sstp": "sstp://vpn:vpn@vpn508965699.opengw.net:995"
+  },
+  {
+   "name": "韩国-住宅-15",
+   "kind": "住宅",
+   "entry": "cf.nyanya.moe:443",
+   "real": "vpn859746213.opengw.net:995",
+   "exit_ip": "211.57.221.30",
+   "org": "Kornet",
+   "latency_ms": 3801,
+   "residential": true,
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@cf.nyanya.moe:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwxUXQNXV1cGARdfQAYIURYDDFJEGgEWQ1pKWRpeCgEYTA%3D%3D&encryption=none&alpn=#%E9%9F%A9%E5%9B%BD-%E4%BD%8F%E5%AE%85-15",
+   "protocol": "sstp",
+   "sstp": "sstp://vpn:vpn@vpn859746213.opengw.net:995"
+  },
+  {
+   "name": "韩国-住宅-16",
+   "kind": "住宅",
+   "entry": "spring.io:443",
+   "real": "vpn819358376.opengw.net:1298",
+   "exit_ip": "175.122.73.80",
+   "org": "broadNnet",
+   "latency_ms": 3904,
+   "residential": true,
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@spring.io:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwxQXQdWWVYABBdfQAYIURYDDFJEGgEWQ1pKWRpeAgoUCUU%3D&encryption=none&alpn=#%E9%9F%A9%E5%9B%BD-%E4%BD%8F%E5%AE%85-16",
+   "protocol": "sstp",
+   "sstp": "sstp://vpn:vpn@vpn819358376.opengw.net:1298"
+  },
+  {
+   "name": "韩国-住宅-17",
+   "kind": "住宅",
+   "entry": "cdn.ctn32.us.kg:443",
+   "real": "vpn842317346.opengw.net:1795",
+   "exit_ip": "59.21.241.135",
+   "org": "Kornet",
+   "latency_ms": 3905,
+   "residential": true,
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@cdn.ctn32.us.kg:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwxVVgdSVlYDBBdfQAYIURYDDFJEGgEWQ1pKWRpeAg8UBEU%3D&encryption=none&alpn=#%E9%9F%A9%E5%9B%BD-%E4%BD%8F%E5%AE%85-17",
+   "protocol": "sstp",
+   "sstp": "sstp://vpn:vpn@vpn842317346.opengw.net:1795"
+  },
+  {
+   "name": "韩国-住宅-18",
+   "kind": "住宅",
+   "entry": "www.vmware.com:443",
+   "real": "vpn468282901.opengw.net:1508",
+   "exit_ip": "59.28.8.40",
+   "org": "Jeonnambonbujang",
+   "latency_ms": 4676,
+   "residential": true,
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@www.vmware.com:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwBXXAZbU1wHAxdfQAYIURYDDFJEGgEWQ1pKWRpeAg0dCUU%3D&encryption=none&alpn=#%E9%9F%A9%E5%9B%BD-%E4%BD%8F%E5%AE%85-18",
+   "protocol": "sstp",
+   "sstp": "sstp://vpn:vpn@vpn468282901.opengw.net:1508"
+  },
+  {
+   "name": "韩国-住宅-19",
+   "kind": "住宅",
+   "entry": "cdn.204910.best:443",
+   "real": "vpn251678351.opengw.net:995",
+   "exit_ip": "59.15.75.44",
+   "org": "Korea Telecom",
+   "latency_ms": 5141,
+   "residential": true,
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@cdn.204910.best:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwZUVQJUWVYCAxdfQAYIURYDDFJEGgEWQ1pKWRpeCgEYTA%3D%3D&encryption=none&alpn=#%E9%9F%A9%E5%9B%BD-%E4%BD%8F%E5%AE%85-19",
+   "protocol": "sstp",
+   "sstp": "sstp://vpn:vpn@vpn251678351.opengw.net:995"
+  },
+  {
+   "name": "韩国-住宅-20",
+   "kind": "住宅",
+   "entry": "cf.877774.xyz:443",
+   "real": "vpn311787559.opengw.net:1249",
+   "exit_ip": "211.221.198.244",
+   "org": "Korea Telecom",
+   "latency_ms": 5600,
+   "residential": true,
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@cf.877774.xyz:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwdQVQNbVlACCxdfQAYIURYDDFJEGgEWQ1pKWRpeAgoZCEU%3D&encryption=none&alpn=#%E9%9F%A9%E5%9B%BD-%E4%BD%8F%E5%AE%85-20",
+   "protocol": "sstp",
+   "sstp": "sstp://vpn:vpn@vpn311787559.opengw.net:1249"
+  },
+  {
+   "name": "韩国-住宅-21",
+   "kind": "住宅",
+   "entry": "www.leics.police.uk:443",
+   "real": "vpn887613862.opengw.net:1524",
+   "exit_ip": "211.194.138.171",
+   "org": "Korea Telecom",
+   "latency_ms": 6403,
+   "residential": true,
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@www.leics.police.uk:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPEURESA8YEUBLSEoKUlVIEwIbF0QPRhhBEQREQU5fQgdEDENbElkSFA9cXEZMQ1kJVhoXE05JDwxZUwJSUl0BABdfQAYIURYDDFJEGgEWQ1pKWRpeAg0fBUU%3D&encryption=none&alpn=#%E9%9F%A9%E5%9B%BD-%E4%BD%8F%E5%AE%85-21",
+   "protocol": "sstp",
+   "sstp": "sstp://vpn:vpn@vpn887613862.opengw.net:1524"
   },
   {
    "name": "新加坡-机房-01",
    "kind": "机房",
-   "entry": "www.mfyx.cn:443",
-   "real": "4.144.146.21:80",
-   "exit_ip": "20.44.210.140",
-   "org": "Microsoft Azure Cloud (southeastasia)",
-   "latency_ms": 285,
+   "entry": "www.carousell.sg:443",
+   "real": "43.156.137.7:10809",
+   "exit_ip": "43.156.137.7",
+   "org": "Tencent Cloud Computing",
+   "latency_ms": 838,
    "residential": false,
-   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@www.mfyx.cn:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPCkNESA8YEV1XXkwKUlVIEwIbVRpQUABNUFEBHAsBEk9ERg5fFhUKAB1J&encryption=none&alpn=#%E6%96%B0%E5%8A%A0%E5%9D%A1-%E6%9C%BA%E6%88%BF-01",
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@www.carousell.sg:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPCkNESA8YEV1XXkwKUlVIEwIbVQdPVQFVT1QEBRcHEk9ERg5fFhUKCR0MAwxF&encryption=none&alpn=#%E6%96%B0%E5%8A%A0%E5%9D%A1-%E6%9C%BA%E6%88%BF-01",
    "protocol": "http",
-   "sstp": "http://4.144.146.21:80"
+   "sstp": "http://43.156.137.7:10809"
   },
   {
    "name": "新加坡-机房-02",
    "kind": "机房",
-   "entry": "104.26.10.209:443",
-   "real": "43.156.137.7:10809",
-   "exit_ip": "43.156.137.7",
-   "org": "Tencent Cloud Computing",
-   "latency_ms": 5474,
+   "entry": "op.chinwa.eu.cc:443",
+   "real": "4.144.146.21:80",
+   "exit_ip": "20.44.210.140",
+   "org": "Microsoft Azure Cloud (southeastasia)",
+   "latency_ms": 866,
    "residential": false,
-   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@104.26.10.209:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPCkNESA8YEV1XXkwKUlVIEwIbVQdPVQFVT1QEBRcHEk9ERg5fFhUKCR0MAwxF&encryption=none&alpn=#%E6%96%B0%E5%8A%A0%E5%9D%A1-%E6%9C%BA%E6%88%BF-02",
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@op.chinwa.eu.cc:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPCkNESA8YEV1XXkwKUlVIEwIbVRpQUABNUFEBHAsBEk9ERg5fFhUKAB1J&encryption=none&alpn=#%E6%96%B0%E5%8A%A0%E5%9D%A1-%E6%9C%BA%E6%88%BF-02",
    "protocol": "http",
-   "sstp": "http://43.156.137.7:10809"
+   "sstp": "http://4.144.146.21:80"
+  },
+  {
+   "name": "新加坡-机房-03",
+   "kind": "机房",
+   "entry": "www.dbs.com.sg:443",
+   "real": "8.219.97.248:80",
+   "exit_ip": "8.219.64.236",
+   "org": "Alibaba.com Singapore E-Commerce Private Limited",
+   "latency_ms": 2105,
+   "residential": false,
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@www.dbs.com.sg:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPCkNESA8YEV1XXkwKUlVIEwIbWRpTVQ1NWFIZAA0IEk9ERg5fFhUKAB1J&encryption=none&alpn=#%E6%96%B0%E5%8A%A0%E5%9D%A1-%E6%9C%BA%E6%88%BF-03",
+   "protocol": "http",
+   "sstp": "http://8.219.97.248:80"
+  },
+  {
+   "name": "新加坡-机房-04",
+   "kind": "机房",
+   "entry": "www.mfyx.cn:443",
+   "real": "47.84.179.9:3128",
+   "exit_ip": "47.84.179.9",
+   "org": "Delta Centric LLC, Zenlayer Inc",
+   "latency_ms": 11695,
+   "residential": false,
+   "vless": "vless://2900cf6a-b708-4358-8d38-189a4ad4cae7@www.mfyx.cn:443?security=tls&type=ws&host=ipauto-edge.pages.dev&fp=chrome&sni=ipauto-edge.pages.dev&path=%2Fvideo%2FSRtESRMDFFsPCkNESA8YEV1XXkwKUlVIEwIbVQNPXABNUFIOHAASHEEWWRNZQA0DCR8MTg%3D%3D&encryption=none&alpn=#%E6%96%B0%E5%8A%A0%E5%9D%A1-%E6%9C%BA%E6%88%BF-04",
+   "protocol": "http",
+   "sstp": "http://47.84.179.9:3128"
   }
  ]
 }
