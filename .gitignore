@@ -23,6 +23,9 @@ tools/
 .DS_Store
 Thumbs.db
 
+# 本地交接备忘（含凭据，绝不提交）
+*.local.md
+
 # 部署凭据（绝不要提交）
 .env
 *.token
