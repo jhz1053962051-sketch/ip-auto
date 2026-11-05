@@ -1,17 +1,17 @@
 {
- "at": "2026-11-05T08:05:22.389Z",
+ "at": "2026-11-05T08:08:01.423Z",
  "stats": {
-  "raw_rows": 96,
-  "sstp_nodes": 63,
-  "checked": 63,
-  "success": 47,
-  "failed": 16,
-  "residential": 47,
+  "raw_rows": 94,
+  "sstp_nodes": 70,
+  "checked": 70,
+  "success": 56,
+  "failed": 14,
+  "residential": 56,
   "datacenter": 0,
   "countries": 2
  },
- "probe_ms": 39923,
- "total_ms": 42731,
+ "probe_ms": 45026,
+ "total_ms": 47824,
  "countries": [
   "JP",
   "KR"
@@ -19,82 +19,72 @@
  "proxy": null,
  "failed": [
   {
-   "host": "vpn705688819.opengw.net",
-   "port": 995,
-   "error": "探针返回非 JSON（疑似劫持页）: <html> <head> <title> </title> </head> <"
+   "host": "vpn419941365.opengw.net",
+   "port": 1694,
+   "error": "隧道内 TCP 握手超时"
   },
   {
-   "host": "vpn432121661.opengw.net",
-   "port": 1585,
-   "error": "Client network socket disconnected before secure TLS connection was established"
+   "host": "vpn382365411.opengw.net",
+   "port": 1314,
+   "error": "connect ECONNREFUSED 60.107.31.32:1314"
   },
   {
-   "host": "vpn676301515.opengw.net",
-   "port": 1594,
-   "error": "连接 vpn676301515.opengw.net:1594 超时"
-  },
-  {
-   "host": "vpn873102655.opengw.net",
-   "port": 1211,
-   "error": "TLS 握手超时"
-  },
-  {
-   "host": "vpn802843515.opengw.net",
-   "port": 1498,
-   "error": "Client network socket disconnected before secure TLS connection was established"
-  },
-  {
-   "host": "vpn123200954.opengw.net",
-   "port": 1945,
-   "error": "Client network socket disconnected before secure TLS connection was established"
-  },
-  {
-   "host": "vpn696187300.opengw.net",
-   "port": 1992,
-   "error": "Client network socket disconnected before secure TLS connection was established"
-  },
-  {
-   "host": "vpn194702529.opengw.net",
-   "port": 1457,
-   "error": "Client network socket disconnected before secure TLS connection was established"
-  },
-  {
-   "host": "vpn625444662.opengw.net",
-   "port": 1839,
-   "error": "Client network socket disconnected before secure TLS connection was established"
-  },
-  {
-   "host": "vpn490186930.opengw.net",
-   "port": 1885,
-   "error": "Client network socket disconnected before secure TLS connection was established"
-  },
-  {
-   "host": "vpn505088516.opengw.net",
-   "port": 995,
-   "error": "Client network socket disconnected before secure TLS connection was established"
-  },
-  {
-   "host": "vpn583338654.opengw.net",
-   "port": 1689,
-   "error": "Client network socket disconnected before secure TLS connection was established"
-  },
-  {
-   "host": "vpn635994349.opengw.net",
-   "port": 1925,
+   "host": "vpn196331168.opengw.net",
+   "port": 1903,
    "error": "隧道内响应不完整"
   },
   {
-   "host": "vpn170723006.opengw.net",
-   "port": 1941,
-   "error": "Client network socket disconnected before secure TLS connection was established"
+   "host": "vpn325202957.opengw.net",
+   "port": 1772,
+   "error": "隧道内 TCP 握手超时"
   },
   {
-   "host": "public-vpn-68.opengw.net",
+   "host": "vpn491901158.opengw.net",
+   "port": 1486,
+   "error": "连接 vpn491901158.opengw.net:1486 超时"
+  },
+  {
+   "host": "vpn148366758.opengw.net",
+   "port": 1403,
+   "error": "连接 vpn148366758.opengw.net:1403 超时"
+  },
+  {
+   "host": "vpn739863098.opengw.net",
+   "port": 1562,
+   "error": "连接 vpn739863098.opengw.net:1562 超时"
+  },
+  {
+   "host": "vpn782112469.opengw.net",
+   "port": 1531,
+   "error": "连接 vpn782112469.opengw.net:1531 超时"
+  },
+  {
+   "host": "vpn932736049.opengw.net",
+   "port": 1872,
+   "error": "连接 vpn932736049.opengw.net:1872 超时"
+  },
+  {
+   "host": "vpn469238827.opengw.net",
+   "port": 995,
+   "error": "连接 vpn469238827.opengw.net:995 超时"
+  },
+  {
+   "host": "vpn314835586.opengw.net",
+   "port": 1465,
+   "error": "连接 vpn314835586.opengw.net:1465 超时"
+  },
+  {
+   "host": "public-vpn-113.opengw.net",
    "port": 443,
    "error": "连接已被对端关闭"
   },
   {
-   "host": "public-vpn-53.opengw.net",
+   "host": "public-vpn-258.opengw.net",
+   "port": 443,
+   "error": "连接已被对端关闭"
+  },
+  {
+   "host": "public-vpn-238.opengw.net",
    "port": 443,
    "error": "连接已被对端关闭"
   }
