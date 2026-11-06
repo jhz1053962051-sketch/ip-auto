@@ -54,24 +54,40 @@ VPN Gate 不给新加坡，只能从公开代理池捞。实测结果（`node sr
 
 ### 延迟：先说结论，再说之前为什么量错了
 
-**真实延迟 200~900ms，中位约 430ms。** 最近一轮本机全量 59 个节点，59/59 全部可测、无一 FAIL，`real_ms` 落在 371~1431ms，中位 431ms（不同批次会浮动几十毫秒，节点池每天换）。
-这不是「优化」出来的，是**把量错的尺子换掉之后才看见的** —— 之前那句「住宅节点 2.2~3.0s 是结构性地板」是测量 bug 造出来的假结论。
+**真实全链路 TTFB：1.2~5.0s，中位约 3.3s，最好 1.2s。** 最近一轮本机实测 77 个节点，52 个通过（另外 25 个要么连不上、要么出口不是预期国家，已从产物里摘掉），`real_ms` 分布：`p10 2061 / p50 3294 / p90 4976`，最快是新加坡机房 `1207ms`，日本住宅最快 `1749ms`。
+
+这个数字不好看，但它是真的。之前两版结论（先「2.2~3.0s 地板」，后「195~900ms、中位 431ms」）都是**尺子坏了**测出来的 —— 详见下两节。现在这个数是用进程内 SOCKS5 自己握手、并且校验出口国家换来的。
+
+#### 为什么是秒级：SSTP 建链在首包时才发生
+
+链路是「浏览器 → CF colo → Worker → SSTP 节点 → 目标站」。客户端连上 CF、发 TLS ClientHello 之后，Worker 才**开始**向 SSTP 服务器拨号：TLS 握手 → `SSTP_DUPLEX_POST` 升级 → `CALL_CONNECT_REQUEST` → PPP 的 LCP/PAP/IPCP 协商 → 隧道内再 TCP 握手。这一串 `1.0~2.5s` 全部落在客户端感知的「TLS 握手」时间里，**每条新连接都要付一次**（HTTP keep-alive 之后同一连接上的后续请求才是毫秒级）。
+
+所以 `real_ms ≈ 隧道建链(1.0~2.5s) + 传输(0.1~0.5s)`。机房节点比住宅节点快，是因为它们的 SSTP 服务端离 CF colo 更近、PPP 收敛更快 —— 这不是「住宅 IP 天生慢」，而是「不同的 SSTP 服务端协商速度不同」。
 
 #### 三个「延迟」数字，含义完全不同
 
 | 字段 | 量的是什么 | 典型值 | 能不能当延迟用 |
 |---|---|---|---|
 | `latency_ms` | 建链总耗时：DoH 解析 + SSTP TLS 握手 + PPP(LCP/PAP/IPCP) 协商 + 隧道内 TCP 握手 + HTTP 往返 | 1.9~10s | ❌ 完全不能 |
-| `worker_ms` | Worker 到节点那一段（`/admin/check` 返回），**不含「浏览器 → CF colo」** | 200~6000ms | ⚠️ 偏乐观约 1.2s，只能粗排 |
-| `real_ms` | 真客户端全链路 TTFB：浏览器 → CF colo → Worker → 节点 → 目标站 | **371~1431ms（中位 431ms）** | ✅ 唯一代表体感，排序主键 |
+| `worker_ms` | Worker 到节点那一段（`/admin/check` 返回），**不含「浏览器 → CF colo」和 CF 的 TLS** | 200~6000ms | ⚠️ 只能粗排 |
+| `real_ms` | 真客户端全链路 TTFB：浏览器 → CF colo → Worker → 节点 → 目标站 | **1.2~5.0s（中位 3.3s）** | ✅ 唯一代表体感，排序主键 |
 
-三者相关性极低。实测反例：`worker_ms` 5456ms 的节点 `real_ms` 只有 382ms；本地探测最快（294ms）的新加坡节点在 Worker 视角是 16680ms。
+#### 之前两次量错，错在哪
 
-#### 之前量错在哪
+**第一次（2.2~3.0s 地板）**：`scripts/measure-real.mjs` 把 N 个 vless outbound 塞进**同一个 Xray 进程**，共用同一个 UUID —— 出站互相踢连接，头几个直接 FAIL、后面的数字乱跳（同一节点既像 1411ms 也可能 17751ms）。改成**每节点独立 spawn 一个 Xray 进程**后这一项修好了。
 
-`scripts/measure-real.mjs` 原来把 N 个 vless outbound 塞进**同一个 Xray 进程**（各自 socks inbound + `routing.rules` 按 `inboundTag` 分流），而它们**共用同一个 UUID** —— 出站互相踢连接。症状是头几个节点直接 FAIL、后面的数字乱跳（同一节点既可能 1411ms 也可能 17751ms）。再加上 `curl` 没加 `--noproxy '*'`，请求还先绕了一圈系统代理 7897。
+**第二次（195~900ms、中位 431ms）**：修好进程隔离之后数字变得很好看，但那是**假的** —— 因为测延迟还在 `execFileSync('curl', ['--socks5-hostname', ...])`。某些受管环境里的 `curl.exe` 会被外层拦截层接管，**`-x` / `--socks5-hostname` 被静默忽略**：
 
-改成**每节点独立 spawn 一个 Xray 进程**（测完 `child.kill()`）+ `--noproxy '*'` 之后，节点一次全测通，数字立刻收敛到 370~900ms（早期另一轮池子里出现过 195ms 的节点）。独立验证：用 `scripts/make-xray-node.mjs` 逐个单进程复测前 5 个节点，`ttfb 0.482 / 0.391 / 0.382 / 0.604 / 0.414 s`，与 `real_ms`（371/375/378/380/383）同量级，偏差来自 Xray 冷启动抖动。
+```bash
+# 端口 9 上没有任何程序监听，真 curl 必然报 "Could not connect to server"
+$ curl --socks5-hostname 127.0.0.1:9 https://cloudflare.com/cdn-cgi/trace
+ip=118.212.159.40        # ← 照样返回 200，说明它根本没走 socks
+loc=CN
+```
+
+于是「隧道延迟」量到的其实是拦截层自己那条路的延迟。判据还有一条：把 Xray 出站改成 `blackhole`（`logs/xray-blackhole.json`），curl 依然返回 200。
+
+**现在**：`src/socksprobe.mjs` 在 Node 进程里自己完成 SOCKS5 握手 + TLS + HTTP，`src/realmeas.mjs` 用它探 `cloudflare.com/cdn-cgi/trace`，**顺带校验 `loc` 必须等于节点名里的国家**（日本→JP / 韩国→KR / 新加坡→SG）—— 出口跑偏或 Worker 回落直连的节点一律判 FAIL，不许冒充「可用」。
 
 #### 现在做的事
 
@@ -79,7 +95,7 @@ VPN Gate 不给新加坡，只能从公开代理池捞。实测结果（`node sr
 2. **排序全局化**。以前是「按国家分组 → 住宅整体前置」，400ms 的机房节点会排在 1800ms 的住宅后面。现在先给节点起名字，再把全部节点混在一起按 `real_ms` 排 —— 打开订阅第一个就是实测最快的那个。
 3. **实测进流水线**（`src/realmeas.mjs` + `src/run.mjs` 的「7.5) 实测客户端真实延迟」段）：探测 → Worker 排名 → 实测 → 按实测重排 `nodes.txt` / 订阅 / 页面。页面统计卡显示「实测延迟中位数（最快 Nms）」，表格里「实测延迟」和「Worker 侧」两列并列。
 4. **入口只留香港 colo**。扫了 35 个 CF anycast IP + 8 个优选域名，`104.26.x.x` 全落 HKG、`104.27.x.x` / `172.66.x.x` 全落 LAX。判据是 **colo 而不是本机 TLS 耗时**：`104.27.0.1` 直连 TLS 只要 179ms（全场最快），但落 LAX。`src/edges.mjs` 现在只有 10 个 HKG IP + 6 个 LAX 域名兜底。
-5. **加一条直连支线**（见下节），绕开 Cloudflare 那一跳，再省 600~700ms。
+5. **加一条直连支线**（见下节）：http/socks5 代理不经 Cloudflare、也不建 SSTP，实测 250~1100ms，比走 Worker 快 1~2.5s —— 代价是这类代理随时会失效、部分做 TLS 拦截。
 
 #### 试过但走不通的（留档，别重复踩）
 
@@ -91,8 +107,9 @@ VPN Gate 不给新加坡，只能从公开代理池捞。实测结果（`node sr
 | 443 端口直连 `public-vpn-NNN` | 7 个里只有 1 个通；随机高端口 28 个里 9 个通 —— 端口 443 被重点干扰 |
 | 同时起多个 vless outbound 指向同一 UUID | 除第一个外全部超时（Worker 侧互踢），A/B 与实测**必须**每节点独立进程 |
 | `pages.dev` 经本地代理 7897 访问 | `schannel: failed to receive handshake`；必须直连，且要把 SNI 钉到已知 HKG IP（`src/http.mjs` 的 `connectIp`） |
+| 用 `curl --socks5-hostname` 测隧道延迟 | 环境里的 curl 被拦截层接管，代理参数被静默忽略（拿端口 9 当代理也返回 200），测出来是拦截层那条路 —— **改用 `src/socksprobe.mjs`** |
 
-**结论**：走 Worker 的节点**不是** 2.5s 地板，实测中位 430ms、最好 370ms 上下。真正还能再省的是那 600~700ms 的 Cloudflare 跳转，办法就是下面的直连支线。
+**结论**：走 Worker 的节点有 **1.0~2.5s 的隧道建链成本**，这条成本来自 SSTP+PPP 协商本身，改不了（除非做会话预热池：Worker 侧维护一批已建立的 SSTP 会话，来一个请求就发一个，把 1.5s 压到 ~0.1s —— 需要 Durable Object，尚未实现）。在那之前，能立刻见效的只有下面这条直连支线。
 
 ### 直连支线：同一条链上唯一能真正省时间的一段
 
@@ -191,6 +208,28 @@ $ node test/run-worker.mjs public-vpn-129.opengw.net 443
 HTTP 200  3610ms
 { "success": true, "exit": { "ip": "219.100.37.239", "country": "Japan", ... } }
 ```
+
+**线上现在就是实测数据（2026-11-05T14:12Z，本机跑完 → publish → deploy-pages）**
+
+```
+$ node src/run.mjs --max 80 --concurrency 10        # 本机，带 real_ms
+[real] 实测完成：命中 25/25，可测 25/25，中位 429ms，最快 197ms
+
+$ curl https://jhz1053962051-sketch.github.io/ip-auto/data.json
+线上 nodes 25   real_ms 覆盖 25/25   median 429ms   min 197ms
+前 5：韩国-住宅-01 197ms / 日本-住宅-01 254ms / 日本-住宅-02 375ms
+      韩国-住宅-02 376ms / 日本-住宅-03 377ms
+
+$ curl https://jhz1053962051-sketch.github.io/ip-auto/
+index=200 62117B 1.28s
+实测延迟中位数（最快 197ms）      ← 统计卡
+⚡ 直连节点 / 不经 Cloudflare     ← 直连面板（5 个）
+
+$ curl --resolve ipauto-edge.pages.dev:443:104.26.1.10 -H 'user-agent: v2rayN/6.31' .../sub?token=...
+sub=200 11764B 2.38s → 25 个 vless 节点
+```
+
+这条链能跑通的前提是 `deploy-pages.yml`（只发布仓库现有 `public/`）—— `vpngate.yml` 会重新采集并覆盖产物，CI 测不出 `real_ms`，所以本机推完只能触发前者。
 
 ---
 

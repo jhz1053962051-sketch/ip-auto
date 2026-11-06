@@ -14,14 +14,31 @@
  *   （同一节点 1411ms / 17751ms 都可能出现）。那轮"住宅节点 2.2~3.0s 地板"的结论
  *   就是被这个 bug 污染出来的 —— 独立进程重测后 55/55 全部可测，中位 401ms。
  *
- * 顺带一提：socks5 入站必须配 `curl --socks5-hostname`，且**必须 `--noproxy '*'`**，
- * 否则 curl 会先走系统代理 7897，测出来的是代理的延迟。
+ * ⚠️ 第二个坑：**不要 shell 出去调 curl 测隧道**。
+ *   某些环境里的 `curl.exe` 会被外层拦截层接管、忽略 `-x`/`--socks5-hostname`
+ *   （拿一个没人监听的端口 9 当代理也照样返回 200），于是测出来的是拦截层自己的延迟。
+ *   曾经因此得出「中位 431ms / 最快 151ms」的假结论，用进程内 SOCKS5 才是真值：
+ *   同一个节点 3.0~3.6s —— 因为 Worker 要等首包才开始 SSTP+PPP 建链，
+ *   这段成本落在客户端看到的 TLS 握手时间里。
+ *   → 现在统一走 src/socksprobe.mjs（进程内握手），并且**校验出口国家**：
+ *   出口 loc 与节点名不符（尤其落到 CN）一律判 FAIL，避免把"回落直连"当成节点可用。
  */
 import fs from 'node:fs';
 import path from 'node:path';
-import { execFileSync, spawn } from 'node:child_process';
+import { spawn } from 'node:child_process';
+import { socksHttpGet, parseTrace } from './socksprobe.mjs';
 
-const DEFAULT_TARGET = 'https://www.gstatic.com/generate_204';
+const TARGET_HOST = 'cloudflare.com';
+const TARGET_PATH = '/cdn-cgi/trace';
+
+/** 节点名 → 期望出口国家码 */
+const CC_BY_PREFIX = { 日本: 'JP', 韩国: 'KR', 新加坡: 'SG', 美国: 'US', 香港: 'HK', 台湾: 'TW' };
+function expectCc(name) {
+  for (const [prefix, cc] of Object.entries(CC_BY_PREFIX)) {
+    if (String(name || '').startsWith(prefix)) return cc;
+  }
+  return null;
+}
 
 /** 解析一行 vless，取出客户端需要的全部字段 */
 export function parseVlessLine(line, fallbackHost = 'ipauto-edge.pages.dev') {
@@ -72,23 +89,29 @@ export function buildOneConfig(n, port) {
   };
 }
 
-/** curl 一次，返回 TTFB 毫秒或 null */
-function probePort(port, { timeoutMs, target, attempt = 2 }) {
+/**
+ * 经 socks5 探一次 /cdn-cgi/trace：既拿 TTFB，也拿出口 IP 与落地国家。
+ * 只有出口国家与节点名一致才算可用（否则可能就是 Worker 回落直连）。
+ * @returns {Promise<{ms:number, loc:string, ip:string, colo:string}|{error:string, loc?:string}>}
+ */
+async function probePort(port, { timeoutMs, expect, attempt = 2 }) {
+  // timeoutMs 的老语义是「秒」（沿用 curl --max-time 的写法），这里换成毫秒并给下限
+  const budgetMs = Math.max(8000, Number(timeoutMs) * 1000);
+  let lastErr = null;
   for (let i = 0; i < attempt; i++) {
     try {
-      const s = execFileSync('curl', [
-        '-sS', '--max-time', String(timeoutMs),
-        '--noproxy', '*',
-        '--socks5-hostname', `127.0.0.1:${port}`,
-        '-o', process.platform === 'win32' ? 'NUL' : '/dev/null',
-        '-w', '%{time_starttransfer} %{http_code}',
-        target,
-      ], { encoding: 'utf8', timeout: (timeoutMs + 6) * 1000, stdio: ['ignore', 'pipe', 'ignore'] }).trim();
-      const [t, code] = s.split(' ');
-      if (code === '204' || code === '200') return Math.round(Number(t) * 1000);
-    } catch { /* 重试一次 */ }
+      const r = await socksHttpGet(port, TARGET_HOST, TARGET_PATH, { timeoutMs: budgetMs });
+      const tr = parseTrace(r.body);
+      if (r.status !== 200 || !tr.ip) { lastErr = `HTTP ${r.status}`; continue; }
+      if (expect && tr.loc && tr.loc !== expect) {
+        return { error: `出口 ${tr.loc}（预期 ${expect}）`, loc: tr.loc };
+      }
+      return { ms: Math.round(r.ttfb_ms), loc: tr.loc || '', ip: tr.ip, colo: tr.colo || '' };
+    } catch (e) {
+      lastErr = e.message;
+    }
   }
-  return null;
+  return { error: lastErr || '未知错误' };
 }
 
 /**
@@ -103,7 +126,7 @@ export async function measureReal(nodes, {
   concurrency = 3,
   timeoutMs = 20,
   startupMs = 2500,
-  target = DEFAULT_TARGET,
+  target = TARGET_HOST,
   log = () => {},
   onProgress = null,
 } = {}) {
@@ -127,7 +150,7 @@ export async function measureReal(nodes, {
     const child = spawn(bin, ['run', '-c', cfgPath], { cwd: root, stdio: 'ignore' });
     try {
       await new Promise((r) => setTimeout(r, startupMs));
-      results[idx] = probePort(port, { timeoutMs, target });
+      results[idx] = await probePort(port, { timeoutMs, expect: expectCc(item.cfg.name) });
       return results[idx];
     } finally {
       try { child.kill(); } catch { /* 已退出 */ }
@@ -137,11 +160,13 @@ export async function measureReal(nodes, {
   async function worker() {
     while (cursor < use.length) {
       const idx = cursor++;
-      const ms = await testOne(idx);
+      const r = await testOne(idx);
       done++;
       const item = use[idx];
       const real = item.n?.real || `${item.cfg.entry}:${item.cfg.port}`;
-      log(`[real] ${done}/${use.length} ${item.cfg.name.padEnd(16)} ${ms === null ? 'FAIL' : ms + 'ms'}`);
+      const ms = r && Number.isFinite(r.ms) ? r.ms : null;
+      const note = r && r.error ? `FAIL ${r.error}` : ms === null ? 'FAIL' : `${ms}ms ${r.loc} ${r.ip}`;
+      log(`[real] ${done}/${use.length} ${item.cfg.name.padEnd(16)} ${note}`);
       if (onProgress) onProgress(done, use.length, { name: item.cfg.name, real, real_ms: ms });
     }
   }
@@ -153,10 +178,15 @@ export async function measureReal(nodes, {
 
   const flat = [];
   for (const [idx, item] of use.entries()) {
+    const r = results[idx] || {};
     flat.push({
       name: item.cfg.name,
       real: item.n?.real || `${item.cfg.entry}:${item.cfg.port}`,
-      real_ms: results[idx],
+      real_ms: Number.isFinite(r.ms) ? r.ms : null,
+      real_loc: r.loc || '',
+      real_ip: r.ip || '',
+      real_colo: r.colo || '',
+      real_error: r.error || (Number.isFinite(r.ms) ? '' : 'FAIL'),
       matched: !!item.n?.real,
     });
   }
@@ -175,12 +205,19 @@ export function applyRealMs(nodes, flat) {
   const byAddr = new Map();
   for (const it of flat) {
     if (!Number.isFinite(it.real_ms)) continue;
-    byAddr.set(it.real, it.real_ms);
+    byAddr.set(it.real, it);
   }
   let hit = 0;
   for (const n of nodes) {
-    const ms = byAddr.get(`${n.host}:${n.port}`);
-    if (Number.isFinite(ms)) { n.real_ms = ms; hit++; }
+    // 优先用节点真身的地址（n.real，如 vpn123.opengw.net:1524）；
+    // 退回 host:port 只对直连类节点成立 —— 走 CF 的节点 host 是边缘 IP（104.26.x.x），会撞车。
+    const it = byAddr.get(n.real) || byAddr.get(`${n.host}:${n.port}`);
+    if (it) {
+      n.real_ms = it.real_ms;
+      if (it.real_loc) n.real_loc = it.real_loc;
+      if (it.real_ip) n.real_ip = it.real_ip;
+      hit++;
+    }
   }
   return hit;
 }

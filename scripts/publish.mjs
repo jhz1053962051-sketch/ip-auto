@@ -48,10 +48,20 @@ const BRANCH = arg('branch', 'main');
 const MSG = arg('message', '') || `chore: 本机实测产物 ${new Date().toISOString().slice(0, 16).replace('T', ' ')} UTC`;
 const DRY = flag('dry-run');
 
+// 这台机器的系统 PATH 里没有 git（以前用 Git Bash 才有）。
+// tools/git 是便携版 MinGit（tools/ 已 gitignore），计划任务里也能用。
+function resolveGit() {
+  if (process.env.IP_AUTO_GIT) return process.env.IP_AUTO_GIT;
+  const local = path.join(ROOT, 'tools', 'git', 'cmd', process.platform === 'win32' ? 'git.exe' : 'git');
+  if (fs.existsSync(local)) return local;
+  return 'git';
+}
+const GIT = resolveGit();
+
 // 只在这几条命令上注入凭据，不写任何全局/仓库配置
 const AUTH = 'AUTHORIZATION: basic ' + Buffer.from(`x-access-token:${TOKEN}`).toString('base64');
 function git(args, opts = {}) {
-  return execFileSync('git', ['-c', `http.https://github.com/.extraheader=${AUTH}`, ...args], {
+  return execFileSync(GIT, ['-c', `http.https://github.com/.extraheader=${AUTH}`, ...args], {
     cwd: ROOT,
     encoding: 'utf8',
     stdio: opts.quiet ? ['ignore', 'pipe', 'pipe'] : ['ignore', 'pipe', 'pipe'],
