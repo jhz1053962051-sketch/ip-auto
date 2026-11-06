@@ -108,6 +108,9 @@ export function buildVlessNodes(data, { host, uuid, edgeHosts = EDGE_HOSTS }) {
         // real_ms 由 scripts/measure-real.mjs 事后用真 Xray 客户端测出并写回
         // countries[].nodes，这里透传给页面，让用户看到「自己这条链的真实体感」。
         real_ms: Number.isFinite(n.real_ms) ? n.real_ms : null,
+        // 纯净度（Scamalytics 欺诈分）也透传：页面要显示，排序也要用
+        fraud: Number.isFinite(n.fraud) ? n.fraud : null,
+        fraud_risk: n.fraud_risk || null,
         residential: n.residential === 'residential',
         vless: `vless://${uuid}@${entry.replace(':443', '')}:443?${qs}#${encodeURIComponent(name)}`,
         protocol: proto,

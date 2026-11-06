@@ -13,6 +13,7 @@
  * 两者缺省时回落到只看 `data.countries`，老 data.json 也能渲染。
  */
 import { COUNTRY_ZH, nodeLink, protoLabel } from './edges.mjs';
+import { purityLevel } from './purity.mjs';
 
 const esc = (s) =>
   String(s == null ? '' : s)
@@ -51,6 +52,8 @@ function collectNodes(data) {
         latency_ms: n.latency_ms,
         worker_ms: Number.isFinite(n.worker_ms) ? n.worker_ms : null,
         real_ms: Number.isFinite(n.real_ms) ? n.real_ms : null,
+        fraud: Number.isFinite(n.fraud) ? n.fraud : null,
+        fraud_risk: n.fraud_risk || null,
         residential: n.residential === 'residential',
         vless: '',
         protocol: String(n.protocol || n.proto || 'sstp').toLowerCase(),
@@ -120,6 +123,45 @@ function renderDirectPanel(data) {
   </section>`;
 }
 
+/**
+ * 欺诈分单元格。
+ *
+ * 为什么这一列值得占位置：实测 60 个出口 IP 后发现「住宅 ≠ 干净」——
+ * 住宅组中位分数反而更高（SoftEther 共享出口 17~86），机房里的阿里云/微软多是 0 分。
+ * 用户按延迟挑节点时，一条 1.2s 但 100 分的节点，实际体验是「打开就弹验证码」，
+ * 比 2s 但 0 分的节点差得多。所以分数必须和延迟并排出现。
+ */
+function renderFraudCell(n) {
+  if (!Number.isFinite(n.fraud)) return '<td class="mono dim">—</td>';
+  const lv = purityLevel(n.fraud);
+  const tone = lv ? lv.tone : 'dim';
+  const title = [n.fraud_risk ? `risk=${n.fraud_risk}` : '', lv ? lv.label : ''].filter(Boolean).join(' · ');
+  return `<td class="mono"><span class="fraud ${tone}" title="${esc(title)}">${n.fraud}</span>${
+    lv && lv.key !== 'clean' ? `<span class="dim" style="font-size:11px;margin-left:5px">${esc(lv.label)}</span>` : ''
+  }</td>`;
+}
+
+/**
+ * 纯净度说明条。
+ *
+ * 必须放在统计卡下面、订阅面板之后——因为它是这页唯一一个「反直觉结论」：
+ * 用户默认「住宅 IP 更干净」，而实测数据显示相反。不写清楚，用户会按标签选错节点。
+ */
+function purityNote(s) {
+  if (!Number.isFinite(s.fraud_median)) return '';
+  const dirty = Number.isFinite(s.fraud_dirty) ? s.fraud_dirty : 0;
+  const bad = Number.isFinite(s.fraud_bad) ? s.fraud_bad : 0;
+  return `<div class="note">
+    <b>「住宅」不等于「干净」。</b>
+    这一版起每个出口 IP 都算了 Scamalytics 欺诈分（0 最干净）。实测 ${s.purity_measured ?? 0} 个出口里，
+    有 <b style="color:var(--err)">${dirty}</b> 个 ≥50 分（其中 ${bad} 个 ≥75），
+    而它们<b>大多是住宅出口</b>——SoftEther / 公共 VPN 的共享家宽被上万人用过，风控早盯上了；
+    反而阿里云、微软这类机房节点常常是 0 分。
+    <br>挑节点的顺序建议：<b style="color:var(--acc)">先看欺诈分（≤24 才好用），再看实测延迟</b>。
+    分数高不等于不能连，但打开网页十有八九先给你一个验证码。
+  </div>`;
+}
+
 function renderNodeTable(nodes) {
   const rows = nodes.map((n, i) => `<tr>
       <td class="mono dim">${String(i + 1).padStart(2, '0')}</td>
@@ -130,6 +172,7 @@ function renderNodeTable(nodes) {
       <td class="mono dim org">${esc(n.org || '—')}</td>
       <td class="mono">${Number.isFinite(n.real_ms) ? `<b>${Math.round(n.real_ms)} ms</b>` : fmtMs(n.worker_ms ?? n.latency_ms)}</td>
       <td class="mono dim">${Number.isFinite(n.worker_ms) ? `${Math.round(n.worker_ms)} ms` : '—'}</td>
+      ${renderFraudCell(n)}
       <td class="acts">
         ${n.vless ? `<code class="copy" data-copy="${esc(n.vless)}">复制 vless</code>` : ''}
         <code class="copy" data-copy="${esc(n.sstp)}">复制 ${protoLabel(n)}</code>
@@ -137,7 +180,7 @@ function renderNodeTable(nodes) {
     </tr>`).join('');
 
   return `<table>
-      <thead><tr><th>#</th><th>名称</th><th>入口（Cloudflare）</th><th>真实出口</th><th>出口 IP</th><th>ASN / 组织</th><th>实测延迟</th><th>Worker 侧</th><th></th></tr></thead>
+      <thead><tr><th>#</th><th>名称</th><th>入口（Cloudflare）</th><th>真实出口</th><th>出口 IP</th><th>ASN / 组织</th><th>实测延迟</th><th>Worker 侧</th><th title="Scamalytics 欺诈分：越低越干净，≥50 基本一用就弹验证码">欺诈分</th><th></th></tr></thead>
       <tbody>${rows}</tbody>
     </table>`;
 }
@@ -269,6 +312,14 @@ export function renderIndexHtml(data) {
   .badge{font-size:11px;padding:1px 7px;border-radius:999px;margin-left:5px}
   .badge.resi{background:rgba(77,212,172,.13);color:var(--acc);border:1px solid rgba(77,212,172,.35)}
   .badge.dc{background:rgba(255,184,77,.12);color:var(--warn);border:1px solid rgba(255,184,77,.35)}
+  .fraud{display:inline-block;min-width:26px;text-align:center;padding:1px 7px;border-radius:6px;font-weight:600;font-size:12px}
+  .fraud.ok{color:var(--acc);background:rgba(77,212,172,.13);border:1px solid rgba(77,212,172,.35)}
+  .fraud.dim{color:var(--dim);background:#131c28;border:1px solid #22303f}
+  .fraud.warn{color:var(--warn);background:rgba(255,184,77,.12);border:1px solid rgba(255,184,77,.35)}
+  .fraud.bad{color:var(--err);background:rgba(255,107,107,.13);border:1px solid rgba(255,107,107,.4)}
+  .note{background:linear-gradient(180deg,#1a1520 0%,#151220 100%);border:1px solid #3a2a44;border-radius:14px;
+        padding:13px 17px;margin-bottom:22px;color:var(--dim);font-size:12.5px;line-height:1.85}
+  .note b{color:var(--text)}
   .copy{cursor:pointer;font-size:12px;color:var(--acc2);border:1px solid #23384f;border-radius:8px;
         padding:2px 9px;margin-left:6px;display:inline-block}
   .copy:hover{background:#16263a}
@@ -298,8 +349,13 @@ export function renderIndexHtml(data) {
       : Number.isFinite(s.worker_ms_median)
         ? `<div class="stat"><b>${Math.round(s.worker_ms_median)}<small style="font-size:13px;color:var(--dim)">ms</small></b><span>Worker 侧延迟中位数（最快 ${Math.round(s.worker_ms_min)}ms）</span></div>`
         : ''}
+    ${Number.isFinite(s.fraud_median)
+      ? `<div class="stat ${s.fraud_median <= 24 ? 'ok' : 'd'}"><b>${s.fraud_median}</b><span>欺诈分中位数（干净 ${s.fraud_clean ?? 0} / 脏 ${s.fraud_dirty ?? 0}）</span></div>`
+      : ''}
     <div class="stat"><b>${s.failed ?? 0}</b><span>探测失败</span></div>
   </div>
+
+  ${purityNote(s)}
 
   ${subPanel}
 

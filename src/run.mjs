@@ -33,6 +33,7 @@ import { renderIndexHtml } from './render.mjs';
 import { subToken, subUrls, buildVlessNodes } from './sub.mjs';
 import { rankByWorker, sortByWorker } from './workerrank.mjs';
 import { measureReal, applyRealMs } from './realmeas.mjs';
+import { probePurityBatch, applyPurity, purityStats } from './purity.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
@@ -91,6 +92,10 @@ const CONFIG = {
   realMeasure: Number(args['real-measure'] || env.IP_AUTO_REAL_MEASURE || 1),
   realLimit: Number(args['real-limit'] || env.IP_AUTO_REAL_LIMIT || 0),
   realConcurrency: Number(args['real-concurrency'] || env.IP_AUTO_REAL_CONCURRENCY || 3),
+  // 纯净度（Scamalytics 欺诈分）：免 key、并发 4 实测无 429。
+  // 默认开着 —— 没有这一列，用户在页面上分不出「住宅」和「干净」，会优先选到最脏的那批。
+  purityMeasure: Number(args['purity'] || env.IP_AUTO_PURITY || 1),
+  purityConcurrency: Number(args['purity-concurrency'] || env.IP_AUTO_PURITY_CONCURRENCY || 4),
 };
 
 const proxy = CONFIG.proxyRaw ? parseProxy(CONFIG.proxyRaw) : null;
@@ -415,6 +420,58 @@ async function main() {
       }
     } catch (e) {
       log(`[real] 实测失败（${e?.message || e}），仅用 Worker 侧延迟排序`);
+    }
+  }
+
+
+  // 7.7) 纯净度（Scamalytics 欺诈分）。
+  //      为什么要这一步：项目原来只用 ip-api 的 hosting 字段分「住宅/机房」并默认住宅更好，
+  //      但实测 60 个出口 IP 后发现这个假设站不住 —— 住宅组的中位欺诈分反而更高
+  //      （SoftEther 那批共享出口 17~86），阿里云/微软机房大量 0 分。
+  //      「住宅」只说明归属，「干净」才决定会不会一开就弹验证码。
+  //      放在 7.5 之后：那时 n.real_ip 才是真实出口（走 CF 的节点，host 是边缘 IP 104.26.x.x）。
+  if (CONFIG.purityMeasure && available.length) {
+    try {
+      const ips = available
+        .map((n) => n.real_ip || n.exit_ip || (/^\d+\.\d+\.\d+\.\d+$/.test(String(n.host || '')) ? n.host : ''))
+        .filter(Boolean);
+      const uniq = [...new Set(ips)];
+      log(`[purity] 开始查询 ${uniq.length} 个出口 IP 的欺诈分（并发 ${CONFIG.purityConcurrency}）`);
+      const table = await probePurityBatch(uniq, {
+        proxy,
+        concurrency: CONFIG.purityConcurrency,
+        log,
+      });
+      const hit = applyPurity(available, table);
+      // countries 里的节点和 available 是同一批对象引用，applyPurity 已就地改好；
+      // 但 vless_nodes 是拷贝出来的，要单独回填，否则页面表格看不到 fraud。
+      if (Array.isArray(data.vless_nodes)) {
+        for (const v of data.vless_nodes) {
+          const src = available.find((n) => `${n.host}:${n.port}` === v.real || n.name === v.name);
+          const ip = src ? src.real_ip || src.exit_ip : '';
+          const r = ip ? table.get(ip) : null;
+          if (r && r.ok && Number.isFinite(r.fraud)) {
+            v.fraud = r.fraud;
+            v.fraud_risk = r.risk || null;
+          }
+        }
+      }
+      Object.assign(data.stats, purityStats(available));
+      log(
+        `[purity] 命中 ${hit}/${available.length}，中位 ${data.stats.fraud_median ?? '—'} 分，` +
+          `干净 ${data.stats.fraud_clean} / 脏 ${data.stats.fraud_dirty}（含 ${data.stats.fraud_bad} 个 ≥75）`
+      );
+      fs.writeFileSync(path.join(CONFIG.publicDir, 'data.json'), JSON.stringify(data, null, 1), 'utf8');
+      fs.writeFileSync(path.join(CONFIG.publicDir, 'index.html'), renderIndexHtml(data), 'utf8');
+      ensureDir(path.join(ROOT, 'logs'));
+      fs.writeFileSync(
+        path.join(ROOT, 'logs', 'purity.json'),
+        JSON.stringify({ at: generatedAt.toISOString(), table: Object.fromEntries(table) }, null, 1),
+        'utf8'
+      );
+      log('[purity] 已写回 data.json / index.html 与 logs/purity.json');
+    } catch (e) {
+      log(`[purity] 查询失败（${e?.message || e}），跳过纯净度列`);
     }
   }
 

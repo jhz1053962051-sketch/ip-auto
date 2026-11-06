@@ -13,6 +13,9 @@ logs/*
 # 上游参考源码（只用于本地比对，不进仓库）
 _src/
 
+# 第三方资料的本地副本（fq-book 等，无 LICENSE，只在本地读，不入库）
+refs/
+
 # 本地测试中间产物
 test/.worker-under-test.mjs
 

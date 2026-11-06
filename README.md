@@ -14,6 +14,7 @@
 | 检测 Worker（Cloudflare） | `https://ipauto-check-sstp.jhz1053962051.workers.dev` | `/check?sstp=vpn:vpn@HOST:PORT` |
 | 节点池（GitHub Pages） | `https://jhz1053962051-sketch.github.io/ip-auto/nodes.txt` | edgetunnel 每天从这里取 |
 | **直连节点（要快用这个）** | `https://jhz1053962051-sketch.github.io/ip-auto/direct/clash.yaml` | 不经 Cloudflare，http/socks5 直连，比上面那批快 600~700ms；公共池，会失效 |
+| **纯净度（欺诈分）** | 就在总览页的「欺诈分」一列 | Scamalytics 分数，0 最干净、100 最脏；住宅 ≠ 干净，详见下文 |
 | 仓库 | `https://github.com/jhz1053962051-sketch/ip-auto` | Actions 每天 11:17（北京）跑一轮 |
 
 **浏览器怎么用**：打开「节点总览」页 → 顶部「订阅地址」一行点「复制」→ 粘进 v2rayN / Clash Verge 的订阅栏；
@@ -183,6 +184,65 @@ Pages 环境变量里可以直接关：`WARM_POOL=0`（或 `WARM_POOL_SIZE=0`）
 
 **如实说的边界**：命中率取决于同一个 isolate 是否被复用、两次连接间隔是否超过 5s（超过就作废重建）。爆发式的一批请求收益最大；隔很久才来一个连接时，等于没受益。这不是"把延迟变成 200ms"的魔法，是把可提前的 1.5s 挪走。
 
+### 纯净度：住宅 ≠ 干净（这一版新增的维度）
+
+项目原来只用 ip-api 的 `hosting` 字段分「住宅 / 机房」，并默认住宅更好。这个假设是错的。
+
+给 64 个节点（60 个不同出口 IP）逐个查 Scamalytics 欺诈分（0 最干净、100 最脏）后交叉验证：
+
+```
+住宅 55 个：中位  8 分，脏（≥50）22 个
+机房  9 个：中位  1 分，脏（≥50） 1 个
+```
+
+**住宅组反而更脏**。最脏的一批全是满分 100，清一色住宅：
+
+```
+fraud  名字           运营商                     出口 IP           实测
+  100  日本-住宅-01   SOFTBANK Corp             218.131.41.95     2054ms
+  100  韩国-住宅-04   -                         112.172.238.220   2321ms
+  100  韩国-住宅-05   KT Corporation            59.6.114.202      2353ms
+  100  韩国-住宅-06   Kornet                    222.120.20.69     2437ms
+  100  韩国-住宅-07   Kornet                    59.14.221.13      2543ms
+  100  韩国-住宅-11   Pubnetplus                125.240.231.54    2685ms
+  100  日本-住宅-10   Chubu Telecommunications  14.132.109.178    -
+  100  日本-住宅-11   Open Computer Network     180.45.106.251    -
+```
+
+反过来，最干净的 4 个 0 分**全是机房**：
+
+```
+fraud  名字           运营商                     出口 IP           实测
+    0  新加坡-机房-01  Microsoft                20.44.210.140     1160ms
+    0  日本-机房-01    Alibaba                  8.209.255.13      1252ms
+    0  韩国-机房-01    Alibaba                  8.213.151.128     1281ms
+    0  新加坡-机房-02  Alibaba                  8.219.64.236      1580ms
+```
+
+（住宅里也有干净的：`日本-住宅-13 126.216.249.148`、`日本-住宅-19 211.128.17.88` 都是 0 分。）
+
+原因不复杂：这些「住宅 IP」其实是 SoftEther / 公共 VPN 的**共享出口**，几万人轮着用同一个家宽地址，风控早把它标成代理池；而阿里云、微软这类机房 IP 没被拿去刷东西。**「住宅」只说明归属，不说明干净。**
+
+于是这一版加了两件事：
+
+1. **流水线第 7.7 段查纯净度**（`src/purity.mjs`，数据源 Scamalytics 网页，免 key）。查的是 `real_ip`（真客户端实测到的出口）而不是 `host` —— 走 CF 的节点 `host` 是边缘 IP `104.26.x.x`，拿它查等于查 Cloudflare。
+2. **页面加了一列「欺诈分」**（配色：≤24 绿 / 25~49 灰 / 50~74 橙 / ≥75 红），统计卡加「欺诈分中位数（干净 N / 脏 M）」，顶部一段说明。排序仍然是 `real_ms` 优先 —— **只在延迟完全打平时才用欺诈分兜底**，不打乱「低延迟」这个主序。
+
+单独刷新分数（不重跑采集，60 个 IP 约 40 秒）：
+
+```powershell
+$env:https_proxy="http://127.0.0.1:7897"
+node scripts/apply-purity.mjs      # 查分 → 写回 data.json → 重排 → 重渲染
+node test/purity-report.mjs        # 只打报告：最脏 10 / 最干净 10 / 住宅 vs 机房
+node test/purity-unit.mjs          # 解析器单测（27 断言，改正则后必跑）
+```
+
+**分档口径**（参考文献 fq-book 的说法）：`0~24 干净` / `25~49 一般` / `50~74 可疑` / `75~100 很脏`。分数高不等于连不上，但打开网页十有八九先给你一个验证码。
+
+**为什么要单独认两种句式**：Scamalytics 对「有该 IP 直接观测」和「只有运营商观测」用的是两种句子，后者写作 `IP address X is operated by OP whose web traffic we consider to present a potentially low fraud risk` —— 那个 `low` 讲的是运营商整体，不是这个 IP。第一版只抓第一处 `potentially <b>X</b>`，结果干净 IP 抓不到分数、脏 IP 的 risk 被运营商那句覆盖，全判成 low。现在两条正则分开认，干净页面的分数走 `apply a risk score of 0/100` 那句兜底。
+
+参考：https://github.com/hoochanlon/fq-book 的 `docs/abc/pure.md`（该书无 LICENSE，只借鉴「纯净度这回事」的思路，未复制任何代码）。
+
 ---
 
 ## 一、已验证的事实（本机实跑，非推测）
@@ -288,6 +348,7 @@ ip-auto/
 │  ├─ render.mjs     概览页 HTML（订阅面板 + 直连面板 + 每条节点的复制按钮）
 │  ├─ workerrank.mjs 经 Worker 复测延迟（worker_ms），粗排用
 │  ├─ realmeas.mjs   每节点独立 Xray 进程实测全链路 TTFB（real_ms），排序主依据
+│  ├─ purity.mjs     纯净度：Scamalytics 欺诈分抓取与分档（免 key，并发 4）
 │  ├─ secret.mjs     从环境变量 / logs/*.json 找管理员密码、入口域名、UUID
 │  └─ run.mjs        主流水线
 ├─ cloudflare/
@@ -318,6 +379,7 @@ ip-auto/
 │  ├─ apply-measured.mjs     把一次独立实测写回 data.json 并重排/重渲染（--drop-failed 摘除失败节点）
 │  ├─ dump-sub.mjs           从本地 data.json 导出订阅文本（避免线上滞后导致索引错位）
 │  ├─ apply-real.mjs         按地址精确匹配把实测值写回 data.json
+│  ├─ apply-purity.mjs       只刷新纯净度分数并重排/重渲染（不重跑采集，60 个 IP 约 40 秒）
 │  ├─ set-gh-secret.mjs      写 GitHub Actions Secret（libsodium crypto_box_seal）
 │  ├─ publish.mjs            把带 real_ms 的本机产物推回仓库并触发 Pages 发布
 │  └─ summary.mjs            结果摘要
@@ -405,6 +467,8 @@ node scripts/schedule.mjs --every 6 --no-initial
 | `IP_AUTO_REAL_MEASURE` | `1` | 是否做全链路 TTFB 实测（需要 `tools/xray.exe`；CI 里设 `0`） |
 | `IP_AUTO_REAL_LIMIT` | `0` | 只实测前 N 个（0 = 全部）。调试时用 |
 | `IP_AUTO_REAL_CONCURRENCY` | `3` | 实测并发（每个节点一个独立 Xray 进程，别开太大） |
+| `IP_AUTO_PURITY` | `1` | 是否查纯净度（Scamalytics 欺诈分）；关掉则页面不显示这一列 |
+| `IP_AUTO_PURITY_CONCURRENCY` | `4` | 纯净度并发（实测 4 无 429，别超过 8） |
 | `IP_AUTO_SITE` | `https://jhz1053962051-sketch.github.io/ip-auto` | 页面里直连面板的链接前缀 |
 | `IP_AUTO_DOH_PROXY` | `http://127.0.0.1:7897` | 只给直连支线的 DoH 用；被探测的代理一律直连 |
 | `IP_AUTO_MAX_NODES` | `80` | 最多检测多少条 |
@@ -576,5 +640,7 @@ node test/run-worker.mjs vpn492686662.opengw.net 1591
 | [cmliu/edgetunnel](https://github.com/cmliu/edgetunnel) | 订阅生成器，原样使用 | GPL-2.0 |
 | [hezhanleiok/gate](https://github.com/hezhanleiok/gate) | 教程对应项目；**只借鉴流程，未引入代码**（无 LICENSE），并修正了其 SSTP 端口写死 443 的缺陷 | 无 LICENSE |
 | [XTLS/Xray-core](https://github.com/XTLS/Xray-core) | 端到端验证用的客户端（仅本地测试，不入库） | MPL-2.0 |
+| [hoochanlon/fq-book](https://github.com/hoochanlon/fq-book) | 只读参考：`docs/abc/pure.md` 的「纯净度」概念与分档口径，`gfw.md` / `meek.md` / `4dns.md` 印证了已有的 DoH 与「借用大厂域名当门面」两条设计。**无 LICENSE，未引入任何代码** | 无 LICENSE |
+| [Scamalytics](https://scamalytics.com/) | 欺诈分数据源（抓网页，免 key） | 商业服务，仅读公开页面 |
 
 节点来源为 [VPN Gate](https://www.vpngate.net/)（学术实验项目，仅限学术用途）。

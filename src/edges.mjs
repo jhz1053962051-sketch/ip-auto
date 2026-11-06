@@ -133,7 +133,12 @@ export function sortLatency(a, b) {
   const av = pick(a);
   const bv = pick(b);
   if (av !== bv) return av - bv;
-  return (a.latency_ms || 1e9) - (b.latency_ms || 1e9);
+  const al = (a.latency_ms || 1e9);
+  const bl = (b.latency_ms || 1e9);
+  if (al !== bl) return al - bl;
+  // 延迟打平时用欺诈分兜底：两个差不多快的节点，优先给干净的那个。
+  // （只在完全同速时生效，不会把用户要的「低延迟」排序打乱。）
+  return (Number.isFinite(a.fraud) ? a.fraud : 1e9) - (Number.isFinite(b.fraud) ? b.fraud : 1e9);
 }
 
 /**

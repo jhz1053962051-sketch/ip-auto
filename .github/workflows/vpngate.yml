@@ -64,6 +64,10 @@ jobs:
           # 实测全链路 TTFB 需要本机 tools/xray.exe（CI 上没有），这里显式关掉：
           # 而且 Actions 跑在美区，测出来的数字对中国用户没参考价值。
           IP_AUTO_REAL_MEASURE: '0'
+          # 纯净度（Scamalytics 欺诈分）是纯外部查询，CI 跑得了；并发压到 3 客气一点，
+          # 万一被限速，run.mjs 里那一段是 try/catch，失败只是少一列，不影响订阅。
+          IP_AUTO_PURITY: '1'
+          IP_AUTO_PURITY_CONCURRENCY: '3'
           # 产物里的订阅地址（可选，只用于页面展示）
           IP_AUTO_NODES_URL: ${{ vars.NODES_URL }}
         run: node src/run.mjs
@@ -91,6 +95,7 @@ jobs:
           else
             echo "本轮没有直连节点（不影响主订阅）"
           fi
+          node -e "const d=require('./public/data.json');const s=d.stats||{};console.log('欺诈分：可查 '+s.purity_measured+' 个，中位 '+s.fraud_median+' 分，干净 '+s.fraud_clean+' / 脏 '+s.fraud_dirty+'（含 '+(s.fraud_bad||0)+' 个 ≥75）')"
 
       # 把每轮产物提交回仓库，这样即使 Pages 部署失败也能从 git 里取到历史
       - name: 提交产物
