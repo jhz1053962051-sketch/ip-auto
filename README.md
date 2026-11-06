@@ -146,6 +146,43 @@ public/direct/nodes.txt    人读清单
 
 `public/direct/` 一轮抓不到节点时**不覆盖上一轮产物** —— 空订阅会让客户端把已有节点全清掉。
 
+### 结构性优化：SSTP 预热池（把 1.8s 的建链挪到请求之前）
+
+秒级延迟的唯一大头是 **SSTP 建链**：客户端连上的第一个字节才触发 `SSTP_DUPLEX_POST` → `CALL_CONNECT_REQUEST` → PPP LCP/PAP/IPCP → 隧道内 TCP，整串 1.0~2.5s 全在等它。
+
+把它拆成两段就能提前做掉：
+
+```
+openTunnel(proxy)                  TLS + SSTP 握手 + PPP 协商 → 拿到内网 IP   1.0~2.5s
+session.dial(host, port)           隧道内 TCP 三次握手 + 一次 DoH            ~0.2s
+```
+
+一条隧道只能服务一个客户端连接（PPP 是单五元组），所以取走即弃、取完立刻补水。
+
+**为什么不用 Durable Object**：Pages Functions 不支持 DO 绑定，而线上入口正是 `ipauto-edge.pages.dev`（`*.workers.dev` 在本网络被 SNI 阻断）。池子因此放在 Worker isolate 的模块作用域里 —— isolate 被复用时，下一个请求就能拿到已经建好的隧道；补水走 `ctx.waitUntil`，不占响应时间。
+
+本机实测（`node test/warm-node.mjs --size 2`，真实日本住宅节点、真实出口校验）：
+
+```
+[cold]     setup 1841ms  → HTTP 200 loc=KR ip=222.117.75.200   ← 建链全付
+[pool]     2 条隧道预热完成
+[take 0]   warm=true setup  469ms → 同一个出口 IP
+[take 1]   warm=true setup  227ms → 同一个出口 IP
+[take 2]   warm=false setup 1287ms（两条都取完了，冷启动）
+```
+
+**上线与回退**
+
+```bash
+node scripts/build-worker.mjs            # 生成 logs/build/{worker.pool.js, sstp-pool.js, worker.plain.js}
+node scripts/deploy-pages-edge.mjs       # 预热池版（默认，等同 --pool-size 3）
+node scripts/deploy-pages-edge.mjs --plain   # 回退版：不带池，行为与上游原版一致
+```
+
+Pages 环境变量里可以直接关：`WARM_POOL=0`（或 `WARM_POOL_SIZE=0`），不用重新部署代码。
+
+**如实说的边界**：命中率取决于同一个 isolate 是否被复用、两次连接间隔是否超过 5s（超过就作废重建）。爆发式的一批请求收益最大；隔很久才来一个连接时，等于没受益。这不是"把延迟变成 200ms"的魔法，是把可提前的 1.5s 挪走。
+
 ---
 
 ## 一、已验证的事实（本机实跑，非推测）
@@ -255,6 +292,12 @@ ip-auto/
 │  └─ run.mjs        主流水线
 ├─ cloudflare/
 │  └─ check-worker.js  可直接粘贴到 CF 后台的单文件检测 Worker（真 SSTP 握手）
+├─ worker/
+│  ├─ sstp-pool/
+│  │  ├─ sstp.js    独立的 openTunnel() + dial()，与 _worker.js 里的 sstpConnect 行为一致
+│  │  ├─ warm.js    模块级预热池（isolate 作用域，非 DO）
+│  │  └─ do-experiment/  最初做的 Durable Object 版（Pages 不支持绑定，留档未用）
+│  └─ PATCH-NOTES.md  _worker.js 接线四处改动（上游源码不入库，换机照此重放）
 ├─ scripts/
 │  ├─ local-worker.mjs    本地检测服务（/check?sstp=...）
 │  ├─ serve.mjs           本地静态站点（预览 public/）
@@ -262,7 +305,8 @@ ip-auto/
 │  ├─ run-task.cmd        计划任务实际执行的包装脚本
 │  ├─ task.mjs            Windows 计划任务安装/删除/查看
 │  ├─ deploy-cloudflare.mjs  CF 一键部署（纯 API，Worker 版）
-│  ├─ deploy-pages-edge.mjs  CF Pages 一键部署（wrangler 上传，直连版）
+│  ├─ deploy-pages-edge.mjs  CF Pages 一键部署（wrangler 上传，直连版；默认带预热池，--plain 回退）
+│  ├─ build-worker.mjs       拼装 sstp-pool 单文件 + 生成 worker.pool.js / worker.plain.js
 │  ├─ deploy-github.mjs      GitHub 一键部署（纯 API）
 │  ├─ edgetunnel-setup.mjs   登录后台、改成读自己的 nodes.txt、打印订阅地址
 │  ├─ show-sub.mjs           只算并打印订阅地址（改域名/UUID 后重算 token）

@@ -105,6 +105,8 @@ if (!DRY) {
             ADMIN: { value: ADMIN },
             UUID: { value: UUID },
             HOST: { value: `${PROJECT}.pages.dev` },
+            WARM_POOL: { value: has('plain') ? '0' : '1' },
+            WARM_POOL_SIZE: { value: arg('pool-size', '3') },
           },
         },
       },
@@ -118,10 +120,25 @@ if (DRY) { log('--dry-run：到此为止'); process.exit(0); }
 
 /* ---------- 4. 用 wrangler 上传 _worker.js ---------- */
 if (!fs.existsSync(SRC)) throw new Error(`找不到 ${SRC}`);
+// 预热池版：构建脚本把 _src/sstp-pool/*.js 拼成单文件 sstp-pool.js，
+// 再把 _worker.js 顶部那行 import 保留下来一起上传；--plain 则不预热（回退用）。
+const POOL = !has('plain');
+if (POOL) {
+  execFileSync(process.execPath, [path.join(ROOT, 'scripts/build-worker.mjs'), '--only=pool'], {
+    cwd: ROOT, stdio: ['ignore', 'inherit', 'inherit'],
+  });
+}
 fs.rmSync(STAGE, { recursive: true, force: true });
 fs.mkdirSync(STAGE, { recursive: true });
-fs.copyFileSync(SRC, path.join(STAGE, '_worker.js'));
-log(`上传目录 ${STAGE}  (${(fs.statSync(SRC).size / 1024 / 1024).toFixed(2)} MB)`);
+if (POOL) {
+  fs.copyFileSync(path.join(ROOT, 'logs/build/worker.pool.js'), path.join(STAGE, '_worker.js'));
+  fs.copyFileSync(path.join(ROOT, 'logs/build/sstp-pool.js'), path.join(STAGE, 'sstp-pool.js'));
+  log('模式: 预热池（sstp-pool.js + _worker.js）');
+} else {
+  fs.copyFileSync(SRC, path.join(STAGE, '_worker.js'));
+  log('模式: --plain（不预热）');
+}
+log(`上传目录 ${STAGE}  (${(fs.statSync(path.join(STAGE, '_worker.js')).size / 1024 / 1024).toFixed(2)} MB)`);
 
 const env = {
   ...process.env,

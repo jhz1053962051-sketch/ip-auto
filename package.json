@@ -9,7 +9,9 @@
     "probe": "node src/probe.mjs",
     "worker": "node scripts/local-worker.mjs",
     "watch": "node scripts/schedule.mjs",
-    "serve": "node scripts/serve.mjs"
+    "serve": "node scripts/serve.mjs",
+    "build:worker": "node scripts/build-worker.mjs",
+    "deploy:edge": "node scripts/deploy-pages-edge.mjs"
   },
   "engines": {
     "node": ">=20"
