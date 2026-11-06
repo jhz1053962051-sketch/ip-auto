@@ -270,7 +270,8 @@ ip-auto/
 │  ├─ make-xray-node.mjs     从订阅生成 Xray 配置（单节点 / 指定国家 / 指定入口）
 │  ├─ make-direct-sub.mjs    直连节点订阅（绕开 Cloudflare，clash.yaml/xray.json/nodes.txt）
 │  ├─ rank-by-worker.mjs     只用 Worker 复测一遍延迟（--no-proxy 直连 pages.dev）
-│  ├─ measure-real.mjs       真客户端实测（旧版：同进程多 outbound 会互踢，已被 realmeas.mjs 取代）
+│  ├─ measure-real.mjs       命令行入口（已改为委托 src/realmeas.mjs；老版 curl 实现废弃）
+│  ├─ apply-measured.mjs     把一次独立实测写回 data.json 并重排/重渲染（--drop-failed 摘除失败节点）
 │  ├─ dump-sub.mjs           从本地 data.json 导出订阅文本（避免线上滞后导致索引错位）
 │  ├─ apply-real.mjs         按地址精确匹配把实测值写回 data.json
 │  ├─ set-gh-secret.mjs      写 GitHub Actions Secret（libsodium crypto_box_seal）
