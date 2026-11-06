@@ -619,6 +619,25 @@ node test/run-worker.mjs vpn492686662.opengw.net 1591
 | `schannel: server closed abruptly` | 本机到 CF 边缘的抖动，重试即可 |
 | 订阅 401 | token 算错，用 `MD5MD5(host+uuid)` 重算 |
 
+线上验收两条命令（都在本机跑，不需要代理）：
+
+```bash
+node test/verify-online-purity.mjs   # 页面有没有欺诈分列、data.json 统计对不对
+node test/verify-online-sub.mjs      # 钉住 HKG colo 取 /sub，解 base64 数节点
+```
+
+> `/sub` 返回的是 **base64**（`vless://` 那张表被编码过），不是明文 —— `verify-online-sub.mjs` 会先解码再数。
+> 另外 GitHub Pages 对「目录 URL + `?t=`」会回 404，绕缓存只能靠请求头，别在 URL 上挂时间戳。
+
+**产物一致性**：`public/` 里四个文件是同一份数据的四种投影 —— `data.json` 是真源，
+`index.html` / `nodes.txt` / `subscription.txt` 都由它生成。**订阅是 edgetunnel 拿 `nodes.txt` 生成的**，
+所以两边数量必须相等，否则就是「页面显示 64 个、订阅只给 69 个」这类对不上的事故：
+
+```bash
+node scripts/rebuild-artifacts.mjs --check   # 只比对，不一致 exit 1（CI 也跑这一步）
+node scripts/rebuild-artifacts.mjs           # 以 data.json 为准重写另外三个
+```
+
 ---
 
 ## 八、不破坏现有环境的保证

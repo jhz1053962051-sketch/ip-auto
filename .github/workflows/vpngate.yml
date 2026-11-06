@@ -97,6 +97,11 @@ jobs:
           fi
           node -e "const d=require('./public/data.json');const s=d.stats||{};console.log('欺诈分：可查 '+s.purity_measured+' 个，中位 '+s.fraud_median+' 分，干净 '+s.fraud_clean+' / 脏 '+s.fraud_dirty+'（含 '+(s.fraud_bad||0)+' 个 ≥75）')"
 
+      # data.json 是真源，index.html / nodes.txt / subscription.txt 是它的三个投影。
+      # 现在订阅就是拿 nodes.txt 生成的，两者数量一旦不同，用户会以为少了一批节点。
+      - name: 校验产物一致性
+        run: node scripts/rebuild-artifacts.mjs --check
+
       # 把每轮产物提交回仓库，这样即使 Pages 部署失败也能从 git 里取到历史
       - name: 提交产物
         run: |

@@ -19,10 +19,11 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import { execFileSync } from 'node:child_process';
+
 import { parseProxy } from '../src/http.mjs';
 import { probePurityBatch, applyPurity, purityStats, purityLevel } from '../src/purity.mjs';
-import { buildNodesText, EDGE_HOSTS, sortLatency } from '../src/edges.mjs';
-import { renderIndexHtml } from '../src/render.mjs';
+import { sortLatency } from '../src/edges.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -100,15 +101,18 @@ async function main() {
   }
 
   fs.writeFileSync(dataPath, JSON.stringify(data, null, 1), 'utf8');
-  fs.writeFileSync(path.join(publicDir, 'index.html'), renderIndexHtml(data), 'utf8');
 
-  // nodes.txt 只有节点集合变了才需要重写；这里节点集合没变，但重排后行序会变，一并重建
+  // 派生产物一律交给 rebuild-artifacts.mjs 重建，别在这里各写一份。
+  // 教训：2026-11-06 变基时 origin 的 nodes.txt 被保留下来，出现「页面 64 个、订阅 69 个」；
+  // 原因是「谁写 data.json」「谁写 nodes.txt」分散在四个脚本里，谁都能漏一个。
+  // 现在 data.json 是唯一真源，其余三个投影都由一个地方生成。
   try {
-    const txt = buildNodesText(data, EDGE_HOSTS);
-    fs.writeFileSync(path.join(publicDir, 'nodes.txt'), txt, 'utf8');
-    log(`nodes.txt 重建 ${txt.split('\n').filter(Boolean).length} 行`);
+    execFileSync(process.execPath, [path.join(ROOT, 'scripts', 'rebuild-artifacts.mjs')], {
+      cwd: ROOT,
+      stdio: 'inherit',
+    });
   } catch (e) {
-    log(`nodes.txt 重建失败（忽略）：${e?.message || e}`);
+    log(`派生产物重建失败（忽略，data.json 已是新数据）：${e?.message || e}`);
   }
 
   const rows = nodes
