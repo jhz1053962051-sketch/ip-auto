@@ -7,22 +7,32 @@ mode: rule
 log-level: info
 
 proxies:
-  - name: "JP-机房-556ms-8.209.255.13"
+  - name: "JP-机房-642ms-140.238.32.108"
+    type: http
+    server: 140.238.32.108
+    port: 3128
+
+  - name: "JP-机房-784ms-8.209.255.13"
     type: http
     server: 8.209.255.13
     port: 3128
 
-  - name: "KR-住宅-692ms-220.81.123.23"
-    type: http
-    server: 220.81.123.23
-    port: 48678
-
-  - name: "SG-机房-809ms-4.144.146.21"
+  - name: "SG-机房-888ms-4.144.146.21"
     type: http
     server: 4.144.146.21
     port: 80
 
-  - name: "KR-机房-974ms-8.213.151.128"
+  - name: "SG-机房-960ms-104.248.151.93"
+    type: http
+    server: 104.248.151.93
+    port: 9090
+
+  - name: "KR-住宅-983ms-125.135.105.153"
+    type: http
+    server: 125.135.105.153
+    port: 8080
+
+  - name: "KR-机房-1851ms-8.213.151.128"
     type: http
     server: 8.213.151.128
     port: 3128
@@ -34,32 +44,36 @@ proxy-groups:
     interval: 300
     tolerance: 60
     proxies:
-      - "JP-机房-556ms-8.209.255.13"
-      - "KR-住宅-692ms-220.81.123.23"
-      - "SG-机房-809ms-4.144.146.21"
-      - "KR-机房-974ms-8.213.151.128"
+      - "JP-机房-642ms-140.238.32.108"
+      - "JP-机房-784ms-8.209.255.13"
+      - "SG-机房-888ms-4.144.146.21"
+      - "SG-机房-960ms-104.248.151.93"
+      - "KR-住宅-983ms-125.135.105.153"
+      - "KR-机房-1851ms-8.213.151.128"
 
   - name: "JP"
     type: url-test
     url: "http://www.gstatic.com/generate_204"
     interval: 300
     proxies:
-      - "JP-机房-556ms-8.209.255.13"
-
-  - name: "KR"
-    type: url-test
-    url: "http://www.gstatic.com/generate_204"
-    interval: 300
-    proxies:
-      - "KR-住宅-692ms-220.81.123.23"
-      - "KR-机房-974ms-8.213.151.128"
+      - "JP-机房-642ms-140.238.32.108"
+      - "JP-机房-784ms-8.209.255.13"
 
   - name: "SG"
     type: url-test
     url: "http://www.gstatic.com/generate_204"
     interval: 300
     proxies:
-      - "SG-机房-809ms-4.144.146.21"
+      - "SG-机房-888ms-4.144.146.21"
+      - "SG-机房-960ms-104.248.151.93"
+
+  - name: "KR"
+    type: url-test
+    url: "http://www.gstatic.com/generate_204"
+    interval: 300
+    proxies:
+      - "KR-住宅-983ms-125.135.105.153"
+      - "KR-机房-1851ms-8.213.151.128"
 
 rules:
   - MATCH,最快

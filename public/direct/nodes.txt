@@ -4,7 +4,9 @@
 # Clash / mihomo：把 https://jhz1053962051-sketch.github.io/ip-auto/direct/clash.yaml 作为订阅地址导入
 # Xray：tools/xray.exe run -c public/direct/xray.json，socks 端口 10800 起（顺序与下表一致）
 
- 1. JP | http | 机房 | 8.209.255.13:3128 | 556ms | 8.209.255.13 | Alibaba.com Singapore E-Commerce Private Limited
- 2. KR | http | 住宅 | 220.81.123.23:48678 | 692ms | 220.81.123.23 | Korea Telecom
- 3. SG | http | 机房 | 4.144.146.21:80 | 809ms | 20.44.210.140 | Microsoft Azure Cloud (southeastasia)
- 4. KR | http | 机房 | 8.213.151.128:3128 | 974ms | 8.213.151.128 | Alibaba.com Singapore E-Commerce Private Limited
+ 1. JP | http | 机房 | 140.238.32.108:3128 | 642ms | 140.238.32.108 | Oracle Cloud Infrastructure (ap-tokyo-1)
+ 2. JP | http | 机房 | 8.209.255.13:3128 | 784ms | 8.209.255.13 | Alibaba.com Singapore E-Commerce Private Limited
+ 3. SG | http | 机房 | 4.144.146.21:80 | 888ms | 20.44.210.140 | Microsoft Azure Cloud (southeastasia)
+ 4. SG | http | 机房 | 104.248.151.93:9090 | 960ms | 104.248.151.93 | DigitalOcean, LLC
+ 5. KR | http | 住宅 | 125.135.105.153:8080 | 983ms | 125.135.105.153 | Korea Telecom
+ 6. KR | http | 机房 | 8.213.151.128:3128 | 1851ms | 8.213.151.128 | Alibaba.com Singapore E-Commerce Private Limited
