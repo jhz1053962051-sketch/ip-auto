@@ -52,6 +52,26 @@
         "auth": "noauth",
         "udp": false
       }
+    },
+    {
+      "tag": "in-5",
+      "listen": "127.0.0.1",
+      "port": 10805,
+      "protocol": "socks",
+      "settings": {
+        "auth": "noauth",
+        "udp": false
+      }
+    },
+    {
+      "tag": "in-6",
+      "listen": "127.0.0.1",
+      "port": 10806,
+      "protocol": "socks",
+      "settings": {
+        "auth": "noauth",
+        "udp": false
+      }
     }
   ],
   "outbounds": [
@@ -65,14 +85,26 @@
       "settings": {
         "servers": [
           {
-            "address": "8.209.255.13",
-            "port": 3128
+            "address": "4.144.146.21",
+            "port": 80
           }
         ]
       }
     },
     {
       "tag": "p1",
+      "protocol": "http",
+      "settings": {
+        "servers": [
+          {
+            "address": "159.223.41.216",
+            "port": 9090
+          }
+        ]
+      }
+    },
+    {
+      "tag": "p2",
       "protocol": "http",
       "settings": {
         "servers": [
@@ -84,24 +116,12 @@
       }
     },
     {
-      "tag": "p2",
-      "protocol": "http",
-      "settings": {
-        "servers": [
-          {
-            "address": "104.248.151.93",
-            "port": 9090
-          }
-        ]
-      }
-    },
-    {
       "tag": "p3",
       "protocol": "http",
       "settings": {
         "servers": [
           {
-            "address": "4.144.146.21",
+            "address": "8.219.97.248",
             "port": 80
           }
         ]
@@ -113,8 +133,32 @@
       "settings": {
         "servers": [
           {
-            "address": "159.223.41.216",
-            "port": 9090
+            "address": "140.238.32.108",
+            "port": 3128
+          }
+        ]
+      }
+    },
+    {
+      "tag": "p5",
+      "protocol": "http",
+      "settings": {
+        "servers": [
+          {
+            "address": "43.128.144.133",
+            "port": 18080
+          }
+        ]
+      }
+    },
+    {
+      "tag": "p6",
+      "protocol": "http",
+      "settings": {
+        "servers": [
+          {
+            "address": "8.209.255.13",
+            "port": 3128
           }
         ]
       }
@@ -157,6 +201,20 @@
           "in-4"
         ],
         "outboundTag": "p4"
+      },
+      {
+        "type": "field",
+        "inboundTag": [
+          "in-5"
+        ],
+        "outboundTag": "p5"
+      },
+      {
+        "type": "field",
+        "inboundTag": [
+          "in-6"
+        ],
+        "outboundTag": "p6"
       }
     ]
   }
