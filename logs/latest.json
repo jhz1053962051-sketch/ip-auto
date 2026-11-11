@@ -1,135 +1,138 @@
 {
- "at": "2026-11-10T11:13:44.244Z",
+ "at": "2026-11-11T04:37:47.964Z",
  "stats": {
-  "raw_rows": 100,
+  "raw_rows": 95,
   "sstp_nodes": 70,
-  "checked": 1029,
-  "success": 61,
-  "failed": 968,
+  "checked": 1094,
+  "success": 58,
+  "failed": 1036,
   "residential": 50,
-  "datacenter": 11,
+  "datacenter": 8,
   "countries": 3,
-  "proxy_candidates": 492,
-  "proxy_alive": 50,
-  "proxy_matched": 25,
-  "worker_ranked": 61,
-  "worker_rank_failed": 9,
-  "worker_ms_median": 3939,
-  "worker_ms_min": 894,
-  "purity_measured": 61,
-  "fraud_median": 4,
-  "fraud_clean": 45,
-  "fraud_dirty": 14,
-  "fraud_bad": 13
+  "proxy_candidates": 518,
+  "proxy_alive": 15,
+  "proxy_matched": 12,
+  "worker_ranked": 58,
+  "worker_rank_failed": 4,
+  "worker_ms_median": 2367,
+  "worker_ms_min": 217,
+  "real_ms_measured": 50,
+  "real_ms_median": 2728,
+  "real_ms_min": 1215,
+  "purity_measured": 58,
+  "fraud_median": 5.5,
+  "fraud_clean": 39,
+  "fraud_dirty": 18,
+  "fraud_bad": 10
  },
- "probe_ms": 73034,
- "total_ms": 531069,
+ "probe_ms": 49152,
+ "total_ms": 872622,
  "countries": [
   "JP",
   "KR",
   "SG"
  ],
- "proxy": null,
+ "proxy": "127.0.0.1:7897",
  "failed": [
   {
-   "host": "vpn277254909.opengw.net",
-   "port": 1662,
-   "error": "连接 vpn277254909.opengw.net:1662 超时"
-  },
-  {
-   "host": "vpn458987833.opengw.net",
-   "port": 1252,
-   "error": "connect ECONNREFUSED 14.33.55.84:1252"
-  },
-  {
-   "host": "vpn316533138.opengw.net",
-   "port": 1305,
-   "error": "连接 vpn316533138.opengw.net:1305 超时"
-  },
-  {
-   "host": "vpn162046654.opengw.net",
-   "port": 1282,
-   "error": "连接 vpn162046654.opengw.net:1282 超时"
-  },
-  {
-   "host": "vpn805501458.opengw.net",
-   "port": 995,
-   "error": "连接 vpn805501458.opengw.net:995 超时"
-  },
-  {
-   "host": "vpn272383655.opengw.net",
-   "port": 1903,
-   "error": "连接 vpn272383655.opengw.net:1903 超时"
-  },
-  {
-   "host": "vpn516403983.opengw.net",
-   "port": 1363,
-   "error": "连接 vpn516403983.opengw.net:1363 超时"
-  },
-  {
-   "host": "vpn681678423.opengw.net",
-   "port": 1582,
-   "error": "连接 vpn681678423.opengw.net:1582 超时"
-  },
-  {
-   "host": "vpn689958394.opengw.net",
-   "port": 1828,
-   "error": "连接 vpn689958394.opengw.net:1828 超时"
-  },
-  {
-   "host": "vpn536640840.opengw.net",
-   "port": 995,
-   "error": "连接 vpn536640840.opengw.net:995 超时"
-  },
-  {
-   "host": "vpn800356886.opengw.net",
-   "port": 1607,
-   "error": "连接 vpn800356886.opengw.net:1607 超时"
-  },
-  {
-   "host": "vpn583338654.opengw.net",
-   "port": 1689,
-   "error": "连接 vpn583338654.opengw.net:1689 超时"
-  },
-  {
-   "host": "vpn438730301.opengw.net",
-   "port": 995,
-   "error": "连接 vpn438730301.opengw.net:995 超时"
-  },
-  {
-   "host": "vpn211888673.opengw.net",
-   "port": 1546,
-   "error": "连接 vpn211888673.opengw.net:1546 超时"
-  },
-  {
-   "host": "vpn879574077.opengw.net",
-   "port": 1833,
-   "error": "连接 vpn879574077.opengw.net:1833 超时"
-  },
-  {
-   "host": "vpn393574848.opengw.net",
-   "port": 1610,
-   "error": "TLS 握手超时"
-  },
-  {
-   "host": "public-vpn-139.opengw.net",
-   "port": 443,
-   "error": "隧道内响应不完整"
-  },
-  {
-   "host": "laud.opengw.net",
-   "port": 443,
+   "host": "vpn736504438.opengw.net",
+   "port": 1834,
    "error": "隧道内 TCP 握手超时"
   },
   {
-   "host": "8.219.122.8",
-   "port": 9999,
-   "error": "连接 8.219.122.8:9999 超时"
+   "host": "vpn644344996.opengw.net",
+   "port": 1628,
+   "error": "隧道内 TCP 握手超时"
   },
   {
-   "host": "8.219.122.8",
-   "port": 9999,
-   "error": "连接 8.219.122.8:9999 超时"
+   "host": "vpn530832853.opengw.net",
+   "port": 1795,
+   "error": "64590000:error:0A000119:SSL routines:tls_get_more_records:decryption failed or bad record mac:openssl\\ssl\\record\\methods\\tls_common.c:874:\n"
+  },
+  {
+   "host": "vpn738072531.opengw.net",
+   "port": 1528,
+   "error": "隧道内 TCP 握手超时"
+  },
+  {
+   "host": "vpn979052232.opengw.net",
+   "port": 1366,
+   "error": "Client network socket disconnected before secure TLS connection was established"
+  },
+  {
+   "host": "vpn217152916.opengw.net",
+   "port": 1417,
+   "error": "Client network socket disconnected before secure TLS connection was established"
+  },
+  {
+   "host": "vpn254823051.opengw.net",
+   "port": 1372,
+   "error": "Client network socket disconnected before secure TLS connection was established"
+  },
+  {
+   "host": "vpn740752971.opengw.net",
+   "port": 1782,
+   "error": "Client network socket disconnected before secure TLS connection was established"
+  },
+  {
+   "host": "vpn257845930.opengw.net",
+   "port": 1256,
+   "error": "Client network socket disconnected before secure TLS connection was established"
+  },
+  {
+   "host": "vpn587057222.opengw.net",
+   "port": 1817,
+   "error": "隧道内响应不完整"
+  },
+  {
+   "host": "vpn110522538.opengw.net",
+   "port": 1287,
+   "error": "Client network socket disconnected before secure TLS connection was established"
+  },
+  {
+   "host": "vpn225839449.opengw.net",
+   "port": 1288,
+   "error": "Client network socket disconnected before secure TLS connection was established"
+  },
+  {
+   "host": "vpn933122006.opengw.net",
+   "port": 995,
+   "error": "Client network socket disconnected before secure TLS connection was established"
+  },
+  {
+   "host": "vpn736554005.opengw.net",
+   "port": 995,
+   "error": "Client network socket disconnected before secure TLS connection was established"
+  },
+  {
+   "host": "vpn736555992.opengw.net",
+   "port": 1905,
+   "error": "Client network socket disconnected before secure TLS connection was established"
+  },
+  {
+   "host": "vpn479162981.opengw.net",
+   "port": 1744,
+   "error": "Client network socket disconnected before secure TLS connection was established"
+  },
+  {
+   "host": "public-vpn-53.opengw.net",
+   "port": 443,
+   "error": "连接已被对端关闭"
+  },
+  {
+   "host": "43.156.152.110",
+   "port": 1080,
+   "error": "CONNECT 响应异常: "
+  },
+  {
+   "host": "43.156.152.110",
+   "port": 1080,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "51.79.173.71",
+   "port": 443,
+   "error": "CONNECT 响应异常: "
   }
  ]
 }

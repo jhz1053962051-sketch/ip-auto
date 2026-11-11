@@ -42,6 +42,26 @@
         "auth": "noauth",
         "udp": false
       }
+    },
+    {
+      "tag": "in-4",
+      "listen": "127.0.0.1",
+      "port": 10804,
+      "protocol": "socks",
+      "settings": {
+        "auth": "noauth",
+        "udp": false
+      }
+    },
+    {
+      "tag": "in-5",
+      "listen": "127.0.0.1",
+      "port": 10805,
+      "protocol": "socks",
+      "settings": {
+        "auth": "noauth",
+        "udp": false
+      }
     }
   ],
   "outbounds": [
@@ -55,7 +75,7 @@
       "settings": {
         "servers": [
           {
-            "address": "140.238.32.108",
+            "address": "8.209.255.13",
             "port": 3128
           }
         ]
@@ -67,8 +87,8 @@
       "settings": {
         "servers": [
           {
-            "address": "8.209.255.13",
-            "port": 3128
+            "address": "4.144.146.21",
+            "port": 80
           }
         ]
       }
@@ -79,8 +99,8 @@
       "settings": {
         "servers": [
           {
-            "address": "43.128.144.133",
-            "port": 18080
+            "address": "8.213.151.128",
+            "port": 3128
           }
         ]
       }
@@ -91,8 +111,32 @@
       "settings": {
         "servers": [
           {
-            "address": "4.144.146.21",
-            "port": 80
+            "address": "168.138.180.28",
+            "port": 8118
+          }
+        ]
+      }
+    },
+    {
+      "tag": "p4",
+      "protocol": "http",
+      "settings": {
+        "servers": [
+          {
+            "address": "159.223.41.216",
+            "port": 9090
+          }
+        ]
+      }
+    },
+    {
+      "tag": "p5",
+      "protocol": "http",
+      "settings": {
+        "servers": [
+          {
+            "address": "43.128.144.133",
+            "port": 18080
           }
         ]
       }
@@ -128,6 +172,20 @@
           "in-3"
         ],
         "outboundTag": "p3"
+      },
+      {
+        "type": "field",
+        "inboundTag": [
+          "in-4"
+        ],
+        "outboundTag": "p4"
+      },
+      {
+        "type": "field",
+        "inboundTag": [
+          "in-5"
+        ],
+        "outboundTag": "p5"
       }
     ]
   }
