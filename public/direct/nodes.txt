@@ -4,7 +4,9 @@
 # Clash / mihomo：把 https://jhz1053962051-sketch.github.io/ip-auto/direct/clash.yaml 作为订阅地址导入
 # Xray：tools/xray.exe run -c public/direct/xray.json，socks 端口 10800 起（顺序与下表一致）
 
- 1. JP | http | 机房 | 140.238.32.108:3128 | 447ms | 140.238.32.108 | Oracle Cloud Infrastructure (ap-tokyo-1)
- 2. SG | http | 机房 | 4.144.146.21:80 | 726ms | 20.44.210.140 | Microsoft Azure Cloud (southeastasia)
- 3. KR | http | 机房 | 43.128.144.133:18080 | 1422ms | 43.128.144.133 | Tencent Cloud Computing
- 4. SG | http | 机房 | 8.219.97.248:80 | 2148ms | 8.219.64.236 | Alibaba.com Singapore E-Commerce Private Limited
+ 1. JP | http | 机房 | 57.182.226.41:3128 | 551ms | 57.182.226.41 | AWS EC2 (ap-northeast-1)
+ 2. JP | http | 机房 | 8.209.255.13:3128 | 556ms | 8.209.255.13 | Alibaba.com Singapore E-Commerce Private Limited
+ 3. KR | http | 机房 | 8.213.151.128:3128 | 638ms | 8.213.151.128 | Alibaba.com Singapore E-Commerce Private Limited
+ 4. SG | http | 机房 | 4.144.146.21:80 | 807ms | 20.44.210.140 | Microsoft Azure Cloud (southeastasia)
+ 5. KR | http | 机房 | 43.128.144.133:18080 | 1608ms | 43.128.144.133 | Tencent Cloud Computing
+ 6. JP | http | 住宅 | 153.132.216.83:8080 | 1623ms | 153.132.216.83 | Open Computer Network
