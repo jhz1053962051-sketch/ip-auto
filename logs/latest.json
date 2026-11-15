@@ -1,29 +1,29 @@
 {
- "at": "2026-11-14T10:26:09.295Z",
+ "at": "2026-11-15T10:55:17.872Z",
  "stats": {
-  "raw_rows": 98,
-  "sstp_nodes": 73,
-  "checked": 1079,
-  "success": 64,
-  "failed": 1015,
+  "raw_rows": 97,
+  "sstp_nodes": 76,
+  "checked": 1139,
+  "success": 69,
+  "failed": 1070,
   "residential": 57,
-  "datacenter": 7,
+  "datacenter": 12,
   "countries": 3,
-  "proxy_candidates": 510,
-  "proxy_alive": 40,
-  "proxy_matched": 14,
-  "worker_ranked": 64,
-  "worker_rank_failed": 13,
-  "worker_ms_median": 3807,
-  "worker_ms_min": 1233,
-  "purity_measured": 64,
-  "fraud_median": 4.5,
-  "fraud_clean": 44,
-  "fraud_dirty": 19,
+  "proxy_candidates": 544,
+  "proxy_alive": 59,
+  "proxy_matched": 25,
+  "worker_ranked": 69,
+  "worker_rank_failed": 12,
+  "worker_ms_median": 3656,
+  "worker_ms_min": 870,
+  "purity_measured": 69,
+  "fraud_median": 4,
+  "fraud_clean": 49,
+  "fraud_dirty": 20,
   "fraud_bad": 12
  },
- "probe_ms": 40116,
- "total_ms": 483969,
+ "probe_ms": 50734,
+ "total_ms": 518406,
  "countries": [
   "JP",
   "KR",
@@ -32,48 +32,63 @@
  "proxy": null,
  "failed": [
   {
-   "host": "vpn391534301.opengw.net",
-   "port": 1872,
-   "error": "connect ECONNREFUSED 59.6.127.18:1872"
+   "host": "vpn894594992.opengw.net",
+   "port": 1466,
+   "error": "连接 vpn894594992.opengw.net:1466 超时"
   },
   {
-   "host": "vpn799323984.opengw.net",
+   "host": "vpn929616744.opengw.net",
+   "port": 1834,
+   "error": "连接 vpn929616744.opengw.net:1834 超时"
+  },
+  {
+   "host": "vpn768922134.opengw.net",
    "port": 995,
-   "error": "连接 vpn799323984.opengw.net:995 超时"
+   "error": "连接 vpn768922134.opengw.net:995 超时"
   },
   {
-   "host": "vpn331862092.opengw.net",
-   "port": 1609,
-   "error": "连接 vpn331862092.opengw.net:1609 超时"
+   "host": "vpn941915353.opengw.net",
+   "port": 1445,
+   "error": "连接 vpn941915353.opengw.net:1445 超时"
   },
   {
-   "host": "vpn406858285.opengw.net",
-   "port": 1816,
-   "error": "连接 vpn406858285.opengw.net:1816 超时"
+   "host": "vpn440254653.opengw.net",
+   "port": 1665,
+   "error": "连接已被对端关闭"
   },
   {
-   "host": "vpn170723006.opengw.net",
-   "port": 1941,
-   "error": "连接 vpn170723006.opengw.net:1941 超时"
+   "host": "vpn801249850.opengw.net",
+   "port": 443,
+   "error": "连接 vpn801249850.opengw.net:443 超时"
   },
   {
-   "host": "vpn456334502.opengw.net",
-   "port": 1430,
-   "error": "C0CC51A1C97D0000:error:0A000102:SSL routines:ssl_choose_client_version:unsupported protocol:../deps/openssl/openssl/ssl/statem/statem_lib.c:1952:\n"
+   "host": "vpn858310545.opengw.net",
+   "port": 995,
+   "error": "连接 vpn858310545.opengw.net:995 超时"
   },
   {
-   "host": "public-vpn-214.opengw.net",
+   "host": "public-vpn-253.opengw.net",
    "port": 443,
    "error": "连接已被对端关闭"
   },
   {
-   "host": "43.165.133.188",
-   "port": 9050,
-   "error": "CONNECT 被拒绝: HTTP 501"
+   "host": "laud.opengw.net",
+   "port": 443,
+   "error": "隧道内 TCP 握手超时"
   },
   {
-   "host": "43.165.133.188",
-   "port": 9050,
+   "host": "public-vpn-156.opengw.net",
+   "port": 443,
+   "error": "连接已被对端关闭"
+  },
+  {
+   "host": "8.219.94.23",
+   "port": 7890,
+   "error": "隧道内 TLS 握手超时"
+  },
+  {
+   "host": "8.219.94.23",
+   "port": 7890,
    "error": "代理握手超时"
   },
   {
@@ -94,7 +109,7 @@
   {
    "host": "51.79.173.71",
    "port": 443,
-   "error": "代理在握手完成前关闭连接"
+   "error": "代理握手超时"
   },
   {
    "host": "23.106.249.34",
@@ -115,21 +130,6 @@
    "host": "23.106.249.54",
    "port": 6550,
    "error": "代理握手超时"
-  },
-  {
-   "host": "23.106.249.52",
-   "port": 2569,
-   "error": "CONNECT 响应异常: "
-  },
-  {
-   "host": "23.106.249.52",
-   "port": 2569,
-   "error": "代理握手超时"
-  },
-  {
-   "host": "35.187.237.178",
-   "port": 443,
-   "error": "CONNECT 响应异常: "
   }
  ]
 }
