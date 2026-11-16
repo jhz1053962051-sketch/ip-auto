@@ -7,55 +7,40 @@ mode: rule
 log-level: info
 
 proxies:
-  - name: "KR-机房-709ms-211.188.60.84"
+  - name: "JP-机房-518ms-140.238.32.108"
+    type: http
+    server: 140.238.32.108
+    port: 3128
+
+  - name: "KR-机房-615ms-211.188.60.84"
     type: http
     server: 211.188.60.84
     port: 80
 
-  - name: "KR-机房-712ms-8.213.151.128"
+  - name: "KR-机房-619ms-8.213.151.128"
     type: http
     server: 8.213.151.128
     port: 3128
 
-  - name: "KR-机房-713ms-211.188.53.248"
-    type: http
-    server: 211.188.53.248
-    port: 80
-
-  - name: "SG-机房-899ms-13.212.190.106"
-    type: http
-    server: 13.212.190.106
-    port: 3128
-
-  - name: "SG-机房-905ms-4.144.146.21"
+  - name: "SG-机房-820ms-4.144.146.21"
     type: http
     server: 4.144.146.21
     port: 80
 
-  - name: "SG-机房-916ms-188.166.178.163"
+  - name: "KR-机房-1523ms-211.188.59.191"
+    type: http
+    server: 211.188.59.191
+    port: 80
+
+  - name: "SG-机房-1953ms-188.166.178.163"
     type: http
     server: 188.166.178.163
     port: 3129
 
-  - name: "KR-机房-937ms-43.128.144.133"
+  - name: "SG-机房-2065ms-68.183.226.190"
     type: http
-    server: 43.128.144.133
-    port: 18080
-
-  - name: "JP-机房-1111ms-8.209.255.13"
-    type: http
-    server: 8.209.255.13
-    port: 3128
-
-  - name: "JP-机房-1683ms-140.227.61.201"
-    type: http
-    server: 140.227.61.201
-    port: 3128
-
-  - name: "JP-机房-2065ms-57.182.226.41"
-    type: http
-    server: 57.182.226.41
-    port: 3128
+    server: 68.183.226.190
+    port: 9090
 
 proxy-groups:
   - name: "最快"
@@ -64,44 +49,38 @@ proxy-groups:
     interval: 300
     tolerance: 60
     proxies:
-      - "KR-机房-709ms-211.188.60.84"
-      - "KR-机房-712ms-8.213.151.128"
-      - "KR-机房-713ms-211.188.53.248"
-      - "SG-机房-899ms-13.212.190.106"
-      - "SG-机房-905ms-4.144.146.21"
-      - "SG-机房-916ms-188.166.178.163"
-      - "KR-机房-937ms-43.128.144.133"
-      - "JP-机房-1111ms-8.209.255.13"
-      - "JP-机房-1683ms-140.227.61.201"
-      - "JP-机房-2065ms-57.182.226.41"
-
-  - name: "KR"
-    type: url-test
-    url: "http://www.gstatic.com/generate_204"
-    interval: 300
-    proxies:
-      - "KR-机房-709ms-211.188.60.84"
-      - "KR-机房-712ms-8.213.151.128"
-      - "KR-机房-713ms-211.188.53.248"
-      - "KR-机房-937ms-43.128.144.133"
-
-  - name: "SG"
-    type: url-test
-    url: "http://www.gstatic.com/generate_204"
-    interval: 300
-    proxies:
-      - "SG-机房-899ms-13.212.190.106"
-      - "SG-机房-905ms-4.144.146.21"
-      - "SG-机房-916ms-188.166.178.163"
+      - "JP-机房-518ms-140.238.32.108"
+      - "KR-机房-615ms-211.188.60.84"
+      - "KR-机房-619ms-8.213.151.128"
+      - "SG-机房-820ms-4.144.146.21"
+      - "KR-机房-1523ms-211.188.59.191"
+      - "SG-机房-1953ms-188.166.178.163"
+      - "SG-机房-2065ms-68.183.226.190"
 
   - name: "JP"
     type: url-test
     url: "http://www.gstatic.com/generate_204"
     interval: 300
     proxies:
-      - "JP-机房-1111ms-8.209.255.13"
-      - "JP-机房-1683ms-140.227.61.201"
-      - "JP-机房-2065ms-57.182.226.41"
+      - "JP-机房-518ms-140.238.32.108"
+
+  - name: "KR"
+    type: url-test
+    url: "http://www.gstatic.com/generate_204"
+    interval: 300
+    proxies:
+      - "KR-机房-615ms-211.188.60.84"
+      - "KR-机房-619ms-8.213.151.128"
+      - "KR-机房-1523ms-211.188.59.191"
+
+  - name: "SG"
+    type: url-test
+    url: "http://www.gstatic.com/generate_204"
+    interval: 300
+    proxies:
+      - "SG-机房-820ms-4.144.146.21"
+      - "SG-机房-1953ms-188.166.178.163"
+      - "SG-机房-2065ms-68.183.226.190"
 
 rules:
   - MATCH,最快
