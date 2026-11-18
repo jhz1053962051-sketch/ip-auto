@@ -1,29 +1,29 @@
 {
- "at": "2026-11-17T11:54:19.819Z",
+ "at": "2026-11-18T11:43:23.358Z",
  "stats": {
-  "raw_rows": 98,
-  "sstp_nodes": 73,
-  "checked": 1098,
-  "success": 53,
-  "failed": 1045,
-  "residential": 48,
-  "datacenter": 5,
+  "raw_rows": 100,
+  "sstp_nodes": 83,
+  "checked": 1174,
+  "success": 71,
+  "failed": 1103,
+  "residential": 62,
+  "datacenter": 9,
   "countries": 3,
-  "proxy_candidates": 518,
-  "proxy_alive": 46,
-  "proxy_matched": 11,
-  "worker_ranked": 53,
-  "worker_rank_failed": 7,
-  "worker_ms_median": 3595,
-  "worker_ms_min": 1083,
-  "purity_measured": 53,
-  "fraud_median": 15,
-  "fraud_clean": 27,
-  "fraud_dirty": 21,
-  "fraud_bad": 13
+  "proxy_candidates": 557,
+  "proxy_alive": 57,
+  "proxy_matched": 20,
+  "worker_ranked": 71,
+  "worker_rank_failed": 12,
+  "worker_ms_median": 3578,
+  "worker_ms_min": 850,
+  "purity_measured": 71,
+  "fraud_median": 4,
+  "fraud_clean": 43,
+  "fraud_dirty": 22,
+  "fraud_bad": 17
  },
- "probe_ms": 71688,
- "total_ms": 488991,
+ "probe_ms": 55043,
+ "total_ms": 592520,
  "countries": [
   "JP",
   "KR",
@@ -32,104 +32,104 @@
  "proxy": null,
  "failed": [
   {
-   "host": "vpn541704731.opengw.net",
+   "host": "vpn419941365.opengw.net",
+   "port": 1694,
+   "error": "隧道内 TCP 握手超时"
+  },
+  {
+   "host": "vpn576080304.opengw.net",
+   "port": 1901,
+   "error": "connect ECONNREFUSED 126.145.125.132:1901"
+  },
+  {
+   "host": "vpn306513932.opengw.net",
+   "port": 1616,
+   "error": "连接 vpn306513932.opengw.net:1616 超时"
+  },
+  {
+   "host": "vpn464496826.opengw.net",
+   "port": 1671,
+   "error": "连接 vpn464496826.opengw.net:1671 超时"
+  },
+  {
+   "host": "vpn217779353.opengw.net",
+   "port": 1692,
+   "error": "连接 vpn217779353.opengw.net:1692 超时"
+  },
+  {
+   "host": "vpn819702081.opengw.net",
+   "port": 1746,
+   "error": "连接 vpn819702081.opengw.net:1746 超时"
+  },
+  {
+   "host": "vpn416685676.opengw.net",
+   "port": 1672,
+   "error": "连接 vpn416685676.opengw.net:1672 超时"
+  },
+  {
+   "host": "vpn500578298.opengw.net",
+   "port": 1538,
+   "error": "连接 vpn500578298.opengw.net:1538 超时"
+  },
+  {
+   "host": "vpn293016837.opengw.net",
    "port": 995,
-   "error": "连接 vpn541704731.opengw.net:995 超时"
+   "error": "连接 vpn293016837.opengw.net:995 超时"
   },
   {
-   "host": "vpn443251545.opengw.net",
-   "port": 1220,
-   "error": "连接已被对端关闭"
-  },
-  {
-   "host": "vpn544035541.opengw.net",
-   "port": 1500,
-   "error": "连接 vpn544035541.opengw.net:1500 超时"
-  },
-  {
-   "host": "vpn151590619.opengw.net",
-   "port": 1451,
-   "error": "连接 vpn151590619.opengw.net:1451 超时"
-  },
-  {
-   "host": "vpn739407957.opengw.net",
-   "port": 1629,
-   "error": "连接 vpn739407957.opengw.net:1629 超时"
-  },
-  {
-   "host": "vpn812639404.opengw.net",
-   "port": 1715,
-   "error": "连接 vpn812639404.opengw.net:1715 超时"
-  },
-  {
-   "host": "vpn823032627.opengw.net",
-   "port": 1376,
-   "error": "连接 vpn823032627.opengw.net:1376 超时"
-  },
-  {
-   "host": "vpn177195726.opengw.net",
-   "port": 1882,
-   "error": "连接 vpn177195726.opengw.net:1882 超时"
-  },
-  {
-   "host": "vpn303811512.opengw.net",
-   "port": 1263,
-   "error": "read ECONNRESET"
-  },
-  {
-   "host": "vpn162420588.opengw.net",
-   "port": 1630,
-   "error": "连接 vpn162420588.opengw.net:1630 超时"
-  },
-  {
-   "host": "vpn809706427.opengw.net",
+   "host": "vpn179026900.opengw.net",
    "port": 995,
-   "error": "连接 vpn809706427.opengw.net:995 超时"
+   "error": "连接 vpn179026900.opengw.net:995 超时"
   },
   {
-   "host": "vpn796017405.opengw.net",
-   "port": 1750,
-   "error": "连接 vpn796017405.opengw.net:1750 超时"
+   "host": "vpn915688854.opengw.net",
+   "port": 1929,
+   "error": "connect ECONNREFUSED 121.149.221.10:1929"
   },
   {
-   "host": "vpn321274502.opengw.net",
-   "port": 1207,
-   "error": "connect ECONNREFUSED 112.186.44.216:1207"
+   "host": "vpn921940357.opengw.net",
+   "port": 995,
+   "error": "连接 vpn921940357.opengw.net:995 超时"
   },
   {
-   "host": "vpn609476505.opengw.net",
-   "port": 1453,
-   "error": "连接 vpn609476505.opengw.net:1453 超时"
-  },
-  {
-   "host": "vpn786391464.opengw.net",
-   "port": 1553,
-   "error": "连接 vpn786391464.opengw.net:1553 超时"
-  },
-  {
-   "host": "vpn802343482.opengw.net",
-   "port": 1547,
-   "error": "连接 vpn802343482.opengw.net:1547 超时"
-  },
-  {
-   "host": "vpn257845930.opengw.net",
-   "port": 1256,
-   "error": "连接 vpn257845930.opengw.net:1256 超时"
-  },
-  {
-   "host": "vpn392769396.opengw.net",
-   "port": 1370,
-   "error": "连接已被对端关闭"
-  },
-  {
-   "host": "public-vpn-136.opengw.net",
+   "host": "public-vpn-134.opengw.net",
    "port": 443,
    "error": "连接已被对端关闭"
   },
   {
-   "host": "183.87.145.150",
-   "port": 2080,
-   "error": "read ECONNRESET"
+   "host": "8.219.94.23",
+   "port": 7890,
+   "error": "CONNECT 响应超时"
+  },
+  {
+   "host": "8.219.94.23",
+   "port": 7890,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "8.219.122.8",
+   "port": 9999,
+   "error": "连接 8.219.122.8:9999 超时"
+  },
+  {
+   "host": "8.219.122.8",
+   "port": 9999,
+   "error": "连接 8.219.122.8:9999 超时"
+  },
+  {
+   "host": "188.166.178.163",
+   "port": 1088,
+   "error": "CONNECT 响应异常: \u0005ÿ"
+  },
+  {
+   "host": "188.166.178.163",
+   "port": 1088,
+   "error": "代理握手超时"
+  },
+  {
+   "host": "51.79.173.71",
+   "port": 443,
+   "error": "CONNECT 响应异常: "
   }
  ]
 }
