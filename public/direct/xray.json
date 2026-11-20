@@ -32,46 +32,6 @@
         "auth": "noauth",
         "udp": false
       }
-    },
-    {
-      "tag": "in-3",
-      "listen": "127.0.0.1",
-      "port": 10803,
-      "protocol": "socks",
-      "settings": {
-        "auth": "noauth",
-        "udp": false
-      }
-    },
-    {
-      "tag": "in-4",
-      "listen": "127.0.0.1",
-      "port": 10804,
-      "protocol": "socks",
-      "settings": {
-        "auth": "noauth",
-        "udp": false
-      }
-    },
-    {
-      "tag": "in-5",
-      "listen": "127.0.0.1",
-      "port": 10805,
-      "protocol": "socks",
-      "settings": {
-        "auth": "noauth",
-        "udp": false
-      }
-    },
-    {
-      "tag": "in-6",
-      "listen": "127.0.0.1",
-      "port": 10806,
-      "protocol": "socks",
-      "settings": {
-        "auth": "noauth",
-        "udp": false
-      }
     }
   ],
   "outbounds": [
@@ -97,8 +57,8 @@
       "settings": {
         "servers": [
           {
-            "address": "8.213.151.128",
-            "port": 3128
+            "address": "68.183.226.190",
+            "port": 9090
           }
         ]
       }
@@ -111,54 +71,6 @@
           {
             "address": "4.144.146.21",
             "port": 80
-          }
-        ]
-      }
-    },
-    {
-      "tag": "p3",
-      "protocol": "http",
-      "settings": {
-        "servers": [
-          {
-            "address": "152.42.192.59",
-            "port": 3128
-          }
-        ]
-      }
-    },
-    {
-      "tag": "p4",
-      "protocol": "http",
-      "settings": {
-        "servers": [
-          {
-            "address": "104.248.151.93",
-            "port": 9090
-          }
-        ]
-      }
-    },
-    {
-      "tag": "p5",
-      "protocol": "http",
-      "settings": {
-        "servers": [
-          {
-            "address": "61.118.38.234",
-            "port": 60808
-          }
-        ]
-      }
-    },
-    {
-      "tag": "p6",
-      "protocol": "http",
-      "settings": {
-        "servers": [
-          {
-            "address": "217.142.139.207",
-            "port": 8085
           }
         ]
       }
@@ -187,34 +99,6 @@
           "in-2"
         ],
         "outboundTag": "p2"
-      },
-      {
-        "type": "field",
-        "inboundTag": [
-          "in-3"
-        ],
-        "outboundTag": "p3"
-      },
-      {
-        "type": "field",
-        "inboundTag": [
-          "in-4"
-        ],
-        "outboundTag": "p4"
-      },
-      {
-        "type": "field",
-        "inboundTag": [
-          "in-5"
-        ],
-        "outboundTag": "p5"
-      },
-      {
-        "type": "field",
-        "inboundTag": [
-          "in-6"
-        ],
-        "outboundTag": "p6"
       }
     ]
   }

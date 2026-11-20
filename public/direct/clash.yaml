@@ -7,40 +7,20 @@ mode: rule
 log-level: info
 
 proxies:
-  - name: "JP-机房-600ms-8.209.255.13"
+  - name: "JP-机房-560ms-8.209.255.13"
     type: http
     server: 8.209.255.13
     port: 3128
 
-  - name: "KR-机房-680ms-8.213.151.128"
+  - name: "SG-机房-798ms-68.183.226.190"
     type: http
-    server: 8.213.151.128
-    port: 3128
+    server: 68.183.226.190
+    port: 9090
 
-  - name: "SG-机房-832ms-4.144.146.21"
+  - name: "SG-机房-806ms-4.144.146.21"
     type: http
     server: 4.144.146.21
     port: 80
-
-  - name: "SG-机房-836ms-152.42.192.59"
-    type: http
-    server: 152.42.192.59
-    port: 3128
-
-  - name: "SG-机房-842ms-104.248.151.93"
-    type: http
-    server: 104.248.151.93
-    port: 9090
-
-  - name: "JP-住宅-2099ms-61.118.38.234"
-    type: http
-    server: 61.118.38.234
-    port: 60808
-
-  - name: "KR-机房-2376ms-217.142.139.207"
-    type: http
-    server: 217.142.139.207
-    port: 8085
 
 proxy-groups:
   - name: "最快"
@@ -49,38 +29,24 @@ proxy-groups:
     interval: 300
     tolerance: 60
     proxies:
-      - "JP-机房-600ms-8.209.255.13"
-      - "KR-机房-680ms-8.213.151.128"
-      - "SG-机房-832ms-4.144.146.21"
-      - "SG-机房-836ms-152.42.192.59"
-      - "SG-机房-842ms-104.248.151.93"
-      - "JP-住宅-2099ms-61.118.38.234"
-      - "KR-机房-2376ms-217.142.139.207"
+      - "JP-机房-560ms-8.209.255.13"
+      - "SG-机房-798ms-68.183.226.190"
+      - "SG-机房-806ms-4.144.146.21"
 
   - name: "JP"
     type: url-test
     url: "http://www.gstatic.com/generate_204"
     interval: 300
     proxies:
-      - "JP-机房-600ms-8.209.255.13"
-      - "JP-住宅-2099ms-61.118.38.234"
-
-  - name: "KR"
-    type: url-test
-    url: "http://www.gstatic.com/generate_204"
-    interval: 300
-    proxies:
-      - "KR-机房-680ms-8.213.151.128"
-      - "KR-机房-2376ms-217.142.139.207"
+      - "JP-机房-560ms-8.209.255.13"
 
   - name: "SG"
     type: url-test
     url: "http://www.gstatic.com/generate_204"
     interval: 300
     proxies:
-      - "SG-机房-832ms-4.144.146.21"
-      - "SG-机房-836ms-152.42.192.59"
-      - "SG-机房-842ms-104.248.151.93"
+      - "SG-机房-798ms-68.183.226.190"
+      - "SG-机房-806ms-4.144.146.21"
 
 rules:
   - MATCH,最快
