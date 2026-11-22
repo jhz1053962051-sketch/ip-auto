@@ -42,6 +42,16 @@
         "auth": "noauth",
         "udp": false
       }
+    },
+    {
+      "tag": "in-4",
+      "listen": "127.0.0.1",
+      "port": 10804,
+      "protocol": "socks",
+      "settings": {
+        "auth": "noauth",
+        "udp": false
+      }
     }
   ],
   "outbounds": [
@@ -67,8 +77,8 @@
       "settings": {
         "servers": [
           {
-            "address": "13.231.154.29",
-            "port": 80
+            "address": "104.248.151.93",
+            "port": 9090
           }
         ]
       }
@@ -79,8 +89,8 @@
       "settings": {
         "servers": [
           {
-            "address": "8.213.151.128",
-            "port": 3128
+            "address": "128.199.254.13",
+            "port": 9090
           }
         ]
       }
@@ -92,6 +102,18 @@
         "servers": [
           {
             "address": "8.209.255.13",
+            "port": 3128
+          }
+        ]
+      }
+    },
+    {
+      "tag": "p4",
+      "protocol": "http",
+      "settings": {
+        "servers": [
+          {
+            "address": "8.213.151.128",
             "port": 3128
           }
         ]
@@ -128,6 +150,13 @@
           "in-3"
         ],
         "outboundTag": "p3"
+      },
+      {
+        "type": "field",
+        "inboundTag": [
+          "in-4"
+        ],
+        "outboundTag": "p4"
       }
     ]
   }
