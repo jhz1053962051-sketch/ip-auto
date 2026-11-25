@@ -7,20 +7,25 @@ mode: rule
 log-level: info
 
 proxies:
-  - name: "SG-机房-958ms-104.248.151.93"
-    type: http
-    server: 104.248.151.93
-    port: 9090
-
-  - name: "SG-机房-1191ms-4.144.146.21"
+  - name: "SG-机房-799ms-4.144.146.21"
     type: http
     server: 4.144.146.21
     port: 80
 
-  - name: "SG-机房-2371ms-128.199.254.13"
+  - name: "SG-机房-811ms-47.245.117.43"
     type: http
-    server: 128.199.254.13
-    port: 9090
+    server: 47.245.117.43
+    port: 80
+
+  - name: "SG-机房-817ms-43.134.39.221"
+    type: http
+    server: 43.134.39.221
+    port: 10000
+
+  - name: "SG-机房-2028ms-8.219.97.248"
+    type: http
+    server: 8.219.97.248
+    port: 80
 
 proxy-groups:
   - name: "最快"
@@ -29,18 +34,20 @@ proxy-groups:
     interval: 300
     tolerance: 60
     proxies:
-      - "SG-机房-958ms-104.248.151.93"
-      - "SG-机房-1191ms-4.144.146.21"
-      - "SG-机房-2371ms-128.199.254.13"
+      - "SG-机房-799ms-4.144.146.21"
+      - "SG-机房-811ms-47.245.117.43"
+      - "SG-机房-817ms-43.134.39.221"
+      - "SG-机房-2028ms-8.219.97.248"
 
   - name: "SG"
     type: url-test
     url: "http://www.gstatic.com/generate_204"
     interval: 300
     proxies:
-      - "SG-机房-958ms-104.248.151.93"
-      - "SG-机房-1191ms-4.144.146.21"
-      - "SG-机房-2371ms-128.199.254.13"
+      - "SG-机房-799ms-4.144.146.21"
+      - "SG-机房-811ms-47.245.117.43"
+      - "SG-机房-817ms-43.134.39.221"
+      - "SG-机房-2028ms-8.219.97.248"
 
 rules:
   - MATCH,最快
