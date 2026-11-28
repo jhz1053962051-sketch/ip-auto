@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-28T05:00:08.539Z",
+ "generated_at": "2026-11-28T11:51:50.619Z",
  "nodes": [
   {
    "cc": "JP",
@@ -20,31 +20,13 @@
    "residential": "datacenter"
   },
   {
-   "cc": "SG",
-   "proto": "http",
-   "host": "4.144.146.21",
-   "port": 80,
-   "user": null,
-   "pass": null,
-   "direct_ms": 297,
-   "exitIp": "20.44.210.140",
-   "loc": "SG",
-   "country": "Singapore",
-   "country_code": "SG",
-   "city": "Singapore",
-   "org": "Microsoft Azure Cloud (southeastasia)",
-   "asn": "AS8075",
-   "asn_name": "Microsoft Corporation",
-   "residential": "datacenter"
-  },
-  {
    "cc": "KR",
    "proto": "http",
    "host": "8.213.151.128",
    "port": 3128,
    "user": null,
    "pass": null,
-   "direct_ms": 308,
+   "direct_ms": 545,
    "exitIp": "8.213.151.128",
    "loc": "KR",
    "country": "South Korea",
@@ -53,6 +35,24 @@
    "org": "Alibaba.com Singapore E-Commerce Private Limited",
    "asn": "AS45102",
    "asn_name": "Alibaba (US) Technology Co., Ltd.",
+   "residential": "datacenter"
+  },
+  {
+   "cc": "SG",
+   "proto": "http",
+   "host": "4.144.146.21",
+   "port": 80,
+   "user": null,
+   "pass": null,
+   "direct_ms": 733,
+   "exitIp": "20.44.210.140",
+   "loc": "SG",
+   "country": "Singapore",
+   "country_code": "SG",
+   "city": "Singapore",
+   "org": "Microsoft Azure Cloud (southeastasia)",
+   "asn": "AS8075",
+   "asn_name": "Microsoft Corporation",
    "residential": "datacenter"
   },
   {

@@ -67,8 +67,8 @@
       "settings": {
         "servers": [
           {
-            "address": "4.144.146.21",
-            "port": 80
+            "address": "8.213.151.128",
+            "port": 3128
           }
         ]
       }
@@ -79,8 +79,8 @@
       "settings": {
         "servers": [
           {
-            "address": "8.213.151.128",
-            "port": 3128
+            "address": "4.144.146.21",
+            "port": 80
           }
         ]
       }
