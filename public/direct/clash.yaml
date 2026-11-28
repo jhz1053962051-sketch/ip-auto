@@ -7,35 +7,25 @@ mode: rule
 log-level: info
 
 proxies:
-  - name: "KR-机房-531ms-8.213.151.128"
-    type: http
-    server: 8.213.151.128
-    port: 3128
-
-  - name: "SG-机房-684ms-4.144.146.21"
-    type: http
-    server: 4.144.146.21
-    port: 80
-
-  - name: "JP-机房-760ms-8.209.255.13"
+  - name: "JP-机房-231ms-8.209.255.13"
     type: http
     server: 8.209.255.13
     port: 3128
 
-  - name: "SG-机房-1319ms-8.219.97.248"
+  - name: "SG-机房-297ms-4.144.146.21"
+    type: http
+    server: 4.144.146.21
+    port: 80
+
+  - name: "KR-机房-308ms-8.213.151.128"
+    type: http
+    server: 8.213.151.128
+    port: 3128
+
+  - name: "SG-机房-1741ms-8.219.97.248"
     type: http
     server: 8.219.97.248
     port: 80
-
-  - name: "SG-机房-1661ms-104.248.151.93"
-    type: http
-    server: 104.248.151.93
-    port: 9090
-
-  - name: "SG-机房-1713ms-188.166.230.109"
-    type: http
-    server: 188.166.230.109
-    port: 31028
 
 proxy-groups:
   - name: "最快"
@@ -44,36 +34,32 @@ proxy-groups:
     interval: 300
     tolerance: 60
     proxies:
-      - "KR-机房-531ms-8.213.151.128"
-      - "SG-机房-684ms-4.144.146.21"
-      - "JP-机房-760ms-8.209.255.13"
-      - "SG-机房-1319ms-8.219.97.248"
-      - "SG-机房-1661ms-104.248.151.93"
-      - "SG-机房-1713ms-188.166.230.109"
-
-  - name: "KR"
-    type: url-test
-    url: "http://www.gstatic.com/generate_204"
-    interval: 300
-    proxies:
-      - "KR-机房-531ms-8.213.151.128"
-
-  - name: "SG"
-    type: url-test
-    url: "http://www.gstatic.com/generate_204"
-    interval: 300
-    proxies:
-      - "SG-机房-684ms-4.144.146.21"
-      - "SG-机房-1319ms-8.219.97.248"
-      - "SG-机房-1661ms-104.248.151.93"
-      - "SG-机房-1713ms-188.166.230.109"
+      - "JP-机房-231ms-8.209.255.13"
+      - "SG-机房-297ms-4.144.146.21"
+      - "KR-机房-308ms-8.213.151.128"
+      - "SG-机房-1741ms-8.219.97.248"
 
   - name: "JP"
     type: url-test
     url: "http://www.gstatic.com/generate_204"
     interval: 300
     proxies:
-      - "JP-机房-760ms-8.209.255.13"
+      - "JP-机房-231ms-8.209.255.13"
+
+  - name: "SG"
+    type: url-test
+    url: "http://www.gstatic.com/generate_204"
+    interval: 300
+    proxies:
+      - "SG-机房-297ms-4.144.146.21"
+      - "SG-机房-1741ms-8.219.97.248"
+
+  - name: "KR"
+    type: url-test
+    url: "http://www.gstatic.com/generate_204"
+    interval: 300
+    proxies:
+      - "KR-机房-308ms-8.213.151.128"
 
 rules:
   - MATCH,最快
